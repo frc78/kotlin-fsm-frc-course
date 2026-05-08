@@ -8,7 +8,49 @@ data class PositionVoltage(val rotations: Double) : ControlRequest
 data class VelocityVoltage(val rotationsPerSecond: Double) : ControlRequest
 data object NeutralOut : ControlRequest
 
+enum class NeutralModeValue { Coast, Brake }
+enum class InvertedValue { CounterClockwise_Positive, Clockwise_Positive }
+
+class MotorOutputConfigs {
+    var NeutralMode: NeutralModeValue = NeutralModeValue.Coast
+    var Inverted: InvertedValue = InvertedValue.CounterClockwise_Positive
+}
+
+class CurrentLimitsConfigs {
+    var SupplyCurrentLimit: Double = 0.0
+    var SupplyCurrentLimitEnable: Boolean = false
+    var StatorCurrentLimit: Double = 0.0
+    var StatorCurrentLimitEnable: Boolean = false
+}
+
+class Slot0Configs {
+    var kP: Double = 0.0
+    var kI: Double = 0.0
+    var kD: Double = 0.0
+    var kS: Double = 0.0
+    var kV: Double = 0.0
+    var kA: Double = 0.0
+    var kG: Double = 0.0
+}
+
+class TalonFXConfiguration {
+    val MotorOutput: MotorOutputConfigs = MotorOutputConfigs()
+    val CurrentLimits: CurrentLimitsConfigs = CurrentLimitsConfigs()
+    val Slot0: Slot0Configs = Slot0Configs()
+}
+
+class TalonFXConfigurator {
+    var appliedConfig: TalonFXConfiguration? = null
+        private set
+
+    fun apply(config: TalonFXConfiguration) {
+        appliedConfig = config
+    }
+}
+
 class TalonFX(val canId: Int) {
+    val configurator: TalonFXConfigurator = TalonFXConfigurator()
+
     var lastRequest: ControlRequest = NeutralOut
         private set
 

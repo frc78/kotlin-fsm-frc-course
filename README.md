@@ -7,17 +7,16 @@ you learn here transfers directly to a real robot project.
 
 ## What's inside
 
-8 lessons, 35 tasks:
+8 lessons, 39 tasks:
 
 1. **Kotlin for FSMs** — `enum`, sealed classes, `when` expressions.
 2. **Building an FSM** — the two-method `stateActions()` / `stateTransitions()` pattern.
 3. **Applied subsystems** — Intake, Elevator, Shooter (real subsystem shapes).
 4. **Testing** — pure-function FSM tests + dependency injection with fake hardware.
+5. **Motor configuration** — TalonFX setup: instantiation, neutral mode + inversion, current limits, and Slot0 PID gains.
 6. **Swerve drive requests** — Phoenix6 `SwerveRequest` API (`FieldCentric`, `RobotCentric`, `SwerveDriveBrake`, `PointWheelsAt`, `FieldCentricFacingAngle`) plus a drive-mode FSM.
 7. **Superstructure coordination** — composing subsystem FSMs into a single robot FSM with sequencing guards.
 8. **Field awareness** — `Translation2d` / `Rotation2d` / `Pose2d` math, `ChassisSpeeds`, pose estimator + vision-measurement gating.
-
-(Lesson 5 is reserved for future content.)
 
 ## Setup
 

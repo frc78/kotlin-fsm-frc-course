@@ -40,6 +40,11 @@ sourceSets {
             // Lesson 4
             "4-testing/1-testing-pure-fsm-logic/src",
             "4-testing/2-fake-hardware/src",
+            // Lesson 5
+            "5-motor-configuration/1-creating-a-motor/src",
+            "5-motor-configuration/2-motor-output-config/src",
+            "5-motor-configuration/3-current-limits/src",
+            "5-motor-configuration/4-pid-slot/src",
             // Lesson 6
             "6-swerve-requests/1-field-centric/src",
             "6-swerve-requests/2-robot-centric/src",
@@ -77,6 +82,10 @@ sourceSets {
             "3-applied-subsystems/3-shooter-subsystem/test",
             "4-testing/1-testing-pure-fsm-logic/test",
             "4-testing/2-fake-hardware/test",
+            "5-motor-configuration/1-creating-a-motor/test",
+            "5-motor-configuration/2-motor-output-config/test",
+            "5-motor-configuration/3-current-limits/test",
+            "5-motor-configuration/4-pid-slot/test",
             "6-swerve-requests/1-field-centric/test",
             "6-swerve-requests/2-robot-centric/test",
             "6-swerve-requests/3-swerve-brake/test",
