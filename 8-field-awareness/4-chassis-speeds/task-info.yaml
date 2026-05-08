@@ -1,0 +1,10 @@
+type: edu
+files:
+  - name: src/Speeds.kt
+    visible: true
+    learner_created: false
+  - name: test/SpeedsTest.kt
+    visible: false
+    learner_created: false
+status: Unchecked
+record: -1

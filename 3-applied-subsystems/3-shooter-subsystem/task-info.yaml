@@ -1,0 +1,10 @@
+type: edu
+files:
+  - name: src/Shooter.kt
+    visible: true
+    learner_created: false
+  - name: test/ShooterTest.kt
+    visible: false
+    learner_created: false
+status: Unchecked
+record: -1

@@ -1,0 +1,47 @@
+title: Kotlin FSMs for FRC Subsystems
+language: English
+summary: |-
+  Learn to write finite state machines for FRC robotic subsystems in Kotlin.
+  Designed for FRC students new to Kotlin, using lightweight stubs that mimic
+  WPILib 2026 and Phoenix6 (TalonFX, CANrange) so what you learn transfers
+  directly to a real robot project.
+
+  Four lessons:
+    1. Kotlin for FSMs — enums, sealed classes, when expressions.
+    2. Building an FSM — the two-method (stateActions / stateTransitions) pattern.
+    3. Applied subsystems — Intake, Elevator, Shooter.
+    4. Testing — verify FSMs without hardware.
+programming_language: Kotlin
+programming_language_version: 2.0
+content:
+  - 1-kotlin-for-fsms
+  - 2-building-an-fsm
+  - 3-applied-subsystems
+  - 4-testing
+  - 6-swerve-requests
+  - 7-superstructure-coordination
+  - 8-field-awareness
+additional_files:
+  - name: util/src/main/kotlin/frc/stubs/swerve/SwerveRequest.kt
+  - name: util/src/main/kotlin/frc/stubs/swerve/SwerveDrivetrain.kt
+  - name: util/src/main/kotlin/frc/stubs/vision/VisionMeasurement.kt
+  - name: util/src/main/kotlin/frc/stubs/geometry/Pose2d.kt
+  - name: util/src/main/kotlin/frc/stubs/geometry/Rotation2d.kt
+  - name: util/src/main/kotlin/frc/stubs/geometry/Translation2d.kt
+  - name: util/src/main/kotlin/frc/stubs/Robot.kt
+  - name: util/src/main/kotlin/frc/stubs/Units.kt
+  - name: util/src/main/kotlin/frc/stubs/estimator/PoseEstimator.kt
+  - name: util/src/main/kotlin/frc/stubs/kinematics/ChassisSpeeds.kt
+  - name: util/src/main/kotlin/frc/stubs/TalonFX.kt
+  - name: util/src/main/kotlin/frc/stubs/CANrange.kt
+  - name: util/src/main/kotlin/frc/stubs/Subsystem.kt
+  - name: util/src/main/kotlin/frc/stubs/superstructure/Arm.kt
+  - name: util/src/main/kotlin/frc/stubs/superstructure/Intake.kt
+  - name: util/src/main/kotlin/frc/stubs/superstructure/Elevator.kt
+  - name: util/src/main/kotlin/frc/stubs/DigitalInput.kt
+  - name: build.gradle.kts
+  - name: gradle.properties
+  - name: settings.gradle.kts
+  - name: gradle/wrapper/gradle-wrapper.properties
+mode: Study
+yaml_version: 5

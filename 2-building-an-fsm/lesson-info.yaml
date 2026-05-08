@@ -1,0 +1,5 @@
+content:
+  - 1-two-method-pattern
+  - 2-transitions-with-events
+  - 3-entry-side-effects
+  - 4-guards
