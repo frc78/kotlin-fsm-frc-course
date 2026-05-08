@@ -2,9 +2,5 @@ type: edu
 files:
   - name: src/ShooterFsmState.kt
     visible: true
-    learner_created: false
   - name: test/ShooterFsmStateTest.kt
     visible: false
-    learner_created: false
-status: Unchecked
-record: -1
