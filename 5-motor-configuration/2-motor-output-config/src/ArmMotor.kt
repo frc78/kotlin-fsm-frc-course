@@ -5,10 +5,7 @@ import frc.stubs.*
 object ArmMotor {
     internal val motor = TalonFX(canId = 25)
 
-    // TODO: build a TalonFXConfiguration that sets:
-    //   - MotorOutput.NeutralMode = NeutralModeValue.Brake
-    //   - MotorOutput.Inverted    = InvertedValue.Clockwise_Positive
-    // and apply it via motor.configurator.apply(config).
+    // TODO: see task.md.
     fun configure() {
         TODO()
     }

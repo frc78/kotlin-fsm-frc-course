@@ -24,17 +24,17 @@ object Elevator : Subsystem {
     }
 
     private fun stateTransitions() {
-        // TODO: state = commandedTarget
+        // TODO: see task.md.
         TODO()
     }
 
     private fun stateActions() {
-        // TODO: motor.setControl(PositionVoltage(state.targetRotations))
+        // TODO: see task.md.
         TODO()
     }
 
     fun atTarget(): Boolean {
-        // TODO: return abs(motor.getPosition() - state.targetRotations) < 0.1
+        // TODO: see task.md.
         TODO()
     }
 

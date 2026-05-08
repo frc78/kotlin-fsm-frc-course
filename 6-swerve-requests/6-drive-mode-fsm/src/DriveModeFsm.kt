@@ -24,18 +24,12 @@ object DriveModeFsm {
     }
 
     private fun stateTransitions() {
-        // TODO: priority order brake > aim > robot-relative > field.
-        // Hint: a `when { ... }` with no subject lets you put boolean conditions
-        // on each branch. The first true branch wins.
+        // TODO: see task.md.
         TODO()
     }
 
     private fun stateActions() {
-        // TODO: build the right SwerveRequest for the current state and apply it.
-        //   TELEOP_FIELD -> FieldCentric             (with vx, vy, omega)
-        //   TELEOP_ROBOT -> RobotCentric             (with vx, vy, omega)
-        //   AIMING       -> FieldCentricFacingAngle  (with vx, vy, aimTargetDegrees)
-        //   BRAKED       -> SwerveDriveBrake
+        // TODO: see task.md.
         TODO()
     }
 

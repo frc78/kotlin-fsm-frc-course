@@ -30,10 +30,7 @@ class Superstructure {
     }
 
     private fun stateActions() {
-        // TODO: push each per-subsystem setpoint from `commandedRobotState`:
-        //   elevator.commandedTarget = commandedRobotState.elevator
-        //   arm.commandedTarget = commandedRobotState.arm
-        //   intake.commandedMode = commandedRobotState.intake
+        // TODO: see task.md.
         TODO()
     }
 }

@@ -50,30 +50,12 @@ class Superstructure {
     }
 
     private fun stateActions() {
-        // TODO: command subsystems based on the current `transition` phase.
-        //
-        // Settled(at):
-        //   elevator.commandedTarget = at.elevator
-        //   arm.commandedTarget      = at.arm
-        //   intake.commandedMode     = at.intake
-        //
-        // WaitingForElevator(t): command ONLY the elevator.
-        //   elevator.commandedTarget = t.target.elevator
-        //   (don't touch arm or intake)
-        //
-        // WaitingForArm(t): command everything.
-        //   elevator.commandedTarget = t.target.elevator
-        //   arm.commandedTarget      = t.target.arm
-        //   intake.commandedMode     = t.target.intake
+        // TODO: see task.md.
         TODO()
     }
 
     private fun advanceTransition() {
-        // TODO: advance the transition phase if applicable.
-        //
-        //   WaitingForElevator(t) -> WaitingForArm(t.target) when elevator.atTarget()
-        //   WaitingForArm(t)      -> Settled(t.target)       when arm.atTarget() && intake.modeReached()
-        //   Settled(...)          -> stays settled
+        // TODO: see task.md.
         TODO()
     }
 

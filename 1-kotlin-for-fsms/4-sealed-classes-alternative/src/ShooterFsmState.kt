@@ -18,19 +18,6 @@ sealed class ShooterFsmState {
 // `when` on a sealed class is exhaustive — the compiler tracks the complete
 // list of subclasses, so it can prove every branch is covered.
 fun describe(state: ShooterFsmState): String = when (state) {
-    // TODO: complete the four branches:
-    //
-    //   ShooterFsmState.Idle           -> "Idle"
-    //   is ShooterFsmState.SpinningUp  -> "Spinning up to ${state.targetRpm} rpm"
-    //   ShooterFsmState.Ready          -> "Ready to fire"
-    //   is ShooterFsmState.Feeding     -> "Feeding at ${state.targetRpm} rpm"
-    //
-    // Notice the `is` keyword on the `data class` branches: it tests "is this
-    // value an instance of SpinningUp?" and inside that branch, `state` is
-    // smart-cast to `ShooterFsmState.SpinningUp`, so you can read
-    // `state.targetRpm` without any explicit cast.
-    //
-    // Once your four branches are present, DELETE this `else` line — `when`
-    // becomes exhaustive without it.
+    // TODO: write the four branches per task.md, then DELETE this `else` line.
     else -> TODO("complete the when branches and remove this else")
 }

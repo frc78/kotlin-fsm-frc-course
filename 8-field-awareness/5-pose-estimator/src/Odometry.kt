@@ -9,10 +9,6 @@ fun applyOdometry(
     forwardMeters: Double,
     turnDegrees: Double,
 ) {
-    // TODO:
-    //   estimator.updateWithOdometry(
-    //       Translation2d(forwardMeters, 0.0),
-    //       Rotation2d.fromDegrees(turnDegrees),
-    //   )
+    // TODO: see task.md.
     TODO()
 }

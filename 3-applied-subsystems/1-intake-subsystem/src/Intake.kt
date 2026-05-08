@@ -20,13 +20,12 @@ object Intake : Subsystem {
     }
 
     private fun stateTransitions() {
-        // TODO: implement transitions per task.md.
-        // Detection thresholds: detected if distance < 0.05 m; lost if distance > 0.10 m.
+        // TODO: see task.md.
         TODO()
     }
 
     private fun stateActions() {
-        // TODO: implement actions per task.md.
+        // TODO: see task.md.
         TODO()
     }
 

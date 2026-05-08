@@ -7,12 +7,11 @@ fun gamePieceFieldPosition(
     robotPose: Pose2d,
     pieceInRobotFrame: Translation2d,
 ): Translation2d {
-    // TODO: rotate the piece offset by the robot's heading, then translate.
-    //   pieceInRobotFrame.rotateBy(robotPose.rotation) + robotPose.translation
+    // TODO: see task.md.
     TODO()
 }
 
 fun opponentRelativeToMe(myPose: Pose2d, opponentPose: Pose2d): Pose2d {
-    // TODO: opponentPose.relativeTo(myPose)
+    // TODO: see task.md.
     TODO()
 }

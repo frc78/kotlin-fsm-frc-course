@@ -3,20 +3,20 @@ package course.l5t1
 import frc.stubs.*
 
 object RollerMotor {
-    // TODO: declare `motor` as a TalonFX on CAN ID 17.
+    // TODO: see task.md.
     internal val motor: TalonFX = TODO()
 
-    // TODO: send VoltageOut(6.0)
+    // TODO: see task.md.
     fun runForward() {
         TODO()
     }
 
-    // TODO: send VoltageOut(-6.0)
+    // TODO: see task.md.
     fun runReverse() {
         TODO()
     }
 
-    // TODO: call motor.stopMotor()
+    // TODO: see task.md.
     fun stop() {
         TODO()
     }

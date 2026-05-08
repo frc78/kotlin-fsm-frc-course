@@ -21,11 +21,7 @@ object Pivot : Subsystem {
     }
 
     private fun stateTransitions() {
-        // TODO:
-        //   STOWED    + commandedMove && elevatorClear              -> MOVING
-        //   MOVING    + abs(motor.getPosition() - targetRotations) < 0.1   -> AT_TARGET
-        //   AT_TARGET + !commandedMove                              -> STOWED
-        // Otherwise stay in the current state.
+        // TODO: see task.md. Otherwise stay in the current state.
         TODO()
     }
 

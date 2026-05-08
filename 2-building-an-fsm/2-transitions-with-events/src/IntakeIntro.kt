@@ -19,19 +19,12 @@ object IntakeIntro : Subsystem {
     }
 
     private fun stateTransitions() {
-        // TODO:
-        //   IDLE     + commandedIntake                          -> INTAKING
-        //   INTAKING + canRange.getDistance() < 0.05            -> HOLDING
-        //   INTAKING + !commandedIntake                         -> IDLE
-        //   HOLDING  + !commandedIntake                         -> IDLE
+        // TODO: see task.md.
         TODO()
     }
 
     private fun stateActions() {
-        // TODO:
-        //   IDLE     -> 0.0 V
-        //   INTAKING -> 6.0 V
-        //   HOLDING  -> 1.0 V
+        // TODO: see task.md.
         TODO()
     }
 

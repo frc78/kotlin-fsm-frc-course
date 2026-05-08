@@ -15,12 +15,7 @@ class LinearActuator(
     var commandedExtend: Boolean = false
 
     override fun periodic() {
-        // TODO: implement transitions and actions per task.md.
-        //
-        // Suggested split — same two-method pattern as before:
-        //   stateTransitions() — update `state`
-        //   stateActions()     — drive the motor
-        // Or do it inline here. Either is fine.
+        // TODO: see task.md.
         TODO()
     }
 }

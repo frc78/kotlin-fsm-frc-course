@@ -11,14 +11,6 @@ fun aimAtGoal(
     vx: Double,
     vy: Double,
 ): SwerveRequest {
-    // TODO:
-    //   1. Compute target heading FROM robotPose.translation TO goalPosition.
-    //      val targetHeading = (goalPosition - robotPose.translation).getAngle()
-    //
-    //   2. Build a FieldCentricFacingAngle with vx, vy, and targetHeading.degrees.
-    //      FieldCentricFacingAngle()
-    //          .withVelocityX(vx)
-    //          .withVelocityY(vy)
-    //          .withTargetDirection(targetHeading.degrees)
+    // TODO: see task.md.
     TODO()
 }

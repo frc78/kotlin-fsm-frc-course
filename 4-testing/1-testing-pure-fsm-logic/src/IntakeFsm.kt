@@ -10,7 +10,6 @@ data class Input(
 )
 
 fun transition(current: State, input: Input): State {
-    // TODO: implement the seven transitions per task.md, preferring earlier
-    // table rows when multiple conditions match. Stay in `current` if none do.
+    // TODO: see task.md.
     TODO()
 }

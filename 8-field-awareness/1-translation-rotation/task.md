@@ -51,5 +51,5 @@ Implement three functions in `src/Geometry.kt`:
 3. **`rotatePoint(point, by)`** — return `point` rotated around the origin by
    the given angle.
 
-Each is a one-liner using methods on `Translation2d`. The hints in the
-starter code show which.
+Each is a one-liner using methods on `Translation2d` shown in the
+operator-overloaded math section above.

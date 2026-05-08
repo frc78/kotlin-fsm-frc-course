@@ -36,9 +36,7 @@ class Superstructure {
     }
 
     fun atTarget(): Boolean {
-        // TODO: return true iff all three subsystems are at their targets.
-        //
-        //   elevator.atTarget() && arm.atTarget() && intake.modeReached()
+        // TODO: see task.md.
         TODO()
     }
 }

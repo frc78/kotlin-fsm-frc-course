@@ -25,15 +25,12 @@ object Shooter : Subsystem {
     }
 
     private fun stateTransitions() {
-        // TODO: implement the six transitions per task.md.
-        // Hint: use `when (val s = state)` so smart casts give you `s.targetRpm`
-        // inside `is` branches.
+        // TODO: see task.md.
         TODO()
     }
 
     private fun stateActions() {
-        // TODO: in each state, drive flywheel and feeder per task.md.
-        // Use `s.targetRpm.rpm` to convert rpm -> rotations-per-second for VelocityVoltage.
+        // TODO: see task.md.
         TODO()
     }
 

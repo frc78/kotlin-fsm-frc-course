@@ -6,7 +6,7 @@ object Drive {
     val drivetrain = SwerveDrivetrain()
 
     fun applyBrake() {
-        // TODO: drivetrain.setControl(SwerveDriveBrake)
+        // TODO: see task.md.
         TODO()
     }
 }

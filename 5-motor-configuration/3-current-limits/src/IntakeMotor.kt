@@ -5,11 +5,7 @@ import frc.stubs.*
 object IntakeMotor {
     internal val motor = TalonFX(canId = 22)
 
-    // TODO: build a TalonFXConfiguration that:
-    //   - sets MotorOutput.NeutralMode = NeutralModeValue.Coast
-    //   - sets CurrentLimits.SupplyCurrentLimit = 40.0
-    //   - enables CurrentLimits.SupplyCurrentLimitEnable = true
-    // and apply it via motor.configurator.apply(config).
+    // TODO: see task.md.
     fun configure() {
         TODO()
     }

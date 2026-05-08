@@ -32,13 +32,8 @@ object Climber : Subsystem {
     }
 
     private fun runEntrySideEffects() {
-        // TODO: when `state` differs from `previousState`, append a log line for
-        // the new state to `deploymentLogs`, then update `previousState = state`.
-        //
-        //   STOWED    -> "stowed"
-        //   DEPLOYING -> "deploying"
-        //   DEPLOYED  -> "deployed"
-        //   CLIMBING  -> "climbing"
+        // TODO: see task.md — append a log line per state on entry, then update
+        // `previousState`.
         TODO()
     }
 

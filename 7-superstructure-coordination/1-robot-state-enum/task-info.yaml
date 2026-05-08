@@ -2,5 +2,9 @@ type: edu
 files:
   - name: src/RobotState.kt
     visible: true
+    learner_created: false
   - name: test/RobotStateTest.kt
     visible: false
+    learner_created: false
+status: Unchecked
+record: -1
