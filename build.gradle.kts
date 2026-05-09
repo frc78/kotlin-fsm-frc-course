@@ -109,4 +109,28 @@ sourceSets {
 
 tasks.test {
     useJUnitPlatform()
+
+    // EduTools' "Check" button parses lines starting with `#educational_plugin`
+    // out of test stdout to display per-test pass / fail in the UI. Without
+    // this listener, a failing student gets a generic Gradle error instead of
+    // the specific assertion message.
+    outputs.upToDateWhen { false }
+
+    addTestListener(object : TestListener {
+        override fun beforeSuite(suite: TestDescriptor) {}
+        override fun beforeTest(testDescriptor: TestDescriptor) {}
+        override fun afterSuite(suite: TestDescriptor, result: TestResult) {}
+
+        override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) {
+            if (result.resultType == TestResult.ResultType.FAILURE) {
+                val message = result.exception?.message ?: "Wrong answer"
+                val lines = message.split("\n")
+                println("#educational_plugin FAILED + ${lines[0]}")
+                lines.drop(1).forEach { line ->
+                    println("#educational_plugin$line")
+                }
+                println()
+            }
+        }
+    })
 }
