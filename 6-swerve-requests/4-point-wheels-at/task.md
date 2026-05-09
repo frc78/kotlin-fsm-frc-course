@@ -25,18 +25,13 @@ auto routines and superstructure logic.
 
 ## The builder
 
-```kotlin
-PointWheelsAt().withModuleDirection(directionDegrees)
-```
-
-Note that real Phoenix6's `withModuleDirection` takes a `Rotation2d`, not a
-`Double`. We use degrees here for simplicity. In real code:
-
-```kotlin
-PointWheelsAt().withModuleDirection(Rotation2d.fromDegrees(45.0))
-```
+`PointWheelsAt` is constructed empty and configured with a single
+setter, `withModuleDirection`. In this stub it takes a `Double` (degrees);
+in real Phoenix6 it takes a `Rotation2d`, e.g.
+`withModuleDirection(Rotation2d.fromDegrees(45.0))`.
 
 ## Your task
 
-Implement `pointWheels(directionDegrees)` to apply a `PointWheelsAt` request
-with the given direction.
+Implement `pointWheels(directionDegrees)`. It should construct a
+`PointWheelsAt`, set its module direction to the parameter value, and
+hand it to `drivetrain.setControl(...)`.

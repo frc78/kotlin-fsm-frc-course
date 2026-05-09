@@ -70,8 +70,12 @@ expression:
 
 ```kotlin
 state = when (state) {
-    State.IDLE      -> if (commandedIndex) State.INDEXING else State.IDLE
-    State.INDEXING  -> // ...
-    State.JAMMED    -> // ...
+    State.SOMETHING -> if (someCondition) State.OTHER else State.SOMETHING
+    // ...
 }
 ```
+
+The `if/else` inside each branch encodes "leave this state if the
+condition is true; otherwise stay." For `stateActions()`, each branch is
+a `motor.setControl(...)` call — no `if`, just one `setControl` per
+state.

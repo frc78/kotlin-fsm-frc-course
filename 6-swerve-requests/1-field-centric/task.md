@@ -24,17 +24,17 @@ which is the next task.)
 
 ## The builder pattern
 
-`FieldCentric` uses a fluent builder API:
+`FieldCentric` uses a fluent builder API. You construct an empty
+`FieldCentric()`, then chain `with*` setters to populate its fields:
 
-```kotlin
-FieldCentric()
-    .withVelocityX(vx)            // forward in field frame, m/s
-    .withVelocityY(vy)            // left   in field frame, m/s
-    .withRotationalRate(omega)    // counterclockwise, rad/s
-```
+| Setter             | Argument units                                     |
+|--------------------|----------------------------------------------------|
+| `withVelocityX`    | forward in field frame, m/s                        |
+| `withVelocityY`    | left in field frame, m/s                           |
+| `withRotationalRate` | counterclockwise rotation, rad/s                 |
 
-Each `with*` call returns a `FieldCentric` you can keep chaining on. The final
-expression is the request you pass to `setControl`.
+Each `with*` call returns a `FieldCentric` you can keep chaining on. The
+final expression is the request you pass to `drivetrain.setControl(...)`.
 
 > **Note on real Phoenix6:** The actual CTRE classes mutate themselves on each
 > `with*` call and return `this`. This stub returns a copy each time. The call
@@ -47,11 +47,12 @@ expression is the request you pass to `setControl`.
 
 Open `src/Drive.kt`. Implement `teleopDrive(vx, vy, omega)`:
 
-1. Build a `FieldCentric` request with those three values.
-2. Apply it to `drivetrain` via `setControl`.
+1. Build a `FieldCentric` request whose `velocityX` is `vx`, `velocityY`
+   is `vy`, and rotational rate is `omega`.
+2. Apply that request to `drivetrain`.
 
-That's the entire body of the function — three chained `with*` calls and a
-`setControl`.
+That's the entire body of the function — three chained `with*` calls
+followed by a single `setControl(...)`.
 
 ## Aside: alliance flipping
 

@@ -20,22 +20,17 @@ matches "field north" if the robot happens to be facing north right now.
 
 ## The conversion
 
-`ChassisSpeeds.fromFieldRelativeSpeeds(vxField, vyField, omega, robotAngle)`
-does the rotation for you:
+`ChassisSpeeds` exposes a static factory that does the rotation for
+you: `ChassisSpeeds.fromFieldRelativeSpeeds`. It takes the two
+field-relative linear velocities, the desired angular velocity, and
+the robot's current heading, and returns a `ChassisSpeeds` ready to be
+consumed in the robot frame.
 
-```kotlin
-val robotFrameSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-    vxField = 1.0,                      // 1 m/s east in field frame
-    vyField = 0.0,
-    omega = 0.0,
-    robotAngle = poseEstimator.currentPose.rotation,
-)
-```
-
-If the robot is facing 0° (east), `vx` stays 1.0 and `vy` stays 0.0. If it's
-facing 90°, the speed translates to `vx = 0.0, vy = -1.0` in the robot's
-frame (because "field east" is now "robot right," which is `-y` for a robot
-that thinks of `+y` as left).
+Sanity check: if the robot is facing 0° (east), feeding in a field
+velocity of 1 m/s east leaves the robot-frame `vx` at 1.0 and `vy` at
+0.0. If it's facing 90°, the same field velocity translates to
+`vx = 0.0, vy = -1.0` in the robot's frame (because "field east" is
+now "robot right," which is `-y` for a robot that treats `+y` as left).
 
 ## Why you'd write this yourself
 
@@ -49,5 +44,6 @@ typically don't need to do it manually. But you *will* need it for:
 
 ## Your task
 
-Implement `fieldToRobotSpeeds(vxField, vyField, omega, robotAngle)`. It's a
-one-liner — call the static factory.
+Implement `fieldToRobotSpeeds(vxField, vyField, omega, robotAngle)`.
+It's a one-liner that delegates to the static factory described above,
+forwarding the four parameters straight through.

@@ -12,22 +12,19 @@ robot.
 
 ## The math
 
-To face a goal at field position `goalPosition`, the robot needs to point in
-the direction *from its own location* toward `goalPosition`:
+To face a goal at field position `goalPosition`, the robot needs to
+point in the direction *from its own location* toward the goal. That's
+a heading you can compute from two `Translation2d` operations
+introduced in Lesson 8 Task 1: subtract the robot's translation from
+the goal, then take the angle of the resulting vector. The result is a
+`Rotation2d`.
 
-```kotlin
-val targetHeading = (goalPosition - robotPose.translation).getAngle()
-```
+`FieldCentricFacingAngle.withTargetDirection(...)` (from Lesson 6 Task 5)
+takes a `Double` of degrees, so pass the rotation's `.degrees` property
+to it.
 
-That heading is a `Rotation2d`. To pass it to `FieldCentricFacingAngle`'s
-`withTargetDirection(degrees)`, take `.degrees` from it:
-
-```kotlin
-.withTargetDirection(targetHeading.degrees)
-```
-
-The driver still controls translation via `vx` and `vy`. The heading PID
-handles rotation.
+The driver still controls translation via `vx` and `vy`. The heading
+PID handles rotation.
 
 ## Your task
 

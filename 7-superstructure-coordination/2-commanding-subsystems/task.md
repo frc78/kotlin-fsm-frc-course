@@ -9,37 +9,27 @@ That something is the **`Superstructure`** — the top-level coordinator. It
 holds references to every subsystem, watches `commandedRobotState`, and on
 each tick pushes each per-subsystem setpoint into the right place.
 
-```kotlin
-class Superstructure {
-    val elevator = Elevator()
-    val arm = Arm()
-    val intake = Intake()
+This is the same two-method-pattern shape as a per-subsystem FSM. The
+difference is what `stateActions()` does:
 
-    var commandedRobotState: RobotState = RobotState.STOWED
-
-    fun periodic() {
-        stateActions()
-        elevator.tick()
-        arm.tick()
-        intake.tick()
-    }
-
-    private fun stateActions() {
-        elevator.commandedTarget = commandedRobotState.elevator
-        arm.commandedTarget = commandedRobotState.arm
-        intake.commandedMode = commandedRobotState.intake
-    }
-}
-```
-
-Look familiar? It's the same two-method-pattern shape as a per-subsystem FSM.
-The difference is what `stateActions()` does:
-
-- A subsystem's `stateActions()` writes to a *motor* (`motor.setControl(...)`).
+- A subsystem's `stateActions()` writes to a *motor*
+  (`motor.setControl(...)`).
 - A superstructure's `stateActions()` writes to *subsystems*
   (`elevator.commandedTarget = ...`).
 
 Subsystems all the way down. Each FSM operates on the layer below it.
+
+## The subsystems
+
+`Superstructure` owns three children, already wired up in the file:
+
+- `elevator: Elevator`, with a writable `commandedTarget: Elevator.State`.
+- `arm: Arm`, with a writable `commandedTarget: Arm.State`.
+- `intake: Intake`, with a writable `commandedMode: Intake.Mode`.
+
+`RobotState` carries a matching property for each subsystem
+(`commandedRobotState.elevator`, `.arm`, `.intake`). Your job is to
+forward those values to the children every tick.
 
 ## Note: class, not object
 
@@ -51,9 +41,11 @@ test isolation simple.
 
 ## Your task
 
-Open `src/Superstructure.kt`. Implement `stateActions()` to write each
-subsystem's commanded value from `commandedRobotState`'s per-subsystem
-property.
+Open `src/Superstructure.kt`. Implement `stateActions()` so that on each
+tick it forwards each per-subsystem property from `commandedRobotState`
+into the matching subsystem's commanded field. Three assignments — no
+conditionals or `when`.
 
-(`RobotState` is pre-declared in this file with the correct setpoints from
-Task 1. The subsystems' `tick()` is already wired into `periodic()`.)
+(`RobotState` is pre-declared in this file with the correct setpoints
+from Task 1. The subsystems' `tick()` is already wired into
+`periodic()`.)

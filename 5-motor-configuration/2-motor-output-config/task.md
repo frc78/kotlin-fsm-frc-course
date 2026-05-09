@@ -26,19 +26,27 @@ control request.
 
 ## How configuration works
 
-Phoenix6 builds a `TalonFXConfiguration` object, mutates its nested config
-blocks, and applies it through the motor's configurator:
+Phoenix6 configuration follows a three-step shape:
+
+1. Create a fresh `TalonFXConfiguration`.
+2. Mutate the fields inside its nested config blocks.
+3. Hand the configuration to `motor.configurator.apply(config)`.
+
+The two fields you'll touch in this task live on the `MotorOutput` block:
+
+- `MotorOutput.NeutralMode` — a `NeutralModeValue` enum value.
+- `MotorOutput.Inverted` — an `InvertedValue` enum value.
+
+Kotlin's `.apply { ... }` idiom is the idiomatic way to mutate the
+config object inline without naming a local variable for every
+assignment:
 
 ```kotlin
-val config = TalonFXConfiguration().apply {
-    MotorOutput.NeutralMode = NeutralModeValue.Brake
-    MotorOutput.Inverted = InvertedValue.Clockwise_Positive
+val cfg = SomeType().apply {
+    fieldA = ...
+    fieldB = ...
 }
-motor.configurator.apply(config)
 ```
-
-The `.apply { ... }` Kotlin idiom lets you mutate the config object inline
-without naming a local variable for every field.
 
 ## Your task
 
@@ -47,13 +55,16 @@ when disabled) and **inverted direction** (so positive voltage raises the
 arm).
 
 1. The `motor` is already declared on CAN ID 25.
-2. Implement `configure()` to build a `TalonFXConfiguration`, set
-   `NeutralMode = Brake` and `Inverted = Clockwise_Positive`, and apply
-   it through `motor.configurator`.
+2. Implement `configure()`. The applied `TalonFXConfiguration` should
+   have:
+   - `MotorOutput.NeutralMode` set to `Brake`.
+   - `MotorOutput.Inverted` set to `Clockwise_Positive`.
 
 ## Hints
 
 - `NeutralModeValue` and `InvertedValue` are enums imported from
-  `frc.stubs.*`.
+  `frc.stubs.*`. Reference values as `NeutralModeValue.Brake` and
+  `InvertedValue.Clockwise_Positive`.
 - `motor.configurator.apply(config)` stores the configuration on the stub
-  so the test can inspect it.
+  so the test can inspect it. Forgetting that final call is a common
+  mistake — the configuration object exists but never reaches the motor.

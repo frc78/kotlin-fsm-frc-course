@@ -11,33 +11,24 @@ But some work should run **once on entering a state**, not every tick:
 - Publishing a SmartDashboard event.
 - Starting a one-shot timer.
 
-The pattern: track the previous state. Each tick, if the current state differs
-from the previous, run the entry side effect for the *new* state, then update
-the previous-state pointer.
+The pattern is "on edge, not on level":
 
-```kotlin
-private var previousState: State? = null
+1. Keep a `previousState` field alongside `state`. It starts `null`.
+2. Each tick, compare `state` to `previousState`. If they differ, the
+   FSM just transitioned, so run the entry side effect for the *new*
+   state. Then store `state` into `previousState` so the side effect
+   doesn't re-fire on the next tick.
+3. If they're the same, do nothing — periodic ticks within the same
+   state are quiet.
 
-private fun runEntrySideEffects() {
-    if (state != previousState) {
-        when (state) {
-            State.A -> // do once-on-entry work for A
-            // ...
-        }
-        previousState = state
-    }
-}
+`previousState` is nullable (`State?`) so that on the very first tick,
+`state != null` is true and the entry effect runs for the initial state
+too — which is what you want for things like "log the starting state."
 
-override fun periodic() {
-    stateTransitions()
-    runEntrySideEffects()
-    stateActions()
-}
-```
-
-Why `previousState: State?` (nullable)? On the very first tick, there's no
-previous state. Comparing `state != null` triggers the entry effect for the
-initial state too — which is what you want.
+Wire `runEntrySideEffects()` into `periodic()` *between* the transition
+and the actions, so the effect runs in the same tick the transition
+fires (`stateTransitions()` first, then entry effects, then
+`stateActions()`).
 
 ## Your task
 

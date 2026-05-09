@@ -35,21 +35,24 @@ yourself.
 
 ## Your task
 
-Complete the `describe(state)` function. It uses `when` on a sealed type:
+Complete the `describe(state)` function. It uses `when` on a sealed type
+to return a different string for each subclass:
 
-```kotlin
-fun describe(state: ShooterFsmState): String = when (state) {
-    ShooterFsmState.Idle           -> "Idle"
-    is ShooterFsmState.SpinningUp  -> "Spinning up to ${state.targetRpm} rpm"
-    ShooterFsmState.Ready          -> "Ready to fire"
-    is ShooterFsmState.Feeding     -> "Feeding at ${state.targetRpm} rpm"
-}
-```
+| State          | Returned string                       |
+|----------------|---------------------------------------|
+| `Idle`         | `"Idle"`                              |
+| `SpinningUp`   | `"Spinning up to <rpm> rpm"`          |
+| `Ready`        | `"Ready to fire"`                     |
+| `Feeding`      | `"Feeding at <rpm> rpm"`              |
 
-Two things to notice:
+Use a string template to interpolate the `targetRpm` value carried by
+each `SpinningUp` and `Feeding` instance.
+
+Two things to know about `when` over a sealed class:
 
 1. **`data object` branches don't need `is`.** Since there's only one
-   instance of `Idle` ever, `state -> ...` matches it directly.
+   instance of `Idle` ever, the match goes by identity:
+   `ShooterFsmState.Idle -> ...`.
 2. **`data class` branches use `is`** because there are many possible
    instances (`SpinningUp(4500.0)`, `SpinningUp(5200.0)`, etc.). Inside an
    `is`-branch, `state` is **smart-cast** to that subclass — you can read

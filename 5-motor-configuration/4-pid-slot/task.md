@@ -29,31 +29,35 @@ The gains you'll see in real code:
 For a flywheel, **`kV` does most of the work** (it predicts what voltage
 *should* sustain a given RPM), and `kP` cleans up the rest.
 
-## Putting it together
+## The Slot0 config block
 
-```kotlin
-val config = TalonFXConfiguration().apply {
-    Slot0.kV = 0.12
-    Slot0.kP = 0.25
-}
-motor.configurator.apply(config)
+PID gains live on `TalonFXConfiguration.Slot0`. Each gain is a `Double`
+field with the same name as in the table above (`kP`, `kI`, `kD`, `kS`,
+`kV`, `kA`). Set the gains you care about; leave the rest at their
+default of `0.0`.
 
-// Later, in your control code:
-motor.setControl(VelocityVoltage(rotationsPerSecond = 80.0))
-```
+## Running closed loop
+
+Once gains are configured, drive the motor with `VelocityVoltage(rps)`
+where `rps` is the target velocity in rotations per second. Phoenix
+uses the configured gains to pick the voltage; you just specify the
+target.
+
+`VelocityVoltage` is a `data class`, so you can construct it
+positionally or with the named argument `rotationsPerSecond`.
 
 ## Your task
 
 Open `src/Flywheel.kt`. The `motor` is already declared on CAN ID 60.
 
-1. Implement `configure()` so the applied configuration has
-   `Slot0.kV = 0.12` and `Slot0.kP = 0.25`.
-2. Implement `runAtRps(rps: Double)` to send
-   `VelocityVoltage(rps)` to the motor.
+1. Implement `configure()` so the applied configuration has the
+   following Slot0 gains:
+   - `kV = 0.12`
+   - `kP = 0.25`
+2. Implement `runAtRps(rps: Double)` so it commands the motor to that
+   target velocity using a `VelocityVoltage` request.
 
 ## Hints
 
-- `VelocityVoltage` is a `data class` — you can construct it positionally
-  (`VelocityVoltage(rps)`) or named (`VelocityVoltage(rotationsPerSecond = rps)`).
-- You don't need to set `kI`, `kD`, `kS`, or `kA` — defaulting them to
-  `0.0` is the standard starting point.
+- The Slot0 fields you don't mention default to `0.0` — that's the
+  standard starting point for `kI`, `kD`, `kS`, and `kA` on a flywheel.

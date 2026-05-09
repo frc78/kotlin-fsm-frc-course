@@ -29,23 +29,22 @@ A good driver-station setup exposes a button that toggles the mode.
 
 ## The builder
 
-```kotlin
-RobotCentric()
-    .withVelocityX(vx)
-    .withVelocityY(vy)
-    .withRotationalRate(omega)
-```
-
-Identical to `FieldCentric` other than the type name.
+`RobotCentric` exposes the same `withVelocityX`, `withVelocityY`, and
+`withRotationalRate` setters as `FieldCentric` — only the type name and
+the interpretation differ.
 
 ## Your task
 
 Implement `teleopDrive(vx, vy, omega, robotRelative)`:
 
-- If `robotRelative` is `true`, apply a `RobotCentric` request.
-- Otherwise, apply a `FieldCentric` request.
+- When `robotRelative` is `true`, the drivetrain should receive a
+  `RobotCentric` request configured with `vx`, `vy`, and `omega`.
+- Otherwise, it should receive a `FieldCentric` request with the same
+  values.
 
-Use `if (...) ... else ...` and call `setControl` once.
+Build the right request based on the flag, then call `setControl(...)`
+exactly once. An `if/else` whose result is the request value is a
+clean way to write this.
 
 ## Hint
 

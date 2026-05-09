@@ -29,15 +29,11 @@ two mean different things:
 
 ## The builder (or lack of it)
 
-`SwerveDriveBrake` has no parameters. It's a `data object` — a singleton you
-reference by name:
-
-```kotlin
-drivetrain.setControl(SwerveDriveBrake)
-```
-
-No `()`, no `with*` calls. There's only one possible brake request.
+`SwerveDriveBrake` has no parameters. It's a `data object` — a singleton
+you reference *by name*, with no `()` and no `with*` calls. There's only
+one possible brake request, so there's nothing to configure.
 
 ## Your task
 
-Implement `applyBrake()` to set the drivetrain to brake.
+Implement `applyBrake()`. It should hand the singleton brake request to
+`drivetrain.setControl(...)`. One call, no construction.

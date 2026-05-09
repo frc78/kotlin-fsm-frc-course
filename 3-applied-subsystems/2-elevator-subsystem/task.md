@@ -24,27 +24,22 @@ go by setting it directly to a state value.
 
 ## Transitions
 
-The elevator just follows the driver's target:
-
-```
-state = commandedTarget
-```
-
-That's it. One line. No `when`. Why so trivial? Because the *interesting* logic
-("where do I want to be?") is in the `commandedTarget` field, set elsewhere by
+The elevator just follows the driver's target — copy `commandedTarget`
+straight into `state` every tick. That's the whole transition rule, no
+`when` needed. Why so trivial? Because the *interesting* logic ("where
+do I want to be?") is in the `commandedTarget` field, set elsewhere by
 driver-input code. The elevator subsystem's job is to move there.
 
 ## Actions
 
-Command the motor to the current state's target — every tick:
-
-```kotlin
-motor.setControl(PositionVoltage(state.targetRotations))
-```
-
-`PositionVoltage` is a Phoenix6 closed-loop control request that drives the
-motor to the given rotational position. Sending it every tick is fine — the
+Each tick, command the motor to the current state's target rotations
+using a `PositionVoltage` control request. `PositionVoltage` is a
+Phoenix6 closed-loop control request that drives the motor to a given
+rotational position; sending the request every tick is fine — the
 controller just keeps holding.
+
+Read the target off the state itself: the enum values carry their own
+`targetRotations`, so you don't need a separate lookup.
 
 ## At-target check
 

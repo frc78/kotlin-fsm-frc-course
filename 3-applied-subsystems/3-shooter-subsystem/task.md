@@ -57,22 +57,23 @@ So `4500.0.rpm == 75.0`.
 
 Open `src/Shooter.kt`. Implement `stateTransitions()` and `stateActions()`.
 
-## Hint — pattern matching with `when`
+## Hints
 
-Inside `when (val s = state)`, branches that use `is FsmState.SpinningUp`
-smart-cast `s` to that type, so you can read `s.targetRpm`:
+**Capturing `state` for smart casts.** When the right-hand side of a
+transition needs to read data carried by the current state (for example
+`targetRpm` from `SpinningUp`), use the `when (val s = state)` form. That
+binds `s` to the current state, and inside `is FsmState.SpinningUp -> …`
+the compiler smart-casts `s` so `s.targetRpm` is readable without an
+explicit cast.
 
-```kotlin
-state = when (val s = state) {
-    is FsmState.Idle -> {
-        val rpm = commandedTargetRpm
-        if (rpm != null) FsmState.SpinningUp(rpm) else s
-    }
-    is FsmState.SpinningUp -> {
-        if (commandedTargetRpm == null) FsmState.Idle
-        else if (flywheel.getVelocity() >= 0.95 * s.targetRpm.rpm) FsmState.Ready(s.targetRpm)
-        else s
-    }
-    // ...
-}
-```
+**Returning the same state.** Inside a branch, return the bound value
+(`s`) to mean "stay where I am." Don't try to write `state` again — the
+result of the `when` expression is what gets assigned.
+
+**Reading `commandedTargetRpm`.** It's a `Double?`. Smart-cast it once
+to a non-null local (`val rpm = commandedTargetRpm; if (rpm != null) …`)
+when you need to construct a state that requires the rpm value.
+
+**Velocity units.** `VelocityVoltage` takes rotations *per second*, but
+the shooter's targets are rpm. Use the `.rpm` extension property to
+convert: `4500.0.rpm == 75.0`.

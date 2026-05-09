@@ -5,12 +5,14 @@
 runs a PID on the gyro to drive the robot's yaw to the target angle while the
 driver controls translation.
 
-```kotlin
-FieldCentricFacingAngle()
-    .withVelocityX(vx)
-    .withVelocityY(vy)
-    .withTargetDirection(targetDirectionDegrees)
-```
+The setters are the familiar pair of `withVelocityX` and `withVelocityY`,
+plus a third one that configures the heading goal:
+
+| Setter                | Argument                                          |
+|-----------------------|---------------------------------------------------|
+| `withVelocityX`       | forward in field frame, m/s                       |
+| `withVelocityY`       | left in field frame, m/s                          |
+| `withTargetDirection` | heading goal (degrees in this stub; see below)    |
 
 There's no `withRotationalRate(...)` — the heading PID owns rotation.
 
@@ -42,5 +44,7 @@ Stubbed-out here.
 
 ## Your task
 
-Implement `aimWhileDriving(vx, vy, targetDegrees)`. Same shape as the previous
-tasks: build a request, apply it.
+Implement `aimWhileDriving(vx, vy, targetDegrees)`. Build a
+`FieldCentricFacingAngle` whose translation comes from `vx` and `vy` and
+whose target direction is `targetDegrees`, then hand it to
+`drivetrain.setControl(...)`.

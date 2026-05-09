@@ -48,24 +48,20 @@ per tick by checking conditions in priority order.
 Open `src/DriveModeFsm.kt`. Implement `stateTransitions()` and
 `stateActions()`.
 
-`stateTransitions()`:
+**`stateTransitions()`**: assign `state` based on which command flag is
+set. Use a `when` *without* a subject — each branch is a boolean
+condition, and the first matching branch wins. Order the branches by
+priority (`brake` → `aim` → `robot-relative` → `field`) so the highest
+priority that's currently asserted is the one that takes effect. If no
+command flag is set, fall through to `TELEOP_FIELD`.
 
-```kotlin
-state = when {
-    commandedBrake          -> State.BRAKED
-    commandedAim            -> State.AIMING
-    commandedRobotRelative  -> State.TELEOP_ROBOT
-    else                    -> State.TELEOP_FIELD
-}
-```
-
-(Note this is a `when` *without* a subject — each branch is a boolean
-condition. The first matching branch wins.)
-
-`stateActions()`: a `when (state)` block that builds and applies the right
-request per the table above.
+**`stateActions()`**: a `when (state)` block with one branch per state.
+Each branch builds the appropriate `SwerveRequest` (per the table
+above) and hands it to `drivetrain.setControl(...)`.
 
 ## Hint
 
-For the request constructors, use the same builder shape from earlier tasks.
-Pull the velocity values from the `requested*` fields on the object.
+For the request builders, reuse the shapes from earlier tasks: the
+`Field`/`Robot`Centric requests want `vx`/`vy`/`omega` from the
+`requested*` fields, the `FieldCentricFacingAngle` wants `vx`/`vy` plus
+`aimTargetDegrees`, and `SwerveDriveBrake` is a singleton.
