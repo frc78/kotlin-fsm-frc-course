@@ -30,7 +30,8 @@ Phoenix6 configuration follows a three-step shape:
 
 1. Create a fresh `TalonFXConfiguration`.
 2. Mutate the fields inside its nested config blocks.
-3. Hand the configuration to `motor.configurator.apply(config)`.
+3. Hand the configuration to the motor's configurator (every `TalonFX`
+   exposes a `configurator` property with an `apply(config)` method).
 
 The two fields you'll touch in this task live on the `MotorOutput` block:
 
@@ -63,8 +64,9 @@ arm).
 ## Hints
 
 - `NeutralModeValue` and `InvertedValue` are enums imported from
-  `frc.stubs.*`. Reference values as `NeutralModeValue.Brake` and
-  `InvertedValue.Clockwise_Positive`.
-- `motor.configurator.apply(config)` stores the configuration on the stub
-  so the test can inspect it. Forgetting that final call is a common
-  mistake — the configuration object exists but never reaches the motor.
+  `frc.stubs.*`. Reference an enum value the standard Kotlin way:
+  `EnumType.VALUE`.
+- The configurator's `apply(...)` call stores the configuration on the
+  stub so the test can inspect it. Forgetting that final call is a
+  common mistake — the configuration object exists but never reaches
+  the motor.

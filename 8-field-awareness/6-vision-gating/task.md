@@ -20,18 +20,26 @@ fix: **gate** measurements before applying them.
 
 ## Three gates
 
-This task implements three rejection criteria. If a measurement fails *any*
-of them, drop it on the floor:
+This task implements three rejection criteria. If a measurement fails
+*any* of them, drop it on the floor and return `false`:
 
-| Gate           | Reject when…                                                     |
-|----------------|------------------------------------------------------------------|
-| Stale          | `currentTimestampSeconds - measurement.timestampSeconds > 0.5`   |
-| Imprecise      | `measurement.translationStdDev > 1.0`                            |
-| Implausible    | distance from current estimate to measurement pose > 1.5 m       |
+| Gate         | Reject when…                                                       |
+|--------------|--------------------------------------------------------------------|
+| Stale        | the measurement is more than **0.5 seconds** older than now        |
+| Imprecise    | the measurement's `translationStdDev` exceeds **1.0**              |
+| Implausible  | the measurement's pose is more than **1.5 meters** from the current estimate |
 
-If all three pass, call
-`estimator.addVisionMeasurement(measurement.pose)` and return `true`.
-Otherwise return `false`.
+Inputs you have available:
+
+- `currentTimestampSeconds: Double` — the parameter passed in.
+- `measurement.timestampSeconds: Double` — when the measurement was taken.
+- `measurement.translationStdDev: Double` — the vision pipeline's
+  reported uncertainty.
+- `measurement.pose: Pose2d` — the candidate pose.
+- `estimator.currentPose: Pose2d` — the estimator's belief right now.
+
+If all three gates pass, hand the candidate pose to the estimator's
+`addVisionMeasurement(pose: Pose2d)` method and return `true`.
 
 ## Your task
 

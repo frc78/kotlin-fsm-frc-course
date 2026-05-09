@@ -51,9 +51,11 @@ within 0.1 rotations of the current state's target.
 
 Three small things in `src/Elevator.kt`:
 
-1. `stateTransitions()` — copy `commandedTarget` into `state`.
-2. `stateActions()`     — send `PositionVoltage(state.targetRotations)`.
-3. `atTarget()`         — return whether motor position is close to target.
+1. `stateTransitions()` — make `state` follow `commandedTarget`.
+2. `stateActions()`     — send a `PositionVoltage` request whose target
+   comes from the current state's `targetRotations`.
+3. `atTarget()`         — return whether the motor's reported position
+   is within 0.1 rotations of the state's target.
 
 ## Hint
 

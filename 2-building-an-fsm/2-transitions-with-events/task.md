@@ -8,11 +8,10 @@ about. There are two common kinds:
 2. **Sensor reads** — values pulled directly from hardware:
    `canRange.getDistance()`, `motor.getPosition()`, `limitSwitch.get()`.
 
-Inside `stateTransitions()` you mix both freely:
-
-```kotlin
-State.INTAKING -> if (canRange.getDistance() < 0.05) State.HOLDING else State.INTAKING
-```
+Inside `stateTransitions()` you mix both freely. A single branch's
+condition can read a sensor (`someSensor.getValue() < threshold`),
+read a driver intent (`commandedX`), or combine the two with `&&` /
+`||`.
 
 The key idea: **each transition is a logical OR of conditions, but each
 condition can mix driver intent AND sensor reads.**

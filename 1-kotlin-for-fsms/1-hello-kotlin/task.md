@@ -31,5 +31,7 @@ When the tests pass, you've got Kotlin's basic shapes down.
 ## Hints
 
 - Inside a single-expression function: `fun foo(): String = "hi"`
-- A string template inside an object's own method can reference the object's
-  property directly: `"Hello from $teamName!"`
+- A string template inside an object's own method can reference the
+  object's properties directly with `$propertyName` (or
+  `${expression}` for anything more complex than a bare property
+  reference).

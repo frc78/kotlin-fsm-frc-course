@@ -38,13 +38,14 @@ default of `0.0`.
 
 ## Running closed loop
 
-Once gains are configured, drive the motor with `VelocityVoltage(rps)`
-where `rps` is the target velocity in rotations per second. Phoenix
-uses the configured gains to pick the voltage; you just specify the
-target.
+Once gains are configured, command a velocity by sending a
+`VelocityVoltage` request whose argument is the target velocity in
+**rotations per second**. Phoenix uses the configured gains to pick
+the voltage; you just specify the target.
 
-`VelocityVoltage` is a `data class`, so you can construct it
-positionally or with the named argument `rotationsPerSecond`.
+`VelocityVoltage` is a `data class` — its only parameter is the target
+velocity, exposed positionally or via the named argument
+`rotationsPerSecond`.
 
 ## Your task
 

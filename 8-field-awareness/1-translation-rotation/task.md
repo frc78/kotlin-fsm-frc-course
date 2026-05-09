@@ -7,21 +7,16 @@ vision integration, swerve aiming — is just stacking these primitives.
 ## `Translation2d`
 
 A 2D point or offset. Has `x` and `y` (both meters by FRC convention) and
-operator-overloaded math:
+operator-overloaded math. The operations available on a `Translation2d`:
 
-```kotlin
-val a = Translation2d(1.0, 0.0)
-val b = Translation2d(4.0, 0.0)
-
-a + b                // Translation2d(5.0, 0.0)
-b - a                // Translation2d(3.0, 0.0)
-a.getDistance(b)     // 3.0
-a.getNorm()          // 1.0  (distance from origin)
-a.getAngle()         // Rotation2d at 0 rad (a points along +x)
-```
-
-`rotateBy(rotation)` rotates a translation around the origin. Useful for
-"this offset is in the robot's body frame; what is it in the field frame?"
+- `+` and `-` between two `Translation2d`s (component-wise add / subtract).
+- `getDistance(other)` — Euclidean distance to another `Translation2d`.
+- `getNorm()` — distance from the origin.
+- `getAngle()` — the angle of this point as a vector from the origin,
+  returned as a `Rotation2d`.
+- `rotateBy(rotation)` — rotates the point around the origin by the
+  given angle. Useful for "this offset is in the robot's body frame;
+  what is it in the field frame?"
 
 ## `Rotation2d`
 

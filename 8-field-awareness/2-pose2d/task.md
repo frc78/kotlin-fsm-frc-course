@@ -19,21 +19,17 @@ robot.rotation   // Rotation2d at 45°
 
 ## `relativeTo` — change of frame
 
-The most useful operation on `Pose2d`: given a pose `p` in the field frame,
-what does it look like in another pose's frame?
+The most useful operation on `Pose2d`: given a pose `p` in the field
+frame, what does it look like in another pose's frame? `Pose2d` has a
+method `relativeTo(reference: Pose2d): Pose2d` that returns the receiver
+re-expressed in the reference's frame.
 
-```kotlin
-val opponentRelativeToMe = opponentPose.relativeTo(myPose)
-```
+This answers questions like "if I were the origin facing forward, where
+would *thing* be?" Useful for:
 
-This says: "if I were the origin facing forward, where would the opponent
-be?" Useful for:
-
-- "Is the goal in front of me or behind me?" — check the sign of
-  `goal.relativeTo(me).x`.
+- "Is the goal in front of me or behind me?" — sign of `goal.relativeTo(me).x`.
 - "How far off-axis is the game piece?" — `piece.relativeTo(me).y`.
-- "What's my approach angle to the goal?" —
-  `goal.relativeTo(me).rotation`.
+- "What's my approach angle to the goal?" — `goal.relativeTo(me).rotation`.
 
 ## Your task
 

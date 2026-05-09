@@ -25,10 +25,9 @@ The pattern is "on edge, not on level":
 `state != null` is true and the entry effect runs for the initial state
 too — which is what you want for things like "log the starting state."
 
-Wire `runEntrySideEffects()` into `periodic()` *between* the transition
-and the actions, so the effect runs in the same tick the transition
-fires (`stateTransitions()` first, then entry effects, then
-`stateActions()`).
+`periodic()` is already wired so that `runEntrySideEffects()` runs
+*between* `stateTransitions()` and `stateActions()` — that ordering
+makes the effect fire in the same tick the transition happens.
 
 ## Your task
 

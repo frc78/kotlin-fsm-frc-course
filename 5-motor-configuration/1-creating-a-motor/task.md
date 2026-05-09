@@ -42,5 +42,5 @@ Open `src/RollerMotor.kt`. The `RollerMotor` object needs to:
 ## Hints
 
 - `TalonFX`, `VoltageOut`, and the rest are imported from `frc.stubs.*`.
-- Use named arguments when constructing the TalonFX — `TalonFX(canId = 17)`
+- Use named arguments when constructing the TalonFX — `TalonFX(canId = …)`
   reads better than the bare positional form.
