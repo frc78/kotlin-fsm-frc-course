@@ -24,10 +24,13 @@ The three queries you'll combine:
 ## Why subsystems take time
 
 The stubs simulate physical motion. Elevator takes 3 ticks to reach a new
-target. Arm takes 2. Intake snaps immediately (it's just a roller mode). So
-after commanding `SCORE_L4` from `STOWED`, you need at least 3 periodic ticks
-before the elevator's `atTarget()` flips, then at most 2 more before arm's
-does — so 5 ticks at most before `Superstructure.atTarget()` becomes true.
+target. Arm takes 2. Intake snaps immediately (it's just a roller mode).
+`stateActions()` (already written for you) commands all three subsystems on
+the *same* tick, so they move concurrently — the superstructure is at target
+once the **slowest** subsystem settles. After commanding `SCORE_L4` from
+`STOWED`, that's the elevator: 3 periodic ticks before
+`Superstructure.atTarget()` becomes true. Note that they all move at the
+same time — making them take turns is the next task.
 
 ## Your task
 

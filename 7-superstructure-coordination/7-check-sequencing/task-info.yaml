@@ -1,0 +1,15 @@
+type: choice
+custom_name: "Check: descent order"
+is_multiple_choice: false
+options:
+  - text: "The elevator — descents mirror ascents, so the elevator leads on the way down just like it led on the way up"
+    is_correct: false
+  - text: "Both at once — commanding the elevator and arm together reaches STOWED fastest, and atTarget() covers the rest"
+    is_correct: false
+  - text: "The arm — it retracts to the safe STOWED pose first, because lowering the elevator with the arm still extended would sweep it through everything below"
+    is_correct: true
+  - text: "The intake — its rollers must return to IDLE before either mechanism is allowed to move"
+    is_correct: false
+message_correct: "Descent is asymmetric: the arm must reach the safe pose before the elevator drops — that's why every transition in task 5 starts by considering RetractArm."
+message_incorrect: "Go back to task 5's phase table and its definition of a 'safe pose' — the order of the phases there answers this directly."
+local_check: true

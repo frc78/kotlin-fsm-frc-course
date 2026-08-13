@@ -1,0 +1,15 @@
+type: choice
+custom_name: "Check: fake hardware"
+is_multiple_choice: false
+options:
+  - text: "Production code runs faster, because the sensor object is created once outside the class."
+    is_correct: false
+  - text: "The test hands in a fake limit switch it fully controls, so it can simulate the switch tripping (or not) and verify the FSM actually reads it."
+    is_correct: true
+  - text: "The FSM no longer needs to read the sensor — the value passed to the constructor replaces the limit.get() call."
+    is_correct: false
+  - text: "The test can skip reset(), because injected hardware automatically clears the subsystem's state."
+    is_correct: false
+message_correct: "Injection puts the sensor under the test's control: limit.simulateValue(true) forces the trip on demand, and an FSM that never actually reads limit.get() fails the test instead of sneaking through."
+message_incorrect: "Look back at the test snippet in task 2 (Fake Hardware via Dependency Injection): what does the test do with the limit switch it created — and what could it not do if the subsystem had built its own?"
+local_check: true

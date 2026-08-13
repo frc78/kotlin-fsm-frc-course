@@ -23,6 +23,25 @@ class SuperstructureTest {
         assertFalse(s.atTarget(), "elevator hasn't settled yet")
     }
 
+    @Test fun atTarget_false_while_only_arm_still_moving() {
+        // CLIMB_PREP keeps the elevator at STOWED — only the arm has to move.
+        s.commandedRobotState = RobotState.CLIMB_PREP
+        s.periodic()
+        assertFalse(
+            s.atTarget(),
+            "the elevator is already at STOWED but the arm is still swinging to CLIMB — atTarget() must check every subsystem",
+        )
+    }
+
+    @Test fun atTarget_false_while_only_elevator_still_moving() {
+        s.commandedRobotState = RobotState.SCORE_L4
+        repeat(2) { s.periodic() }
+        assertFalse(
+            s.atTarget(),
+            "the arm (2 ticks) has settled but the elevator (3 ticks) hasn't — atTarget() must check every subsystem",
+        )
+    }
+
     @Test fun atTarget_true_after_subsystems_settle() {
         s.commandedRobotState = RobotState.SCORE_L4
         repeat(6) { s.periodic() }

@@ -1,0 +1,6 @@
+type: edu
+files:
+  - name: src/Lightning.kt
+    visible: true
+  - name: test/LightningTest.kt
+    visible: false

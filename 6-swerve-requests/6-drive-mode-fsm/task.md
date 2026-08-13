@@ -65,3 +65,7 @@ For the request builders, reuse the shapes from earlier tasks: the
 `Field`/`Robot`Centric requests want `vx`/`vy`/`omega` from the
 `requested*` fields, the `FieldCentricFacingAngle` wants `vx`/`vy` plus
 `aimTargetDegrees`, and `SwerveDriveBrake` is a singleton.
+
+You'll also spot one request you haven't built: the starter's `reset()`
+sends `Idle`, the request a real robot applies when no drive command
+should be active at all — for example, while disabled.

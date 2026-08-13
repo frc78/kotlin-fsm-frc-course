@@ -12,9 +12,10 @@ val robot = Pose2d(
 // Convenience constructor:
 val same = Pose2d(2.0, 3.0, Rotation2d.fromDegrees(45.0))
 
-robot.x          // 2.0
-robot.y          // 3.0
-robot.rotation   // Rotation2d at 45°
+robot.x            // 2.0
+robot.y            // 3.0
+robot.translation  // Translation2d(2.0, 3.0)
+robot.rotation     // Rotation2d at 45°
 ```
 
 ## `relativeTo` — change of frame
@@ -39,12 +40,13 @@ Implement two functions in `src/PoseMath.kt`:
    robot's pose and a game piece's position *in the robot's body frame*,
    return the piece's position in the field frame.
 
-   Think of the inputs geometrically. `pieceInRobotFrame` is a vector
-   anchored at the robot's location and aligned to the robot's heading.
-   To express it in the field frame you have to undo two things: the
-   robot's rotation, and the robot's offset from the field origin.
-   `Translation2d` supports both operations directly — see the previous
-   task's reference of operators on `Translation2d`.
+   Think of the inputs geometrically. `pieceInRobotFrame` was measured
+   relative to the robot's heading and position. To re-express it in
+   field coordinates, first rotate the body-frame offset into the field
+   frame using the robot's heading, then shift it by the robot's
+   position on the field. `Translation2d` supports both operations
+   directly — see the previous task's reference of operators on
+   `Translation2d`.
 
 2. **`opponentRelativeToMe(myPose, opponentPose)`** — express the
    opponent's pose in your robot's frame. `Pose2d` has a method that

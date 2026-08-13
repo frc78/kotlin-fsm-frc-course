@@ -32,6 +32,43 @@ class IntakeTest {
         assertEquals(VoltageOut(0.5), Intake.motor.lastRequest)
     }
 
+    @Test fun in_band_distance_keeps_intaking() {
+        Intake.commandedIntake = true
+        Intake.periodic()
+        Intake.canRange.simulateDistance(0.07)
+        Intake.periodic()
+        assertEquals(
+            Intake.State.INTAKING, Intake.state,
+            "0.07 is not below the 0.05 detect threshold, so no piece is detected yet — stay INTAKING",
+        )
+    }
+
+    @Test fun in_band_distance_keeps_holding() {
+        Intake.commandedIntake = true
+        Intake.periodic()
+        Intake.canRange.simulateDistance(0.03)
+        Intake.periodic()
+        Intake.canRange.simulateDistance(0.07)
+        Intake.periodic()
+        assertEquals(
+            Intake.State.HOLDING, Intake.state,
+            "0.07 is not above the 0.10 lost threshold, so the piece is not lost yet — stay HOLDING",
+        )
+    }
+
+    @Test fun holding_persists_after_intake_command_released() {
+        Intake.commandedIntake = true
+        Intake.periodic()
+        Intake.canRange.simulateDistance(0.03)
+        Intake.periodic()
+        Intake.commandedIntake = false
+        Intake.periodic()
+        assertEquals(
+            Intake.State.HOLDING, Intake.state,
+            "HOLDING should keep the piece after commandedIntake is released — only eject or piece-lost leaves it",
+        )
+    }
+
     @Test fun piece_lost_returns_to_idle() {
         Intake.commandedIntake = true
         Intake.periodic()

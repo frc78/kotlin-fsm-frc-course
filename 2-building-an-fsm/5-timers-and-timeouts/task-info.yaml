@@ -1,0 +1,6 @@
+type: edu
+files:
+  - name: src/EjectingIntake.kt
+    visible: true
+  - name: test/EjectingIntakeTest.kt
+    visible: false

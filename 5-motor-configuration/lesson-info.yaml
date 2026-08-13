@@ -3,3 +3,6 @@ content:
   - 2-motor-output-config
   - 3-current-limits
   - 4-pid-slot
+  - 5-check-current-limits
+  - 6-check-pid-slot
+  - 7-real-phoenix6-notes

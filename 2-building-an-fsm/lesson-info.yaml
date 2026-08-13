@@ -3,3 +3,6 @@ content:
   - 2-transitions-with-events
   - 3-entry-side-effects
   - 4-guards
+  - 5-timers-and-timeouts
+  - 6-check-transition-priority
+  - 7-check-timers

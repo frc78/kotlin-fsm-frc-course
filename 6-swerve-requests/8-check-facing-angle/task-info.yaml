@@ -1,0 +1,15 @@
+type: choice
+custom_name: "Check: Facing Angle"
+is_multiple_choice: false
+options:
+  - text: "Translation — the request drives the robot toward the target while the driver only steers"
+    is_correct: false
+  - text: "Everything — it is a fully autonomous request; both sticks are ignored until it is released"
+    is_correct: false
+  - text: "Rotation — the heading PID drives the robot's yaw to the target direction, while the driver keeps full control of translation"
+    is_correct: true
+  - text: "Nothing — the target direction is only a suggestion that the driver's rotation stick can out-vote"
+    is_correct: false
+message_correct: "Exactly — FieldCentricFacingAngle has no withRotationalRate at all; the internal heading PID owns yaw, while the driver's vx and vy still command translation as usual."
+message_incorrect: "Go back to the setter table in task 5 and compare it with FieldCentric's — one familiar setter is missing, and what replaced it tells you which input the request now owns."
+local_check: true

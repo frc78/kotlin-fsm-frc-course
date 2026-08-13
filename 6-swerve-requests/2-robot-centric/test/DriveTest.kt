@@ -7,18 +7,20 @@ import kotlin.test.assertEquals
 
 class DriveTest {
     @Test fun field_centric_when_not_robot_relative() {
-        Drive.teleopDrive(1.0, 0.5, 0.0, robotRelative = false)
+        Drive.teleopDrive(1.0, 0.5, 0.3, robotRelative = false)
         assertEquals(
-            FieldCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.0),
-            Drive.drivetrain.lastRequest
+            FieldCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.3),
+            Drive.drivetrain.lastRequest,
+            "teleopDrive(1.0, 0.5, 0.3, robotRelative = false) should send a FieldCentric request carrying all three values (vx, vy, and omega)"
         )
     }
 
     @Test fun robot_centric_when_robot_relative() {
-        Drive.teleopDrive(1.0, 0.5, 0.0, robotRelative = true)
+        Drive.teleopDrive(1.0, 0.5, 0.3, robotRelative = true)
         assertEquals(
-            RobotCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.0),
-            Drive.drivetrain.lastRequest
+            RobotCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.3),
+            Drive.drivetrain.lastRequest,
+            "teleopDrive(1.0, 0.5, 0.3, robotRelative = true) should send a RobotCentric request carrying all three values (vx, vy, and omega)"
         )
     }
 

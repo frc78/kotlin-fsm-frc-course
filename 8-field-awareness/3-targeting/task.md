@@ -26,6 +26,10 @@ to it.
 The driver still controls translation via `vx` and `vy`. The heading
 PID handles rotation.
 
+One caution: `Rotation2d` arithmetic in this stub (and the result of
+`headingFromTo`) does not wrap angles — 350° + 20° is 370°, not 10° — and
+real robot code normalizes to (-180°, 180°] before comparing headings.
+
 ## Your task
 
 Implement `aimAtGoal(robotPose, goalPosition, vx, vy)` in `src/Targeting.kt`.

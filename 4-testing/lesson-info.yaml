@@ -1,3 +1,5 @@
 content:
   - 1-testing-pure-fsm-logic
   - 2-fake-hardware
+  - 3-check-pure-functions
+  - 4-check-fakes

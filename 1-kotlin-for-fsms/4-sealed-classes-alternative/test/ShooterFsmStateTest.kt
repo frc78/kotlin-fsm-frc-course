@@ -33,6 +33,14 @@ class ShooterFsmStateTest {
         )
     }
 
+    @Test fun feeding_withDifferentRpm() {
+        assertEquals(
+            "Feeding at 6000.0 rpm",
+            describe(ShooterFsmState.Feeding(6000.0)),
+            "describe(Feeding(6000.0)) must interpolate that state's own targetRpm, not a fixed number"
+        )
+    }
+
     @Test fun spinningUp_holdsItsRpm() {
         val s = ShooterFsmState.SpinningUp(3300.0)
         assertEquals(3300.0, s.targetRpm)

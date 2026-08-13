@@ -5,3 +5,6 @@ build/
 out/
 local.properties
 .kotlin/
+# Generated course archives (rebuilt by the course-creator plugin on upload)
+.coursecreator/
+*.zip

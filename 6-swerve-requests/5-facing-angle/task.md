@@ -21,7 +21,8 @@ There's no `withRotationalRate(...)` — the heading PID owns rotation.
 This is the bread-and-butter auto-aim primitive:
 
 - **Aiming the shooter at the speaker / goal** while the driver translates
-  freely. Compute target angle from `(robotPose - goalPose).angle`.
+  freely. The target angle is the direction of the vector from the robot's
+  position to the goal — you'll do exactly this math in Lesson 8.
 - **Locking the intake toward a game piece** while approaching it.
 - **Holding heading during a defensive contest** so the robot stays oriented
   even as it gets bumped.
@@ -38,9 +39,9 @@ takes a `Double` (degrees). Real code:
 .withTargetDirection(Rotation2d.fromDegrees(target))
 ```
 
-Real Phoenix6 also has `getHeadingController()` which returns the PIDController
-the request uses internally — you tune kP/kI/kD on it during configuration.
-Stubbed-out here.
+The real request also exposes a public `HeadingController` field — the
+PID controller it uses internally — and you tune kP/kI/kD on it during
+configuration. Stubbed-out here.
 
 ## Your task
 

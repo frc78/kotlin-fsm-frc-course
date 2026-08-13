@@ -43,9 +43,17 @@ Once gains are configured, command a velocity by sending a
 **rotations per second**. Phoenix uses the configured gains to pick
 the voltage; you just specify the target.
 
-`VelocityVoltage` is a `data class` — its only parameter is the target
-velocity, exposed positionally or via the named argument
-`rotationsPerSecond`.
+In this course's stub, `VelocityVoltage` is a `data class` — its only
+parameter is the target velocity, exposed positionally or via the named
+argument `rotationsPerSecond`.
+
+> **Note on real Phoenix6:** the actual `VelocityVoltage` is a mutable
+> request class — you construct it with `VelocityVoltage(rps)` or update
+> the target with `.withVelocity(rps)`. The call shape is the same;
+> your code reads the same either way. Real requests also pick which
+> gain slot they run against via `.withSlot(n)` — slot 0 is the
+> default, which is why configuring `Slot0` is all a single-behavior
+> mechanism needs.
 
 ## Your task
 

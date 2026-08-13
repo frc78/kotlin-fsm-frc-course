@@ -2,3 +2,5 @@ content:
   - 1-intake-subsystem
   - 2-elevator-subsystem
   - 3-shooter-subsystem
+  - 4-check-hysteresis
+  - 5-check-shooter-priority

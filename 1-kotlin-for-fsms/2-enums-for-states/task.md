@@ -15,8 +15,8 @@ Every value is a unique singleton — there's exactly one `RED`.
 ## Why enums for states
 
 - The compiler knows the complete list of values, so a `when` on the enum can be
-  *exhaustive* — it'll warn if you forget a case (you'll see this in the next
-  task).
+  *exhaustive* — forget a case and the code won't compile. You'll use this in
+  the last task of this lesson, and in every subsystem from Lesson 2 on.
 - Each value has a `.name` (the source-code identifier) and `.ordinal` (its
   position).
 - `EnumClass.entries` is the list of all values (replacing the older `values()`

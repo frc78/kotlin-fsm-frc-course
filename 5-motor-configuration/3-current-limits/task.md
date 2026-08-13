@@ -22,9 +22,12 @@ relevant to a supply limit are:
 - `SupplyCurrentLimit` — the cap, in amps (`Double`).
 - `SupplyCurrentLimitEnable` — a `Boolean` that turns the limit on.
 
-The `Enable` flag is the gotcha: Phoenix6 ships with limits *disabled*
-by default, so setting `SupplyCurrentLimit` alone does nothing. **Both
-fields must be set in the same configuration.**
+The `Enable` flag is the gotcha: the limit value means nothing unless
+the matching `Enable` flag is `true`. Older Phoenix6 versions (and this
+course's stub) ship with limits *disabled* by default; since the 2025
+release the real API defaults to *enabled* limits (70 A supply, 120 A
+stator). Don't lean on either default — **set both fields explicitly in
+the same configuration**, so your config says what it means.
 
 You can layer current limits on top of motor-output settings in a single
 `TalonFXConfiguration` — `MotorOutput`, `CurrentLimits`, and any other
@@ -44,5 +47,7 @@ Implement `configure()` so the applied configuration has:
 
 - One `TalonFXConfiguration().apply { ... }` block is enough — you
   don't need to apply multiple separate configurations.
-- Leaving the `Enable` field as `false` is the most common configuration
-  bug in this whole API. The test will catch it.
+- Setting the limit value but forgetting the `Enable` flag is the most
+  common configuration bug in this whole API — real TalonFXs only
+  started shipping with limits enabled in 2025, and this course's stub
+  still defaults to disabled. The test will catch it.

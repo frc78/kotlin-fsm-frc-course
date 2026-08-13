@@ -37,6 +37,9 @@ Ready(r)       + commandedFire                              -> Feeding(r)
 Feeding(r)     + !commandedFire                             -> Ready(r)
 ```
 
+If more than one condition holds at once, the row listed *higher* wins —
+clearing the target always takes priority over reaching speed.
+
 The 95% threshold gives a small ready-band so jitter near the target doesn't
 bounce us out of `Ready`.
 

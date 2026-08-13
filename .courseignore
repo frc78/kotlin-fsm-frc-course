@@ -2,6 +2,3 @@ README.md
 /.idea
 /.gradle
 /build
-/gradle
-gradlew
-gradlew.bat

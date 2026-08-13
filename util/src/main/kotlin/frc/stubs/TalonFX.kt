@@ -56,6 +56,7 @@ class TalonFX(val canId: Int) {
 
     private var simulatedPosition = 0.0
     private var simulatedVelocity = 0.0
+    private var simulatedStatorCurrent = 0.0
 
     fun setControl(request: ControlRequest) {
         lastRequest = request
@@ -75,4 +76,13 @@ class TalonFX(val canId: Int) {
 
     fun simulateVelocity(rps: Double) { simulatedVelocity = rps }
     fun simulatePosition(rotations: Double) { simulatedPosition = rotations }
+
+    // Stator current: real Phoenix6 exposes this as a StatusSignal
+    // (motor.statorCurrent.valueAsDouble); the stub flattens it to a Double,
+    // matching getPosition()/getVelocity(). Current draw rises when a
+    // mechanism works hard — a spike while driving a roller usually means a
+    // jam or a stalled game piece.
+    fun getStatorCurrent(): Double = simulatedStatorCurrent
+
+    fun simulateStatorCurrent(amps: Double) { simulatedStatorCurrent = amps }
 }

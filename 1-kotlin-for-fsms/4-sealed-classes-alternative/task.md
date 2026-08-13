@@ -29,9 +29,8 @@ on a sealed type is exhaustive.
 
 Open `src/ShooterFsmState.kt` and read the sealed class declaration at the top.
 Notice how `Idle` and `Ready` use `data object` (no per-instance data) and
-`SpinningUp` and `Feeding` use `data class` (each carries a `targetRpm`). When
-you build subsystems in Lesson 3, you'll write declarations like these
-yourself.
+`SpinningUp` and `Feeding` use `data class` (each carries a `targetRpm`). The
+Lesson 3 Shooter is built on a hierarchy shaped just like this one.
 
 ## Your task
 

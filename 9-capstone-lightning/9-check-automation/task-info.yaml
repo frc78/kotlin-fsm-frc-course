@@ -1,0 +1,19 @@
+type: choice
+custom_name: "Check: Automated Transitions"
+is_multiple_choice: true
+options:
+  - text: "Ground intake: INTAKING to STOWED while the driver is still holding deploy"
+    is_correct: true
+  - text: "Drivebase: FIELD_DRIVE to AUTO_ALIGN when an AprilTag comes into view"
+    is_correct: false
+  - text: "Gripper: EMPTY to HANDOFF when a coral settles into the Coral Cradle"
+    is_correct: true
+  - text: "Superstructure: L4_SCORE to L4_DUNK, jamming the coral onto the branch"
+    is_correct: false
+  - text: "Gripper: ALGAE_INTAKE to HOLDING_ALGAE when the ball seats and the wheels stall"
+    is_correct: true
+  - text: "Straightenator: UNJAMMING back to FEEDING after 0.25 seconds"
+    is_correct: true
+message_correct: "Beam break, beam break, stator current, timer — sensors fire all four; auto-align needs the held level button (the visible tag is only a guard), and the dunk needs the Score press."
+message_incorrect: "Check each transition's condition column in tasks 1, 2, 3, 4, and 6: is it a sensor or timer read, or a commanded flag that a driver button sets?"
+local_check: true

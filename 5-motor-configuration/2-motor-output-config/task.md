@@ -49,6 +49,12 @@ val cfg = SomeType().apply {
 }
 ```
 
+Don't let the shared name trip you up: Kotlin's `.apply { ... }` scope
+function and the configurator's `apply(config)` method are unrelated
+things that happen to share a name — the first mutates the object
+you're building, the second hands the finished configuration to the
+motor.
+
 ## Your task
 
 Open `src/ArmMotor.kt`. An arm needs **brake mode** (so it holds position
@@ -66,6 +72,8 @@ arm).
 - `NeutralModeValue` and `InvertedValue` are enums imported from
   `frc.stubs.*`. Reference an enum value the standard Kotlin way:
   `EnumType.VALUE`.
+- One `TalonFXConfiguration().apply { ... }` block is enough — you
+  don't need to apply multiple separate configurations.
 - The configurator's `apply(...)` call stores the configuration on the
   stub so the test can inspect it. Forgetting that final call is a
   common mistake — the configuration object exists but never reaches

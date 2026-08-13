@@ -29,9 +29,12 @@ two mean different things:
 
 ## The builder (or lack of it)
 
-`SwerveDriveBrake` has no parameters. It's a `data object` — a singleton
-you reference *by name*, with no `()` and no `with*` calls. There's only
-one possible brake request, so there's nothing to configure.
+In this stub, `SwerveDriveBrake` is a `data object` — a singleton you
+reference *by name*, with no `()` and no `with*` calls, because there's
+nothing about the X-lock the stub needs configured. In real Phoenix6 it's
+a class you instantiate with `SwerveDriveBrake()`, and it does accept a
+little configuration (`withDriveRequestType`/`withSteerRequestType`) —
+but you'll almost always use it as-is.
 
 ## Your task
 

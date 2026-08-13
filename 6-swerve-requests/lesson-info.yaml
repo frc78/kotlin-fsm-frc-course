@@ -5,3 +5,5 @@ content:
   - 4-point-wheels-at
   - 5-facing-angle
   - 6-drive-mode-fsm
+  - 7-check-request-frames
+  - 8-check-facing-angle

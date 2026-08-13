@@ -33,7 +33,14 @@ on the next tick.
 Open `src/Pivot.kt`. The pivot has three states (`STOWED`, `MOVING`,
 `AT_TARGET`) and a guard: it can only move when the elevator is clear.
 
-`stateActions()` is already implemented. Your job is `stateTransitions()`:
+`stateActions()` is already implemented: in `MOVING` it commands
+`PositionVoltage(targetRotations)` — a closed-loop "go to this position"
+request. The simulated motor reaches the target immediately, so
+`motor.getPosition()` reports the target on the next tick. (In real
+Phoenix6, `getPosition()` returns a `StatusSignal` — see the note back in
+task 2.)
+
+Your job is `stateTransitions()`:
 
 | Current     | Conditions                                              | Next        |
 |-------------|---------------------------------------------------------|-------------|

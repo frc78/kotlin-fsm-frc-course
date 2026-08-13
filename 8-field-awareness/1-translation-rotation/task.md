@@ -25,8 +25,10 @@ An angle. Stored internally in radians; expose either with `.radians` or
 `Rotation2d.fromRadians(...)`.
 
 Operator-overloaded: `r1 + r2`, `r1 - r2`, `-r1`. (Real WPILib's `Rotation2d`
-also has `cos()`/`sin()` accessors — for this stub, just multiply by
-`fromDegrees(...)` or do the trig yourself if you need to.)
+also has `cos()`/`sin()` accessors — this stub doesn't. If you ever need
+the components of an angle, use `Translation2d.rotateBy(...)` or do
+`kotlin.math` trig on `.radians` yourself; none of this task's functions
+require it.)
 
 ## FRC field convention
 
@@ -35,6 +37,13 @@ also has `cos()`/`sin()` accessors — for this stub, just multiply by
   which alliance you're on" until you apply alliance flipping).
 - **+Y** is to the left from blue's perspective.
 - **0°** is along +X. **90°** is along +Y (counterclockwise positive).
+
+What is alliance flipping? Field-element coordinates are usually published
+for the blue alliance; when you're on red, you mirror (or rotate) those
+blue-alliance coordinates around the field center so they describe the same
+spot from your side. Real team code does this with small helper utilities.
+This course leaves the implementation out of scope — every position in these
+tasks is already in one consistent field frame.
 
 ## Your task
 

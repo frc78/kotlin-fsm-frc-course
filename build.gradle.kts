@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.4.10"
 }
 
 repositories {
@@ -28,11 +28,13 @@ sourceSets {
             "1-kotlin-for-fsms/2-enums-for-states/src",
             "1-kotlin-for-fsms/3-enums-with-properties/src",
             "1-kotlin-for-fsms/4-sealed-classes-alternative/src",
+            "1-kotlin-for-fsms/7-what-is-an-fsm/src",
             // Lesson 2
             "2-building-an-fsm/1-two-method-pattern/src",
             "2-building-an-fsm/2-transitions-with-events/src",
             "2-building-an-fsm/3-entry-side-effects/src",
             "2-building-an-fsm/4-guards/src",
+            "2-building-an-fsm/5-timers-and-timeouts/src",
             // Lesson 3
             "3-applied-subsystems/1-intake-subsystem/src",
             "3-applied-subsystems/2-elevator-subsystem/src",
@@ -45,6 +47,7 @@ sourceSets {
             "5-motor-configuration/2-motor-output-config/src",
             "5-motor-configuration/3-current-limits/src",
             "5-motor-configuration/4-pid-slot/src",
+            "5-motor-configuration/7-real-phoenix6-notes/src",
             // Lesson 6
             "6-swerve-requests/1-field-centric/src",
             "6-swerve-requests/2-robot-centric/src",
@@ -57,7 +60,7 @@ sourceSets {
             "7-superstructure-coordination/2-commanding-subsystems/src",
             "7-superstructure-coordination/3-at-target/src",
             "7-superstructure-coordination/4-sequencing-guards/src",
-            "7-superstructure-coordination/5-capstone/src",
+            "7-superstructure-coordination/5-bidirectional-sequencing/src",
             // Lesson 8
             "8-field-awareness/1-translation-rotation/src",
             "8-field-awareness/2-pose2d/src",
@@ -65,6 +68,16 @@ sourceSets {
             "8-field-awareness/4-chassis-speeds/src",
             "8-field-awareness/5-pose-estimator/src",
             "8-field-awareness/6-vision-gating/src",
+            "8-field-awareness/9-fsm-architecture-at-2056/src",
+            // Lesson 9
+            "9-capstone-lightning/1-ground-intake/src",
+            "9-capstone-lightning/2-straightenator/src",
+            "9-capstone-lightning/3-gripper-handoff/src",
+            "9-capstone-lightning/4-superstructure-coral/src",
+            "9-capstone-lightning/5-superstructure-algae/src",
+            "9-capstone-lightning/6-drive-modes/src",
+            "9-capstone-lightning/7-climber/src",
+            "9-capstone-lightning/8-full-cycle/src",
         )
     }
     test {
@@ -77,6 +90,7 @@ sourceSets {
             "2-building-an-fsm/2-transitions-with-events/test",
             "2-building-an-fsm/3-entry-side-effects/test",
             "2-building-an-fsm/4-guards/test",
+            "2-building-an-fsm/5-timers-and-timeouts/test",
             "3-applied-subsystems/1-intake-subsystem/test",
             "3-applied-subsystems/2-elevator-subsystem/test",
             "3-applied-subsystems/3-shooter-subsystem/test",
@@ -96,13 +110,21 @@ sourceSets {
             "7-superstructure-coordination/2-commanding-subsystems/test",
             "7-superstructure-coordination/3-at-target/test",
             "7-superstructure-coordination/4-sequencing-guards/test",
-            "7-superstructure-coordination/5-capstone/test",
+            "7-superstructure-coordination/5-bidirectional-sequencing/test",
             "8-field-awareness/1-translation-rotation/test",
             "8-field-awareness/2-pose2d/test",
             "8-field-awareness/3-targeting/test",
             "8-field-awareness/4-chassis-speeds/test",
             "8-field-awareness/5-pose-estimator/test",
             "8-field-awareness/6-vision-gating/test",
+            "9-capstone-lightning/1-ground-intake/test",
+            "9-capstone-lightning/2-straightenator/test",
+            "9-capstone-lightning/3-gripper-handoff/test",
+            "9-capstone-lightning/4-superstructure-coral/test",
+            "9-capstone-lightning/5-superstructure-algae/test",
+            "9-capstone-lightning/6-drive-modes/test",
+            "9-capstone-lightning/7-climber/test",
+            "9-capstone-lightning/8-full-cycle/test",
         )
     }
 }

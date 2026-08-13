@@ -3,4 +3,6 @@ content:
   - 2-commanding-subsystems
   - 3-at-target
   - 4-sequencing-guards
-  - 5-capstone
+  - 5-bidirectional-sequencing
+  - 6-check-attarget
+  - 7-check-sequencing

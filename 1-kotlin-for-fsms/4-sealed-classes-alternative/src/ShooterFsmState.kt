@@ -1,12 +1,12 @@
 package course.l1t4
 
-// Read carefully — this is the sealed class hierarchy you'll use in the next
-// task. Notice the two subclass forms:
+// Read carefully — this is the shape of the sealed class hierarchy the
+// Lesson 3 Shooter is built on. Notice the two subclass forms:
 //
 //   data object Idle               -> a singleton with no per-instance data
 //   data class  SpinningUp(...)    -> a class with a constructor argument
 //
-// You'll write subclasses like these yourself in Lesson 3 (Shooter).
+// In Lesson 3 (Shooter) you'll build a full FSM on a hierarchy just like this.
 
 sealed class ShooterFsmState {
     data object Idle : ShooterFsmState()

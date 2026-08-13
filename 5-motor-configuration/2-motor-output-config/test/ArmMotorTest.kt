@@ -16,12 +16,18 @@ class ArmMotorTest {
     @Test fun neutral_mode_is_brake() {
         ArmMotor.configure()
         val applied = ArmMotor.motor.configurator.appliedConfig!!
-        assertEquals(NeutralModeValue.Brake, applied.MotorOutput.NeutralMode)
+        assertEquals(
+            NeutralModeValue.Brake, applied.MotorOutput.NeutralMode,
+            "MotorOutput.NeutralMode of the applied config should be Brake — the configurator keeps only the most recently applied configuration, so set every field on one TalonFXConfiguration",
+        )
     }
 
     @Test fun direction_is_clockwise_positive() {
         ArmMotor.configure()
         val applied = ArmMotor.motor.configurator.appliedConfig!!
-        assertEquals(InvertedValue.Clockwise_Positive, applied.MotorOutput.Inverted)
+        assertEquals(
+            InvertedValue.Clockwise_Positive, applied.MotorOutput.Inverted,
+            "MotorOutput.Inverted of the applied config should be Clockwise_Positive — the configurator keeps only the most recently applied configuration, so set every field on one TalonFXConfiguration",
+        )
     }
 }

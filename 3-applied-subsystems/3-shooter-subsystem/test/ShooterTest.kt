@@ -34,6 +34,29 @@ class ShooterTest {
         assertEquals(FsmState.Ready(4500.0), Shooter.state)
     }
 
+    @Test fun stays_spinning_up_below_95_percent_of_target() {
+        Shooter.commandedTargetRpm = 4500.0
+        Shooter.periodic()
+        // The stub snapped velocity to the 75.0 rps setpoint; drag it back below the band.
+        Shooter.flywheel.simulateVelocity(70.0)
+        Shooter.periodic()
+        assertEquals(
+            FsmState.SpinningUp(4500.0), Shooter.state,
+            "70.0 rps is below 0.95 * 75.0 = 71.25 rps, so the shooter should still be SpinningUp, not Ready",
+        )
+    }
+
+    @Test fun reaches_ready_at_exactly_95_percent_of_target() {
+        Shooter.commandedTargetRpm = 4500.0
+        Shooter.periodic()
+        Shooter.flywheel.simulateVelocity(71.25)
+        Shooter.periodic()
+        assertEquals(
+            FsmState.Ready(4500.0), Shooter.state,
+            "71.25 rps is exactly 0.95 * 75.0 rps — the threshold check is >=, so this should count as Ready",
+        )
+    }
+
     @Test fun fire_starts_feeding() {
         Shooter.commandedTargetRpm = 4500.0
         Shooter.periodic()

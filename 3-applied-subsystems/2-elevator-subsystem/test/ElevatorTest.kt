@@ -45,9 +45,21 @@ class ElevatorTest {
         // Force position to 0 explicitly; don't run periodic so motor stays put.
         Elevator.motor.setPosition(0.0)
         // We still need the state to reflect HIGH for atTarget to compare correctly.
-        // Trigger the transition without re-issuing the position command:
+        // periodic() re-issues the PositionVoltage request and the stub snaps the
+        // simulated position to it, so force the position back to 0 afterwards:
         Elevator.periodic()
         Elevator.motor.setPosition(0.0)
         assertFalse(Elevator.atTarget())
+    }
+
+    @Test fun atTarget_false_when_position_above_target() {
+        Elevator.commandedTarget = Elevator.State.HIGH
+        Elevator.periodic()
+        // Overshoot: force the position past the 14.5 target.
+        Elevator.motor.setPosition(20.0)
+        assertFalse(
+            Elevator.atTarget(),
+            "Position 20.0 is 5.5 rotations past the 14.5 target — atTarget() must be false on both sides of the target",
+        )
     }
 }

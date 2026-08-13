@@ -1,0 +1,5 @@
+type: theory
+custom_name: "On a Real Robot: Phoenix6 Notes"
+files:
+  - name: src/RealPhoenix6.kt
+    visible: true

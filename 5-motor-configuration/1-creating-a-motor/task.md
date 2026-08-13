@@ -1,5 +1,10 @@
 # Creating a TalonFX
 
+You've been driving TalonFX motors since Lesson 2 — every FSM you've
+built has commanded one. This lesson steps back and formalizes what
+those subsystems took for granted: how a motor is constructed, and how
+it gets configured before the first control request reaches it.
+
 Every motorized subsystem on the robot starts the same way: declare a motor
 controller bound to a CAN ID, then send it control requests.
 
@@ -26,9 +31,11 @@ motor.setControl(VoltageOut(2.0))   // 2 volts forward (positive)
 ```
 
 `VoltageOut` takes any `Double` — positive runs the motor in its
-configured "forward" direction, negative runs it the other way. To
-release the motor, use `motor.stopMotor()`, which is shorthand for
-sending a `NeutralOut` request.
+configured "forward" direction, negative runs it the other way. Its
+close cousin `DutyCycleOut` instead takes a *fraction* of battery
+voltage, from -1.0 to 1.0. To release the motor, use
+`motor.stopMotor()`, which is shorthand for sending a `NeutralOut`
+request.
 
 ## Your task
 

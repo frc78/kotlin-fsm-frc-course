@@ -41,7 +41,10 @@ final expression is the request you pass to `drivetrain.setControl(...)`.
 > shape is identical — your code reads the same — but the underlying
 > semantics differ. In real code, you typically create one `FieldCentric` as a
 > field and reuse it; here, you can make a fresh one each tick without any
-> performance worry.
+> performance worry. The real `FieldCentric` (and `RobotCentric`, next task)
+> also take `withDeadband(...)` and `withRotationalDeadband(...)` to ignore
+> small joystick noise — the most common configuration besides the velocities;
+> the stub omits them.
 
 ## Your task
 

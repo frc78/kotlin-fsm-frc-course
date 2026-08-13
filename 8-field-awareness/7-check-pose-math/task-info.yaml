@@ -1,0 +1,15 @@
+type: choice
+custom_name: "Check: Pose Math"
+is_multiple_choice: false
+options:
+  - text: "(6.0, 3.0)"
+    is_correct: false
+  - text: "(4.0, 5.0)"
+    is_correct: true
+  - text: "(4.0, 1.0)"
+    is_correct: false
+  - text: "(2.0, 0.0)"
+    is_correct: false
+message_correct: "Rotate the body-frame offset (2, 0) by the 90° heading to get (0, 2) in field coordinates, then add the robot's position (4, 3) — rotate first, then shift."
+message_incorrect: "Walk through task 2's two-step recipe for gamePieceFieldPosition again: the body-frame offset must be rotated by the robot's heading before it can be combined with the robot's field position — and both the direction of the rotation and add-versus-subtract matter."
+local_check: true

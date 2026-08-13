@@ -39,6 +39,18 @@ object Indexer : Subsystem {
 
 `Subsystem` (in the `frc.stubs` package) is just `interface Subsystem { fun periodic() }`.
 
+## The hardware
+
+Two devices show up in this task:
+
+- `TalonFX` is the motor controller. You command it by passing a *control
+  request* to `motor.setControl(...)`. The simplest request is
+  `VoltageOut(v)`, which applies `v` volts to the motor — negative volts
+  run it in reverse.
+- The jam sensor is a `DigitalInput` — a beam-break sensor wired to a
+  digital channel. `jamSensor.get()` returns `true` when the beam is
+  tripped (something is stuck in the indexer).
+
 ## Your task
 
 Open `src/Indexer.kt`. The state enum, fields, and `periodic()` are wired up.
@@ -61,7 +73,8 @@ You need to fill in the two `when` blocks:
 | `INDEXING`   | `commandedIndex` is `false`        | `IDLE`     |
 | `JAMMED`     | `commandedIndex` is `false`        | `IDLE`     |
 
-If no condition matches, stay in the current state.
+When a state has more than one row, check the conditions top to bottom — the
+first match wins. If no condition matches, stay in the current state.
 
 ## Hint
 

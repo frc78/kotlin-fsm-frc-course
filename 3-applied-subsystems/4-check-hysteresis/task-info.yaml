@@ -1,0 +1,15 @@
+type: choice
+custom_name: "Check: Hysteresis"
+is_multiple_choice: false
+options:
+  - text: "IDLE — 0.07 m is above the 0.05 m threshold, so the piece counts as lost"
+    is_correct: false
+  - text: "HOLDING — 0.07 m is inside the band between the two thresholds, so nothing changes"
+    is_correct: true
+  - text: "INTAKING — the intake drops back to pulling the piece in until the reading is under 0.05 m again"
+    is_correct: false
+  - text: "It flaps: the state alternates between HOLDING and IDLE on every tick"
+    is_correct: false
+message_correct: "Right — while HOLDING, only a reading above 0.10 m counts as losing the piece, and that dead band between the two thresholds is exactly what stops the state flapping around one noisy value."
+message_incorrect: "Re-read the detected/lost definitions under task 1's transition table — they use two different thresholds, and only one of them applies while the intake is HOLDING."
+local_check: true

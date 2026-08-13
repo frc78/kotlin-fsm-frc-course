@@ -7,21 +7,29 @@ you learn here transfers directly to a real robot project.
 
 ## What's inside
 
-8 lessons, 39 tasks:
+9 lessons, 64 tasks (43 programming exercises, 18 comprehension checks,
+3 theory pages):
 
 1. **Kotlin for FSMs** — `enum`, sealed classes, `when` expressions.
-2. **Building an FSM** — the two-method `stateActions()` / `stateTransitions()` pattern.
+2. **Building an FSM** — the two-method `stateActions()` / `stateTransitions()` pattern, entry side effects, guards, and timers.
 3. **Applied subsystems** — Intake, Elevator, Shooter (real subsystem shapes).
 4. **Testing** — pure-function FSM tests + dependency injection with fake hardware.
 5. **Motor configuration** — TalonFX setup: instantiation, neutral mode + inversion, current limits, and Slot0 PID gains.
 6. **Swerve drive requests** — Phoenix6 `SwerveRequest` API (`FieldCentric`, `RobotCentric`, `SwerveDriveBrake`, `PointWheelsAt`, `FieldCentricFacingAngle`) plus a drive-mode FSM.
 7. **Superstructure coordination** — composing subsystem FSMs into a single robot FSM with sequencing guards.
 8. **Field awareness** — `Translation2d` / `Rotation2d` / `Pose2d` math, `ChassisSpeeds`, pose estimator + vision-measurement gating.
+9. **Capstone: LIGHTNING** — program team 2056's 2025 robot subsystem by
+   subsystem (slap-down intake, "Straightenator" indexer, gripper handoff,
+   arm+elevator superstructure, drivebase modes, one-way climber, and a full
+   match cycle), built from their published [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-2056-Technical-Binder.pdf)
+   and [Chief Delphi Q&A](https://www.chiefdelphi.com/t/team-2056-op-robotics-2025-technical-binder-release/502550).
 
 ## Setup
 
 1. Install **IntelliJ IDEA** (Community is fine).
-2. Install **JDK 17** or newer. IntelliJ can download one for you on first import.
+2. Install **JDK 17 or newer** (IntelliJ can download one for you on first
+   import). Any modern JDK works — the build runs Gradle 9.5 and
+   auto-downloads its own JDK 17 compile toolchain.
 3. Install the **EduTools** plugin: `Settings → Plugins → Marketplace`, search "EduTools," install, restart.
 4. Clone this repo:
    ```
@@ -57,13 +65,15 @@ clobber it.
 
 ## Troubleshooting
 
-- **Gradle import error mentioning `mapPath()`:** bump the wrapper version
-  with `./gradlew wrapper --gradle-version 8.14` and reload.
+- **Build fails with only a version number as the error (e.g. `What went
+  wrong: 25.0.4`):** your Gradle JVM is older than this course's Gradle 9.5
+  wrapper supports, or a stale Gradle daemon is running. Set `Settings →
+  Build Tools → Gradle → Gradle JVM` to any JDK 17–25 and reload.
 - **Course view is empty:** confirm the EduTools plugin is installed and
   that you opened the *root* folder (the one containing `course-info.yaml`),
   not a sub-lesson.
 - **JDK errors:** `Settings → Build Tools → Gradle → Gradle JVM` should be
-  JDK 17 or newer.
+  a JDK 17 or newer.
 
 ## What's NOT included
 

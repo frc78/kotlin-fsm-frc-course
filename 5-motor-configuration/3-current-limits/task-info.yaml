@@ -2,9 +2,5 @@ type: edu
 files:
   - name: src/IntakeMotor.kt
     visible: true
-    learner_created: false
   - name: test/IntakeMotorTest.kt
     visible: false
-    learner_created: false
-status: Unchecked
-record: -1

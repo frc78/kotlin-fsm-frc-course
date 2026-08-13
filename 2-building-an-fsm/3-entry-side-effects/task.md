@@ -21,9 +21,10 @@ The pattern is "on edge, not on level":
 3. If they're the same, do nothing — periodic ticks within the same
    state are quiet.
 
-`previousState` is nullable (`State?`) so that on the very first tick,
-`state != null` is true and the entry effect runs for the initial state
-too — which is what you want for things like "log the starting state."
+`previousState` is nullable (`State?`) so that on the very first tick —
+when `previousState` is still `null` — `state != previousState` is true
+and the entry effect runs for the initial state too, which is what you
+want for things like "log the starting state."
 
 `periodic()` is already wired so that `runEntrySideEffects()` runs
 *between* `stateTransitions()` and `stateActions()` — that ordering

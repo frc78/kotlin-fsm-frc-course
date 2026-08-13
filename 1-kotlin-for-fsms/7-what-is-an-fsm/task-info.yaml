@@ -1,0 +1,5 @@
+type: theory
+custom_name: "What Is an FSM?"
+files:
+  - name: src/FsmPlayground.kt
+    visible: true

@@ -1,0 +1,15 @@
+type: choice
+custom_name: "Check: Request Frames"
+is_multiple_choice: false
+options:
+  - text: "RobotCentric — its velocityX always means the same thing: straight out the front of the robot"
+    is_correct: false
+  - text: "FieldCentric — its velocities are in field coordinates, so the same stick push moves the robot the same way at any heading"
+    is_correct: true
+  - text: "SwerveDriveBrake — the X-lock ignores heading entirely"
+    is_correct: false
+  - text: "FieldCentric and RobotCentric behave the same, as long as the gyro was zeroed at the start of the match"
+    is_correct: false
+message_correct: "Right — FieldCentric velocities live in the field's frame and the drivetrain uses the gyro to convert them, so heading never changes what the stick means (RobotCentric only agrees with it at the single instant the heading is exactly zero)."
+message_incorrect: "Re-read the frame definitions in tasks 1 and 2: each request's velocityX names a direction — ask which of those directions rotates with the robot and which is bolted to the field."
+local_check: true

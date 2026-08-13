@@ -1,3 +1,4 @@
+type: marketplace
 title: Kotlin FSMs for FRC Subsystems
 language: English
 summary: |-
@@ -13,8 +14,15 @@ summary: |-
     4. Testing — verify FSMs without hardware.
     5. Motor configuration — TalonFX setup: neutral mode, inversion,
        current limits, and PID slots.
+    6. Swerve Requests - Learn to use CTREs Swerve API
+    7. Superstructure Coordination - Combine multiple subsystem state machines into a full robot.
+    8. Field awareness - Learn about how robots interact with position systems
+    9. Capstone - Program LIGHTNING, team 2056's 2025 robot, subsystem by
+       subsystem: intake, indexer, gripper, superstructure, drivebase, and
+       climber, straight from their published technical binder.
+vendor:
+  name: Aquidneck Island Robotics
 programming_language: Kotlin
-programming_language_version: 2.0
 content:
   - 1-kotlin-for-fsms
   - 2-building-an-fsm
@@ -24,6 +32,9 @@ content:
   - 6-swerve-requests
   - 7-superstructure-coordination
   - 8-field-awareness
+  - 9-capstone-lightning
+environment_settings:
+  jvm_language_level: JDK_17
 additional_files:
   - name: util/src/main/kotlin/frc/stubs/swerve/SwerveRequest.kt
   - name: util/src/main/kotlin/frc/stubs/swerve/SwerveDrivetrain.kt
@@ -37,7 +48,10 @@ additional_files:
   - name: util/src/main/kotlin/frc/stubs/kinematics/ChassisSpeeds.kt
   - name: util/src/main/kotlin/frc/stubs/TalonFX.kt
   - name: util/src/main/kotlin/frc/stubs/CANrange.kt
+  - name: util/src/main/kotlin/frc/stubs/Timer.kt
   - name: util/src/main/kotlin/frc/stubs/Subsystem.kt
+  - name: util/src/main/kotlin/frc/stubs/lightning/Elevator.kt
+  - name: util/src/main/kotlin/frc/stubs/lightning/Wrist.kt
   - name: util/src/main/kotlin/frc/stubs/superstructure/Arm.kt
   - name: util/src/main/kotlin/frc/stubs/superstructure/Intake.kt
   - name: util/src/main/kotlin/frc/stubs/superstructure/Elevator.kt
@@ -46,5 +60,4 @@ additional_files:
   - name: gradle.properties
   - name: settings.gradle.kts
   - name: gradle/wrapper/gradle-wrapper.properties
-mode: Study
-yaml_version: 5
+yaml_version: 6

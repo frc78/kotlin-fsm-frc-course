@@ -1,0 +1,5 @@
+type: theory
+custom_name: "FSM Architecture at 2056"
+files:
+  - name: src/ArchitectureDemo.kt
+    visible: true

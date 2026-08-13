@@ -43,5 +43,7 @@ The constructor is already wired up — you just need to fill in the values.
 
 - Syntax for an enum value with constructor args:
   `STOWED(targetRotations = 0.0)`. The named argument is optional but reads well.
-- After the last enum value, end with a semicolon (`;`). This is required when
-  the enum has a constructor or members.
+- The starter file already ends the entry list with a semicolon (`;`) — write
+  your four values *before* it. Kotlin only requires that trailing semicolon
+  when the enum body goes on to declare members (functions or properties)
+  after the entries; here it's optional, but harmless.

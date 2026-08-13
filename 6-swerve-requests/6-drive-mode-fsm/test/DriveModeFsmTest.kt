@@ -28,27 +28,29 @@ class DriveModeFsmTest {
 
     @Test fun robot_relative_applies_robot_centric() {
         DriveModeFsm.requestedVx = 1.0
-        DriveModeFsm.requestedVy = 0.0
-        DriveModeFsm.requestedOmega = 0.0
+        DriveModeFsm.requestedVy = 0.5
+        DriveModeFsm.requestedOmega = 0.3
         DriveModeFsm.commandedRobotRelative = true
         DriveModeFsm.periodic()
         assertEquals(DriveModeFsm.State.TELEOP_ROBOT, DriveModeFsm.state)
         assertEquals(
-            RobotCentric(velocityX = 1.0),
-            DriveModeFsm.drivetrain.lastRequest
+            RobotCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.3),
+            DriveModeFsm.drivetrain.lastRequest,
+            "TELEOP_ROBOT should send a RobotCentric carrying all of requestedVx, requestedVy, and requestedOmega"
         )
     }
 
     @Test fun aim_applies_facing_angle() {
         DriveModeFsm.requestedVx = 0.5
-        DriveModeFsm.requestedVy = 0.0
+        DriveModeFsm.requestedVy = -0.4
         DriveModeFsm.commandedAim = true
         DriveModeFsm.aimTargetDegrees = 90.0
         DriveModeFsm.periodic()
         assertEquals(DriveModeFsm.State.AIMING, DriveModeFsm.state)
         assertEquals(
-            FieldCentricFacingAngle(velocityX = 0.5, velocityY = 0.0, targetDirection = 90.0),
-            DriveModeFsm.drivetrain.lastRequest
+            FieldCentricFacingAngle(velocityX = 0.5, velocityY = -0.4, targetDirection = 90.0),
+            DriveModeFsm.drivetrain.lastRequest,
+            "AIMING should send a FieldCentricFacingAngle carrying requestedVx, requestedVy, and aimTargetDegrees"
         )
     }
 

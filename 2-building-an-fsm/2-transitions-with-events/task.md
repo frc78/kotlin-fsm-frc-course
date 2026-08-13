@@ -8,13 +8,15 @@ about. There are two common kinds:
 2. **Sensor reads** — values pulled directly from hardware:
    `canRange.getDistance()`, `motor.getPosition()`, `limitSwitch.get()`.
 
-Inside `stateTransitions()` you mix both freely. A single branch's
-condition can read a sensor (`someSensor.getValue() < threshold`),
-read a driver intent (`commandedX`), or combine the two with `&&` /
-`||`.
+Inside `stateTransitions()` you read both freely. In this task, some
+transitions are keyed off driver intent (`commandedIntake`) while others
+are keyed off a sensor read (`canRange.getDistance()`) — all in the same
+`when` block.
 
-The key idea: **each transition is a logical OR of conditions, but each
-condition can mix driver intent AND sensor reads.**
+The key idea: **one `stateTransitions()` method watches every kind of
+input the subsystem cares about.** Combining driver intent *and* a sensor
+read in a single condition with `&&` is called a *guard* — that's the
+subject of task 4.
 
 ## CANrange
 
@@ -27,6 +29,10 @@ canRange.getDistance(): Double   // meters; smaller means closer
 
 In this task, we use it to detect a game piece in the intake: if distance drops
 below 0.05 m (5 cm), a piece has arrived.
+
+> **Real Phoenix6 detail:** real sensor reads return `StatusSignal` objects —
+> you'd write `canRange.distance.value` or `motor.position.valueAsDouble`. The
+> stubs flatten these to plain `Double`s, so the FSM logic reads the same.
 
 ## Your task
 
