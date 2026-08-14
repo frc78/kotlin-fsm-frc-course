@@ -1,15 +1,21 @@
 type: choice
-custom_name: "Check: current limits"
 is_multiple_choice: false
 options:
-  - text: "40 A — the two configurations merge, so the supply settings from the first apply survive."
+  - text: "40 A — the two configurations merge, so the supply settings from the first\
+    \ apply survive."
     is_correct: false
-  - text: "None — apply() replaces the entire configuration, and the second config left every supply field at its disabled default."
+  - text: "None — apply() replaces the entire configuration, and the second config left\
+    \ every supply field at its disabled default."
     is_correct: true
-  - text: "80 A — the most recent limit value wins and covers supply and stator alike."
+  - text: 80 A — the most recent limit value wins and covers supply and stator alike.
     is_correct: false
   - text: "Both limits are active: 40 A supply and 80 A stator."
     is_correct: false
-message_correct: "Every apply() hands the motor a complete configuration, so any field the applied config didn't set snaps back to its default — build everything in one TalonFXConfiguration and apply it once."
-message_incorrect: "Re-read Current Limits (task 3), especially the hint about how many TalonFXConfiguration blocks a subsystem needs — and ask what happens to fields a freshly-constructed config never mentions."
+message_correct: "Every apply() hands the motor a complete configuration, so any field\
+  \ the applied config didn't set snaps back to its default — build everything in\
+  \ one TalonFXConfiguration and apply it once."
+message_incorrect: "Re-read Current Limits (task 3), especially the hint about how\
+  \ many TalonFXConfiguration blocks a subsystem needs — and ask what happens to fields\
+  \ a freshly-constructed config never mentions."
+custom_name: "Check: current limits"
 local_check: true

@@ -1,15 +1,22 @@
 type: choice
-custom_name: "Check: closed loop and Slot0"
 is_multiple_choice: false
 options:
-  - text: "VoltageOut(6.0) — the configured gains scale whatever voltage you send."
+  - text: VoltageOut(6.0) — the configured gains scale whatever voltage you send.
     is_correct: false
-  - text: "DutyCycleOut(0.5) — the gains convert the duty-cycle fraction into a velocity target."
+  - text: DutyCycleOut(0.5) — the gains convert the duty-cycle fraction into a velocity
+      target.
     is_correct: false
-  - text: "VelocityVoltage(50.0) — a closed-loop request; the controller uses the Slot0 gains to chase the target velocity."
+  - text: VelocityVoltage(50.0) — the controller uses the Slot0 gains to chase the
+      target velocity.
     is_correct: true
-  - text: "Any of them — once applied, the gains automatically shape every request the motor receives."
+  - text: "Any of them — once applied, the gains automatically shape every request the\
+    \ motor receives."
     is_correct: false
-message_correct: "Closed-loop requests like VelocityVoltage and PositionVoltage are what engage the configured gains, and slot 0 is the default slot — open-loop requests ignore the gains entirely."
-message_incorrect: "Look back at how task 4 contrasts open-loop and closed-loop control: which kind of request hands the motor a target to chase, instead of an output to produce?"
+message_correct: "Closed-loop requests like VelocityVoltage and PositionVoltage are\
+  \ what engage the configured gains, and slot 0 is the default slot — open-loop requests\
+  \ ignore the gains entirely."
+message_incorrect: "Look back at how task 4 contrasts open-loop and closed-loop control:\
+  \ which kind of request hands the motor a target to chase, instead of an output\
+  \ to produce?"
+custom_name: "Check: closed loop and Slot0"
 local_check: true

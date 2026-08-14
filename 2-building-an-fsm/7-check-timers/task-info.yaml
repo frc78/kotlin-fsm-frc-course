@@ -1,8 +1,8 @@
 type: choice
-custom_name: "Check: The Timer Latch"
 is_multiple_choice: false
 options:
-  - text: "EJECTING — the request is latched, and only the timer reaching 0.5 seconds ends it"
+  - text: "EJECTING — the request is latched, and only the timer reaching 0.5 seconds\
+    \ ends it"
     is_correct: true
   - text: "IDLE — the driver released the button, so the eject was cut short"
     is_correct: false
@@ -10,6 +10,9 @@ options:
     is_correct: false
   - text: "INTAKING — with eject released, the intake falls back to running forward"
     is_correct: false
-message_correct: "Exactly — the EJECTING row watches only the timer, so a one-tick tap buys the full 0.5 seconds no matter what the buttons do afterward."
-message_incorrect: "Re-read the latch discussion in task 5: which conditions appear on the EJECTING row of the transition table, and which deliberately do not?"
+message_correct: "Exactly — the EJECTING row watches only the timer, so a one-tick\
+  \ tap buys the full 0.5 seconds no matter what the buttons do afterward."
+message_incorrect: "Re-read the latch discussion in task 5: which conditions appear\
+  \ on the EJECTING row of the transition table, and which deliberately do not?"
+custom_name: "Check: Timers"
 local_check: true

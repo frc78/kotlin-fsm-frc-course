@@ -1,15 +1,24 @@
 type: choice
-custom_name: "Check: sealed class or enum?"
 is_multiple_choice: false
 options:
   - text: "An enum with a targetRpm property, exactly like ElevatorState in task 3."
     is_correct: false
-  - text: "A sealed class: a data class subclass like SpinningUp(targetRpm) takes the rpm as a constructor argument, so each state instance carries its own runtime value."
+  - text: "A sealed class: a data class subclass like SpinningUp(targetRpm) takes the\
+    \ rpm as a constructor argument, so each state instance carries its own runtime\
+    \ value."
     is_correct: true
-  - text: "A plain enum for the state, plus a separate targetRpm variable on the subsystem that you remember to update whenever the state changes."
+  - text: "A plain enum for the state, plus a separate targetRpm variable on the subsystem\
+    \ that you remember to update whenever the state changes."
     is_correct: false
-  - text: "A String state such as SPINNING_UP_4500, so the rpm is encoded in the state's name."
+  - text: "A String state such as SPINNING_UP_4500, so the rpm is encoded in the state's\
+    \ name."
     is_correct: false
-message_correct: "Right — an enum property's value is fixed per value when the enum is declared, but a sealed data class takes a fresh constructor argument every time you create the state, so runtime data stays glued to the state that owns it."
-message_incorrect: "Compare tasks 3 and 4: when is an enum property's value decided, and when is a sealed subclass's constructor argument decided? Only one of them can happen at runtime."
+message_correct: "Right — an enum property's value is fixed per value when the enum\
+  \ is declared, but a sealed data class takes a fresh constructor argument every\
+  \ time you create the state, so runtime data stays glued to the state that owns\
+  \ it."
+message_incorrect: "Compare tasks 3 and 4: when is an enum property's value decided,\
+  \ and when is a sealed subclass's constructor argument decided? Only one of them\
+  \ can happen at runtime."
+custom_name: "Check: sealed class or enum?"
 local_check: true

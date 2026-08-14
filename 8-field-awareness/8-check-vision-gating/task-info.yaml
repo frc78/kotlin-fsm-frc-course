@@ -1,15 +1,23 @@
 type: choice
-custom_name: "Check: Vision Gating"
 is_multiple_choice: false
 options:
-  - text: "Yes — vision is always more accurate than odometry, so the estimator should trust every measurement it gets."
+  - text: "Yes — vision is always more accurate than odometry, so the estimator should\
+    \ trust every measurement it gets."
     is_correct: false
-  - text: "Yes, but apply only the x coordinate — a partial correction is safer than a full one."
+  - text: "Yes, but apply only the x coordinate — a partial correction is safer than\
+    \ a full one."
     is_correct: false
-  - text: "No — a jump farther than the robot could physically travel in one frame means a bad tag read; applying it would teleport the pose estimate."
+  - text: No — a jump farther than the robot could physically travel in one frame means
+      a bad tag read; applying it would teleport the pose estimate.
     is_correct: true
-  - text: "No — vision measurements should never update the estimator; odometry alone is more reliable."
+  - text: No — vision measurements should never update the estimator; odometry alone
+      is more reliable.
     is_correct: false
-message_correct: "That's the implausibility gate doing its job: no robot covers 5 meters in one frame, so the measurement must be a bad detection — feeding it in would teleport the estimate."
-message_incorrect: "Look again at the three-gate table in task 6 and ask what each gate protects against — in particular, why the estimator compares a candidate pose against its current belief before deciding anything."
+message_correct: "That's the implausibility gate doing its job: no robot covers 5\
+  \ meters in one frame, so the measurement must be a bad detection — feeding it in\
+  \ would teleport the estimate."
+message_incorrect: "Look again at the three-gate table in task 6 and ask what each\
+  \ gate protects against — in particular, why the estimator compares a candidate\
+  \ pose against its current belief before deciding anything."
+custom_name: "Check: Vision Gating"
 local_check: true

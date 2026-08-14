@@ -1,15 +1,23 @@
 type: choice
-custom_name: "Check: atTarget() rolls up"
 is_multiple_choice: false
 options:
   - text: "true — two of the three subsystems have settled, and a majority is good enough"
     is_correct: false
-  - text: "false — atTarget() is the AND of every subsystem's answer; reporting ready while the arm is still swinging would let higher-level code act on a robot that isn't in position"
+  - text: false — atTarget() is the AND of every subsystem's answer; reporting ready
+      while the arm is still swinging would let higher-level code act on a robot that
+      isn't in position
     is_correct: true
-  - text: "true — the elevator is the slowest subsystem, so once it settles the robot is effectively at target"
+  - text: "true — the elevator is the slowest subsystem, so once it settles the robot\
+    \ is effectively at target"
     is_correct: false
-  - text: "Whatever elevator.atTarget() returns — the superstructure just forwards the answer from its slowest subsystem"
+  - text: Whatever elevator.atTarget() returns — the superstructure just forwards the
+      answer from its slowest subsystem
     is_correct: false
-message_correct: "The robot is at its commanded state only when every contributing subsystem has settled — atTarget() is a conjunction, so one still-moving arm makes the whole answer false."
-message_incorrect: "Re-read task 3 (atTarget() Rolls Up): what single boolean expression did you write there, and what would it mean for auto code if the superstructure reported ready while a mechanism was still moving?"
+message_correct: "The robot is at its commanded state only when every contributing\
+  \ subsystem has settled — atTarget() is a conjunction, so one still-moving arm makes\
+  \ the whole answer false."
+message_incorrect: "Re-read task 3 (atTarget() Rolls Up): what single boolean expression\
+  \ did you write there, and what would it mean for auto code if the superstructure\
+  \ reported ready while a mechanism was still moving?"
+custom_name: "Check: atTarget() rolls up"
 local_check: true

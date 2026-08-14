@@ -1,15 +1,20 @@
 type: choice
-custom_name: "Check: exhaustive when"
 is_multiple_choice: false
 options:
   - text: "It compiles, but throws an exception at runtime the first time state is HANGING."
     is_correct: false
-  - text: "It does not compile: a when used as an expression must cover every enum value or provide an else branch."
+  - text: "It does not compile: a when used as an expression must cover every enum value\
+    \ or provide an else branch."
     is_correct: true
-  - text: "It compiles with a warning, and runs fine as long as state never happens to be HANGING."
+  - text: "It compiles with a warning, and runs fine as long as state never happens\
+    \ to be HANGING."
     is_correct: false
   - text: "It compiles, and the when returns null whenever state is HANGING."
     is_correct: false
-message_correct: "Because this when produces the function's return value, the compiler must prove every possible input yields a value — a missing enum case is caught before the code ever runs."
-message_incorrect: "Re-read the 'Why enums for states' section in task 2 — it says exactly what the compiler does with a when over an enum that is missing a case."
+message_correct: "Because this when produces the function's return value, the compiler\
+  \ must prove every possible input yields a value — a missing enum case is caught\
+  \ before the code ever runs."
+message_incorrect: Re-read the 'Why enums for states' section in task 2 — it says
+  exactly what the compiler does with a when over an enum that is missing a case.
+custom_name: "Check: exhaustive when"
 local_check: true

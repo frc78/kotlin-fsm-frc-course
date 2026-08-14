@@ -1,15 +1,19 @@
 type: choice
-custom_name: "Check: Transition Priority"
 is_multiple_choice: false
 options:
   - text: "HOLDING — rows are checked top to bottom, and the sensor row is listed first"
     is_correct: true
-  - text: "IDLE — the driver's release always takes priority over a sensor read"
+  - text: IDLE — the driver's release always takes priority over a sensor read
     is_correct: false
-  - text: "Both rows fire: the FSM moves to HOLDING and then on to IDLE in the same tick"
+  - text: "Both rows fire: the FSM moves to HOLDING and then on to IDLE in the same\
+    \ tick"
     is_correct: false
-  - text: "It throws an exception — two matching conditions on one tick is an error"
+  - text: It throws an exception — two matching conditions on one tick is an error
     is_correct: false
-message_correct: "Right — the when expression assigns exactly one next state per tick, and you encode priority by ordering the rows: the first matching condition wins."
-message_incorrect: "Re-read the note under the transition tables in tasks 1 and 2: when a state has more than one row and several conditions are true on the same tick, what decides which one applies?"
+message_correct: "Right — the when expression assigns exactly one next state per tick,\
+  \ and you encode priority by ordering the rows: the first matching condition wins."
+message_incorrect: "Re-read the note under the transition tables in tasks 1 and 2:\
+  \ when a state has more than one row and several conditions are true on the same\
+  \ tick, what decides which one applies?"
+custom_name: "Check: Transition Priority"
 local_check: true

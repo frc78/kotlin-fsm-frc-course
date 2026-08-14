@@ -1,4 +1,4 @@
-# Check: One Loop Stale
+# Check: Wiring Order
 
 Task 8's `Lightning.periodic()` runs five steps, and step 3 —
 `MiniSuperstructure.coralInGripper = MiniGripper.hasCoral()` — is wedged in

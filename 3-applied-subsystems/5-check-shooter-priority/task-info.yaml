@@ -1,15 +1,21 @@
 type: choice
-custom_name: "Check: Shooter Priority"
 is_multiple_choice: false
 options:
-  - text: "Ready — the flywheel hit its ready band, and reaching speed beats a driver input"
+  - text: "Ready — the flywheel hit its ready band, and reaching speed beats a driver\
+    \ input"
     is_correct: false
   - text: "Feeding — the flywheel is at speed, so the shooter feeds the piece immediately"
     is_correct: false
-  - text: "Idle — the clear-target row sits higher in the table, and the first matching row wins"
+  - text: "Idle — the clear-target row sits higher in the table, and the first matching\
+    \ row wins"
     is_correct: true
-  - text: "Undefined — with two rows true at once, the result depends on how the compiler orders the checks"
+  - text: "Undefined — with two rows true at once, the result depends on how the compiler\
+    \ orders the checks"
     is_correct: false
-message_correct: "Exactly — row order is priority order: when several conditions hold on the same tick, the first matching row wins, and clearing the target is listed above reaching speed."
-message_incorrect: "Look back at task 3's transition table, especially the sentence just below it about what happens when more than one condition holds at once."
+message_correct: "Exactly — row order is priority order: when several conditions hold\
+  \ on the same tick, the first matching row wins, and clearing the target is listed\
+  \ above reaching speed."
+message_incorrect: "Look back at task 3's transition table, especially the sentence\
+  \ just below it about what happens when more than one condition holds at once."
+custom_name: "Check: Shooter Priority"
 local_check: true
