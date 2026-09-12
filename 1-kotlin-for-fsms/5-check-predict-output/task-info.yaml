@@ -1,0 +1,18 @@
+type: choice
+is_multiple_choice: false
+options:
+  - text: "low battery, empty"
+    is_correct: false
+  - text: "low battery, holding"
+    is_correct: true
+  - text: "holding"
+    is_correct: false
+  - text: "ready"
+    is_correct: false
+message_correct: "The first test needs both parts to be true. One part is false,\
+  \ so the chain moves to the second test, which only looks at the voltage."
+message_incorrect: "Work through the chain one test at a time. For each test, write\
+  \ down true or false. The first true test picks the branch, and the rest are skipped.\
+  \ Remember that ! flips a Boolean."
+custom_name: "Check: predict the output"
+local_check: true
