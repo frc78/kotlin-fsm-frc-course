@@ -23,7 +23,7 @@ sealed class Transition {
 ```
 
 Note: this is a *sealed class with parameterized subclasses*, exactly like
-the shooter FSM in Lesson 1 Task 4. The data being carried (the target we're
+the shooter FSM in Lesson 1 Task 12. The data being carried (the target we're
 moving toward) lives on the state itself.
 
 ## How the phases play

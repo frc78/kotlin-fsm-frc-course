@@ -14,7 +14,7 @@ options:
 message_correct: "Because this when produces the function's return value, the compiler\
   \ must prove every possible input yields a value — a missing enum case is caught\
   \ before the code ever runs."
-message_incorrect: Re-read the 'Why enums for states' section in task 2 — it says
+message_incorrect: Re-read the 'Why enums for states' section in task 9 — it says
   exactly what the compiler does with a when over an enum that is missing a case.
 custom_name: "Check: exhaustive when"
 local_check: true

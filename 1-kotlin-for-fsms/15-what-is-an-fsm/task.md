@@ -1,8 +1,8 @@
 # What Is an FSM?
 
 You now have every ingredient this lesson set out to give you: enums name a
-fixed set of states (task 2), enum properties attach compile-time data to them
-(task 3), and sealed classes carry runtime data (task 4). Before Lesson 2 puts
+fixed set of states (task 9), enum properties attach compile-time data to them
+(task 11), and sealed classes carry runtime data (task 12). Before Lesson 2 puts
 those pieces to work on a real subsystem, let's zoom out and name the pattern
 they all serve.
 
@@ -26,7 +26,7 @@ moment, the mechanism is in exactly one of a small, named set of modes.*
 
 Think about any FRC mechanism: an intake, an elevator, a shooter. Each is one
 mechanism with a handful of modes — an intake is idle, intaking, holding, or
-ejecting (you declared exactly those four in task 2). And what flips it
+ejecting (you declared exactly those four in task 9). And what flips it
 between modes is always some input: the driver holds a button, a beam-break
 sees the game piece, a timer expires. States, transitions, actions. An FSM
 isn't something you impose on a subsystem — it's what a subsystem already
@@ -56,5 +56,5 @@ state each tick. Run `main` and watch the cycle scroll by.
 
 Then change it: add a `RINSING` state between `DRAINING` and `SPINNING`. The
 moment you add the enum value, the compiler flags both `when` blocks as
-non-exhaustive — that's the safety net from task 2 working for you. Next
+non-exhaustive — that's the safety net from task 9 working for you. Next
 lesson you build this exact shape into a real subsystem.
