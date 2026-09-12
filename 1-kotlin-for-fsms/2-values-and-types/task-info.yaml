@@ -1,0 +1,6 @@
+type: edu
+files:
+  - name: src/RobotFacts.kt
+    visible: true
+  - name: test/RobotFactsTest.kt
+    visible: false

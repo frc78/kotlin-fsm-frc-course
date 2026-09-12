@@ -1,5 +1,6 @@
 content:
   - 1-your-first-program
+  - 2-values-and-types
   - 9-enums-for-states
   - 11-enums-with-properties
   - 12-sealed-classes-alternative
