@@ -1,0 +1,6 @@
+type: edu
+files:
+  - name: src/Battery.kt
+    visible: true
+  - name: test/BatteryTest.kt
+    visible: false
