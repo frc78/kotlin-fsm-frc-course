@@ -8,6 +8,7 @@ content:
   - 7-loops-and-lists
   - 8-check-read-the-error
   - 9-enums-for-states
+  - 10-when-expression
   - 11-enums-with-properties
   - 12-sealed-classes-alternative
   - 13-check-exhaustive-when
