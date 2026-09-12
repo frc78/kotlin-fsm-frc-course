@@ -1,6 +1,0 @@
-type: edu
-files:
-  - name: src/RobotIntro.kt
-    visible: true
-  - name: test/RobotIntroTest.kt
-    visible: false

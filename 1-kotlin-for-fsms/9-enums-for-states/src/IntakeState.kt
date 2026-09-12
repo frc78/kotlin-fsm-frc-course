@@ -1,4 +1,4 @@
-package course.l1t2
+package course.l1t9
 
 enum class IntakeState {
     // TODO: see task.md.

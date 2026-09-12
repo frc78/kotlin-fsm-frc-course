@@ -1,8 +1,7 @@
 content:
-  - 1-hello-kotlin
-  - 2-enums-for-states
-  - 3-enums-with-properties
-  - 4-sealed-classes-alternative
-  - 5-check-exhaustive-when
-  - 6-check-sealed-vs-enum
-  - 7-what-is-an-fsm
+  - 9-enums-for-states
+  - 11-enums-with-properties
+  - 12-sealed-classes-alternative
+  - 13-check-exhaustive-when
+  - 14-check-sealed-vs-enum
+  - 15-what-is-an-fsm

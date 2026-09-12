@@ -1,4 +1,4 @@
-package course.l1t4
+package course.l1t12
 
 // Read carefully — this is the shape of the sealed class hierarchy the
 // Lesson 3 Shooter is built on. Notice the two subclass forms:

@@ -1,4 +1,4 @@
-package course.l1t4
+package course.l1t12
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

@@ -24,11 +24,10 @@ sourceSets {
         kotlin.srcDirs(
             "util/src/main/kotlin",
             // Lesson 1
-            "1-kotlin-for-fsms/1-hello-kotlin/src",
-            "1-kotlin-for-fsms/2-enums-for-states/src",
-            "1-kotlin-for-fsms/3-enums-with-properties/src",
-            "1-kotlin-for-fsms/4-sealed-classes-alternative/src",
-            "1-kotlin-for-fsms/7-what-is-an-fsm/src",
+            "1-kotlin-for-fsms/9-enums-for-states/src",
+            "1-kotlin-for-fsms/11-enums-with-properties/src",
+            "1-kotlin-for-fsms/12-sealed-classes-alternative/src",
+            "1-kotlin-for-fsms/15-what-is-an-fsm/src",
             // Lesson 2
             "2-building-an-fsm/1-two-method-pattern/src",
             "2-building-an-fsm/2-transitions-with-events/src",
@@ -73,10 +72,9 @@ sourceSets {
     }
     test {
         kotlin.srcDirs(
-            "1-kotlin-for-fsms/1-hello-kotlin/test",
-            "1-kotlin-for-fsms/2-enums-for-states/test",
-            "1-kotlin-for-fsms/3-enums-with-properties/test",
-            "1-kotlin-for-fsms/4-sealed-classes-alternative/test",
+            "1-kotlin-for-fsms/9-enums-for-states/test",
+            "1-kotlin-for-fsms/11-enums-with-properties/test",
+            "1-kotlin-for-fsms/12-sealed-classes-alternative/test",
             "2-building-an-fsm/1-two-method-pattern/test",
             "2-building-an-fsm/2-transitions-with-events/test",
             "2-building-an-fsm/3-entry-side-effects/test",

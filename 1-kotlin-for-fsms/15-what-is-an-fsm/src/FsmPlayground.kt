@@ -1,4 +1,4 @@
-package course.l1t7
+package course.l1t15
 
 // A complete finite state machine in about twenty lines.
 //
