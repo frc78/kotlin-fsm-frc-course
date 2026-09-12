@@ -5,6 +5,7 @@ content:
   - 4-decisions
   - 5-check-predict-output
   - 6-objects
+  - 7-loops-and-lists
   - 9-enums-for-states
   - 11-enums-with-properties
   - 12-sealed-classes-alternative

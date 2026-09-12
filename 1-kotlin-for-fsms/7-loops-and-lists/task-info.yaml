@@ -1,0 +1,6 @@
+type: edu
+files:
+  - name: src/Readings.kt
+    visible: true
+  - name: test/ReadingsTest.kt
+    visible: false
