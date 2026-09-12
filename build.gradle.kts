@@ -27,6 +27,7 @@ sourceSets {
             "1-kotlin-for-fsms/1-your-first-program/src",
             "1-kotlin-for-fsms/2-values-and-types/src",
             "1-kotlin-for-fsms/3-functions/src",
+            "1-kotlin-for-fsms/4-decisions/src",
             "1-kotlin-for-fsms/9-enums-for-states/src",
             "1-kotlin-for-fsms/11-enums-with-properties/src",
             "1-kotlin-for-fsms/12-sealed-classes-alternative/src",
@@ -77,6 +78,7 @@ sourceSets {
         kotlin.srcDirs(
             "1-kotlin-for-fsms/2-values-and-types/test",
             "1-kotlin-for-fsms/3-functions/test",
+            "1-kotlin-for-fsms/4-decisions/test",
             "1-kotlin-for-fsms/9-enums-for-states/test",
             "1-kotlin-for-fsms/11-enums-with-properties/test",
             "1-kotlin-for-fsms/12-sealed-classes-alternative/test",

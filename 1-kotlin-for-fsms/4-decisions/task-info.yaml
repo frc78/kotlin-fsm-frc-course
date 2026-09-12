@@ -1,0 +1,6 @@
+type: edu
+files:
+  - name: src/Decisions.kt
+    visible: true
+  - name: test/DecisionsTest.kt
+    visible: false
