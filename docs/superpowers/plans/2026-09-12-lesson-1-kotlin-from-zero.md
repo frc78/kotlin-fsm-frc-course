@@ -161,14 +161,14 @@ request. It is the first thing to reach for on a real elevator.
 
 Run:
 ```bash
-grep -rniE "lesson 9|capstone|9-capstone" --include='*.md' --include='*.kt' --include='*.yaml' --include='*.kts' . | grep -v '^./build/' | grep -v '^./docs/'
+grep -rniE "lesson 9|capstone|9-capstone" --include='*.md' --include='*.kt' --include='*.yaml' --include='*.kts' . | grep -vE '^(\./)?(build|docs)/'
 ```
-Expected: no output.
+Expected: no output. BSD grep on macOS prints paths without a `./` prefix, so the filter accepts both forms.
 
 - [ ] **Step 9: Build**
 
-Run: `./gradlew build -q`
-Expected: exit code 0, no compile errors.
+Run: `./gradlew build -q -x test; echo $?`
+Expected: exit code 0. This compiles every task and every test. A full `./gradlew build` always exits 1 in this repo, because unsolved starters fail their own tests, so the test step is skipped here.
 
 - [ ] **Step 10: Commit**
 
