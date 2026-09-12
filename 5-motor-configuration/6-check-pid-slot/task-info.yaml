@@ -6,8 +6,8 @@ options:
   - text: DutyCycleOut(0.5) — the gains convert the duty-cycle fraction into a velocity
       target.
     is_correct: false
-  - text: VelocityVoltage(50.0) — the controller uses the Slot0 gains to chase the
-      target velocity.
+  - text: VelocityVoltage(50.0) — the controller uses the Slot0 gains to chase the target
+      velocity.
     is_correct: true
   - text: "Any of them — once applied, the gains automatically shape every request the\
     \ motor receives."

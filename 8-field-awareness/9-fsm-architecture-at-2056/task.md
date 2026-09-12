@@ -2,9 +2,8 @@
 
 You now have the whole toolbox: FSMs (Lessons 1–4), motor configuration
 (5), swerve requests (6), coordination (7), and field awareness (this
-lesson). Before Lesson 9 assembles a full robot — a recreation of FRC team
-2056's 2025 robot LIGHTNING — look at how that team organizes all of these
-pieces. Everything below comes from their own
+lesson). Look at how FRC team 2056 organized all of these pieces on their 2025
+robot LIGHTNING. Everything below comes from their own
 [Chief Delphi Q&A](https://www.chiefdelphi.com/t/team-2056-op-robotics-2025-technical-binder-release/502550)
 about their [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-2056-Technical-Binder.pdf).
 
@@ -21,7 +20,7 @@ framework.
 
 Transitions that only make sense in one state live inside that state's
 branch of the `when`; transitions that are legal from *anywhere* — a stow
-button, a fault — are checked **after** it, as global rows. The capstone's
+button, a fault — are checked **after** it, as global rows. LIGHTNING's
 superstructure uses exactly this split.
 
 ## Coordination is just reading state
@@ -57,4 +56,4 @@ info**. If your code can read it, your FSM can transition on it.
 toy FSMs where `Feeder`'s transition reads `Intake.state`. Run `main()`
 and watch the feeder start feeding on the same tick the intake reports
 `HOLDING`; then swap the two `periodic()` calls and run again — the feeder
-goes one tick stale. Lesson 9 builds LIGHTNING exactly this way.
+goes one tick stale.

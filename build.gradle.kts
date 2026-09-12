@@ -69,15 +69,6 @@ sourceSets {
             "8-field-awareness/5-pose-estimator/src",
             "8-field-awareness/6-vision-gating/src",
             "8-field-awareness/9-fsm-architecture-at-2056/src",
-            // Lesson 9
-            "9-capstone-lightning/1-ground-intake/src",
-            "9-capstone-lightning/2-straightenator/src",
-            "9-capstone-lightning/3-gripper-handoff/src",
-            "9-capstone-lightning/4-superstructure-coral/src",
-            "9-capstone-lightning/5-superstructure-algae/src",
-            "9-capstone-lightning/6-drive-modes/src",
-            "9-capstone-lightning/7-climber/src",
-            "9-capstone-lightning/8-full-cycle/src",
         )
     }
     test {
@@ -117,14 +108,6 @@ sourceSets {
             "8-field-awareness/4-chassis-speeds/test",
             "8-field-awareness/5-pose-estimator/test",
             "8-field-awareness/6-vision-gating/test",
-            "9-capstone-lightning/1-ground-intake/test",
-            "9-capstone-lightning/2-straightenator/test",
-            "9-capstone-lightning/3-gripper-handoff/test",
-            "9-capstone-lightning/4-superstructure-coral/test",
-            "9-capstone-lightning/5-superstructure-algae/test",
-            "9-capstone-lightning/6-drive-modes/test",
-            "9-capstone-lightning/7-climber/test",
-            "9-capstone-lightning/8-full-cycle/test",
         )
     }
 }

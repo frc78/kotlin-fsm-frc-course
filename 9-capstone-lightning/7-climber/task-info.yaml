@@ -1,6 +1,0 @@
-type: edu
-files:
-  - name: src/Climber.kt
-    visible: true
-  - name: test/ClimberTest.kt
-    visible: false

@@ -4,7 +4,7 @@ Task 4 only handled going up — elevator first, then arm. Going *down* is
 asymmetric: you must **retract the arm first**, then lower the elevator,
 otherwise the arm flails through everything on the way down.
 
-This capstone implements both directions plus mid-transition abort.
+This final task implements both directions plus mid-transition abort.
 
 ## The protocol
 

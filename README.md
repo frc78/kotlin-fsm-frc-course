@@ -10,7 +10,7 @@ you learn here transfers directly to a real robot project.
 9 lessons, 64 tasks (43 programming exercises, 18 comprehension checks,
 3 theory pages):
 
-1. **Kotlin for FSMs** — `enum`, sealed classes, `when` expressions.
+1. **Kotlin from zero** — values and types, functions, decisions, objects, loops and lists, `enum`, `when`, and sealed classes.
 2. **Building an FSM** — the two-method `stateActions()` / `stateTransitions()` pattern, entry side effects, guards, and timers.
 3. **Applied subsystems** — Intake, Elevator, Shooter (real subsystem shapes).
 4. **Testing** — pure-function FSM tests + dependency injection with fake hardware.
@@ -18,11 +18,6 @@ you learn here transfers directly to a real robot project.
 6. **Swerve drive requests** — Phoenix6 `SwerveRequest` API (`FieldCentric`, `RobotCentric`, `SwerveDriveBrake`, `PointWheelsAt`, `FieldCentricFacingAngle`) plus a drive-mode FSM.
 7. **Superstructure coordination** — composing subsystem FSMs into a single robot FSM with sequencing guards.
 8. **Field awareness** — `Translation2d` / `Rotation2d` / `Pose2d` math, `ChassisSpeeds`, pose estimator + vision-measurement gating.
-9. **Capstone: LIGHTNING** — program team 2056's 2025 robot subsystem by
-   subsystem (slap-down intake, "Straightenator" indexer, gripper handoff,
-   arm+elevator superstructure, drivebase modes, one-way climber, and a full
-   match cycle), built from their published [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-2056-Technical-Binder.pdf)
-   and [Chief Delphi Q&A](https://www.chiefdelphi.com/t/team-2056-op-robotics-2025-technical-binder-release/502550).
 
 ## Setup
 

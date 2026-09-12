@@ -47,11 +47,10 @@ Real mechanisms rarely run bare `PositionVoltage`. Phoenix6's
 ramps velocity up and down smoothly instead of slamming full effort at
 the error. Team 2056's
 [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-2056-Technical-Binder.pdf)
-shows them running Motion Magic position control on the mechanisms of
-LIGHTNING — the robot you'll rebuild in Lesson 9. The configuration is
-the same shape you already know: a `MotionMagic` config block (cruise
-velocity, acceleration), then a `MotionMagicVoltage` request. It's the
-first thing to reach for on a real elevator.
+shows Motion Magic position control on the mechanisms of their 2025 robot.
+The configuration has the same shape you already know: a `MotionMagic`
+config block (cruise velocity, acceleration), then a `MotionMagicVoltage`
+request. It is the first thing to reach for on a real elevator.
 
 ## Try it
 

@@ -4,12 +4,11 @@ Your transitions so far have fired on two kinds of input: driver intent
 (`commandedIntake`) and sensor reads (`canRange.getDistance()`). This task adds
 the third classic trigger: **time**.
 
-Real robots lean on timed states constantly. Team 2056's 2025 robot LIGHTNING —
-the machine you'll rebuild subsystem by subsystem in the capstone — runs a
-state machine on every mechanism, and its
+Real robots use timed states all the time. Team 2056's 2025 robot LIGHTNING
+runs a state machine on every mechanism. Its
 [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-2056-Technical-Binder.pdf)
-lists timers right alongside buttons and sensors as transition triggers — the
-"Straightenator" indexer's brief unjam pulse among them.
+lists timers next to buttons and sensors as transition triggers. One example
+is the short unjam pulse of the "Straightenator" indexer.
 
 Here we build a timed **eject**. The driver *taps* the eject button once; the
 intake spits the piece backward for exactly half a second, then returns to

@@ -43,7 +43,7 @@ transition to `WaitingForElevator(newTarget)` (already provided).
 
 > **Scope note:** This task only handles "going up." Going down (from
 > `SCORE_L4` back to `STOWED`) needs the *reverse* sequence — arm first, then
-> elevator. That's the capstone in the next task. Here, tests only exercise
+> elevator. That is the final task of this lesson. Here, tests only exercise
 > ascents.
 
 ## Your task

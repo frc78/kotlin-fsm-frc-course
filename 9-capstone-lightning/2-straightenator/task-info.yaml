@@ -1,6 +1,0 @@
-type: edu
-files:
-  - name: src/Straightenator.kt
-    visible: true
-  - name: test/StraightenatorTest.kt
-    visible: false
