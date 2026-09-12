@@ -1,0 +1,6 @@
+type: edu
+files:
+  - name: src/Conversions.kt
+    visible: true
+  - name: test/ConversionsTest.kt
+    visible: false
