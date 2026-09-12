@@ -1,0 +1,5 @@
+type: theory
+custom_name: Your First Program
+files:
+  - name: src/FirstProgram.kt
+    visible: true

@@ -24,6 +24,7 @@ sourceSets {
         kotlin.srcDirs(
             "util/src/main/kotlin",
             // Lesson 1
+            "1-kotlin-for-fsms/1-your-first-program/src",
             "1-kotlin-for-fsms/9-enums-for-states/src",
             "1-kotlin-for-fsms/11-enums-with-properties/src",
             "1-kotlin-for-fsms/12-sealed-classes-alternative/src",
