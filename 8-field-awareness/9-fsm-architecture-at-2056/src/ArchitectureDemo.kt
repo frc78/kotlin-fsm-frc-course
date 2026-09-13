@@ -8,7 +8,6 @@ object Intake {
     enum class State { SEEKING, HOLDING }
 
     var state: State = State.SEEKING
-        private set
 
     private var ticks = 0
 
@@ -25,7 +24,6 @@ object Feeder {
     enum class State { WAITING, FEEDING }
 
     var state: State = State.WAITING
-        private set
 
     fun periodic() {
         // Cross-FSM trigger: read the other singleton's state directly.
