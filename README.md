@@ -7,8 +7,8 @@ you learn here transfers directly to a real robot project.
 
 ## What's inside
 
-9 lessons, 64 tasks (43 programming exercises, 18 comprehension checks,
-3 theory pages):
+8 lessons, 62 tasks (40 programming exercises, 18 comprehension checks,
+4 theory pages):
 
 1. **Kotlin from zero** — values and types, functions, decisions, objects, loops and lists, `enum`, `when`, and sealed classes.
 2. **Building an FSM** — the two-method `stateActions()` / `stateTransitions()` pattern, entry side effects, guards, and timers.
