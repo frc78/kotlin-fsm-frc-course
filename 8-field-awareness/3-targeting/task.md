@@ -1,9 +1,9 @@
 # Targeting Math: Connecting Pose to Swerve
 
-In lesson 6 you wrote `aimWhileDriving(vx, vy, targetDegrees)`. It builds a
-`FieldCentricFacingAngle` request for a fixed heading. On a real robot the
-target heading is not fixed. It depends on where the robot is and where the
-goal is. As the robot moves, the angle to the goal changes.
+In lesson 6 task 3 you wrote `aimWhileDriving(vx, vy, targetDegrees)`. It
+builds a `FieldCentricFacingAngle` request for a fixed heading. On a real
+robot the target heading is not fixed. It depends on where the robot is and
+where the goal is. As the robot moves, the angle to the goal changes.
 
 This task connects the pose math of task 1 to the swerve API of lesson 6.
 
@@ -11,7 +11,7 @@ This task connects the pose math of task 1 to the swerve API of lesson 6.
 
 | Input          | Type             | Meaning                                   |
 |----------------|------------------|-------------------------------------------|
-| `robotPose`    | `Pose2d`         | where the robot is, from the pose estimator |
+| `robotPose`    | `Pose2d`         | where the robot is, from the drivetrain   |
 | `goalPosition` | `Translation2d`  | where the goal is, in the field frame     |
 | `vx`, `vy`     | `Double`         | the driver's field-relative speeds, m/s   |
 
@@ -19,14 +19,14 @@ This task connects the pose math of task 1 to the swerve API of lesson 6.
 
 A `FieldCentricFacingAngle` with:
 
-| Setter                    | Value                                             |
-|---------------------------|---------------------------------------------------|
-| `withVelocityX(...)`      | `vx`, unchanged                                   |
-| `withVelocityY(...)`      | `vy`, unchanged                                   |
-| `withTargetDirection(...)`| the heading from the robot to the goal, in degrees |
+| Setter                    | Value                                                    |
+|---------------------------|----------------------------------------------------------|
+| `withVelocityX(...)`      | `vx`, unchanged                                          |
+| `withVelocityY(...)`      | `vy`, unchanged                                          |
+| `withTargetDirection(...)`| the heading from the robot to the goal, as a `Rotation2d` |
 
-`headingFromTo` from task 1 gives the heading as a `Rotation2d`. The stub's
-`withTargetDirection` takes degrees as a `Double`.
+`headingFromTo` from task 1 gives that heading as a `Rotation2d`, so it goes
+into the setter as it is.
 
 | Robot pose             | Goal       | Target direction |
 |------------------------|------------|------------------|
@@ -46,6 +46,13 @@ Real WPILib `Rotation2d` stores an angle as a cosine and a sine, so 370° and
 `headingFromTo` returns values in the range -180° to 180° because it uses
 `atan2` inside, so the tests in this task do not hit the difference.
 
+## Frames inside the drivetrain
+
+A `ChassisSpeeds` is the robot-frame velocity `(vxMetersPerSecond,
+vyMetersPerSecond, omegaRadiansPerSecond)` that the kinematics turn into
+module speeds. `FieldCentric` requests convert your field-frame sticks into
+it inside the drivetrain, so you do not write that math.
+
 ## Your task
 
 Implement `aimAtGoal(robotPose, goalPosition, vx, vy)` in `src/Targeting.kt`.
@@ -56,7 +63,7 @@ It returns a `SwerveRequest`. The tests check that it is a
 
 ```kotlin
 val request = aimAtGoal(
-    robotPose = poseEstimator.currentPose,   // task 5
+    robotPose = drivetrain.state.pose,   // task 4
     goalPosition = blueAllianceGoalPosition,
     vx = joystick.leftX * MAX_SPEED,
     vy = joystick.leftY * MAX_SPEED,
@@ -64,5 +71,5 @@ val request = aimAtGoal(
 drivetrain.setControl(request)
 ```
 
-The pose estimator says where you are. This function turns that into a
+The drivetrain says where you are. This function turns that into a
 request. The drivetrain executes it.

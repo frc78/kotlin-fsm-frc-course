@@ -1,13 +1,14 @@
 # Check: Vision Gating
 
-`integrateVisionMeasurement` from task 6 receives this input:
+`Vision` from task 5 is in `TRACKING`. On the next tick it sees this input:
 
 | Value                                  | Number       |
 |----------------------------------------|--------------|
-| `estimator.currentPose` translation    | `(4.0, 3.0)` |
-| `measurement.pose` translation         | `(9.2, 1.0)` |
-| `currentTimestampSeconds`              | `10.00`      |
-| `measurement.timestampSeconds`         | `9.98`       |
-| `measurement.translationStdDev`        | `0.3`        |
+| `drivetrain.state.pose` translation    | `(4.0, 3.0)` |
+| `latestMeasurement.pose` translation   | `(9.2, 1.0)` |
+| `nowSeconds`                           | `10.00`      |
+| `latestMeasurement.timestampSeconds`   | `9.98`       |
+| `latestMeasurement.translationStdDev`  | `0.3`        |
+| `lastAppliedTimestampSeconds`          | `9.95`       |
 
-What does the function do with it?
+After `periodic()`, what state is `Vision` in?

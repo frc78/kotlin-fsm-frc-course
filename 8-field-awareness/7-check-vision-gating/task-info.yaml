@@ -1,19 +1,19 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "Applies it. All three gates pass, so the estimator blends toward it."
+  - text: "TRACKING. All gates pass, so the drivetrain blends toward it."
     is_correct: false
-  - text: "Rejects it. The stale gate fails, because the reading is too old."
+  - text: "REJECTING. The stale gate fails, because the reading is too old."
     is_correct: false
-  - text: "Rejects it. The implausible gate fails, because the jump is too far."
+  - text: "REJECTING. The implausible gate fails, because the jump is too far."
     is_correct: true
-  - text: "Rejects it. The imprecise gate fails, because the stdDev is too high."
+  - text: "NO_TARGET. The frame was already applied last tick, so nothing is new."
     is_correct: false
-message_correct: "The reading is 0.02 s old and its stdDev is 0.3, so the first two\
-  \ gates pass. The distance from (4.0, 3.0) to (9.2, 1.0) is about 5.6 m, and no robot\
-  \ moves that far in one frame."
-message_incorrect: "Compute each gate from the table with the thresholds in task 6:\
-  \ the age of the reading, the stdDev, and the straight-line distance between the\
-  \ two positions. Exactly one gate fails."
+message_correct: "The distance from (4.0, 3.0) to (9.2, 1.0) is about 5.6 m, and no robot\
+  \ moves that far in one frame. The previous TRACKING state does not matter: every\
+  \ tick re-evaluates the table from the top."
+message_incorrect: "Compute each row of the transition table in task 5 in order, from\
+  \ the timestamps, the stdDev, and the straight-line distance between the two\
+  \ positions. Exactly one row before 'otherwise' matches."
 custom_name: "Check: Vision Gating"
 local_check: true

@@ -1,6 +1,6 @@
-# Pose Estimator: Odometry Updates
+# Pose from the Drivetrain
 
-A `PoseEstimator` tracks where the robot believes it is. It combines two
+A pose estimate tracks where the robot believes it is. It combines two
 inputs:
 
 1. **Odometry**: wheel rotations plus gyro heading. Always available. Error
@@ -8,33 +8,44 @@ inputs:
 2. **Vision**: AprilTag detections. Available only when a tag is in view.
    Corrects drift, but a single reading can be noisy.
 
-This task is the odometry side. Vision is the next task.
+## The drivetrain owns the estimate
 
-## What an odometry update is
+On a CTRE swerve robot the `SwerveDrivetrain` runs the pose estimator. You
+do not build one. You ask the drivetrain:
 
-Each periodic, the swerve modules report how far each wheel rolled. The
-swerve kinematics turn the four wheel distances into one robot motion since
-the last tick: forward `dx` meters, sideways `dy` meters, and a heading
-change. The estimator adds that motion to its current pose:
+| You want                        | Call                                                              |
+|---------------------------------|-------------------------------------------------------------------|
+| where am I                      | `drivetrain.state.pose`                                           |
+| tell it where auto starts       | `drivetrain.resetPose(Pose2d)`                                    |
+| feed a camera reading           | `drivetrain.addVisionMeasurement(pose, timestampSeconds)` (task 5) |
 
-`PoseEstimator.updateWithOdometry(translationDelta: Translation2d, rotationDelta: Rotation2d)`
+Odometry runs inside the drivetrain on every loop. You never call it. Real
+code reads `getState().Pose`. In Kotlin that is `state.pose`.
 
-`translationDelta` is in the **robot frame** at the start of the tick. The
-estimator rotates it into the field frame with the current heading and then
-adds it. You hand over the robot-frame delta only.
+## What one odometry step computes
+
+Each loop the swerve modules report how far each wheel rolled. The swerve
+kinematics turn the four wheel distances into one robot motion since the
+last tick: forward, sideways, and a heading change. That motion is in the
+**robot frame**. The estimator rotates it into the field frame by the
+current heading, then adds it to the pose.
+
+You will write that step once, as a pure function, so the box is not a
+mystery.
 
 ## Your task
 
-Implement `applyOdometry(estimator, forwardMeters, turnDegrees)` in
-`src/Odometry.kt`.
+Implement `poseAfterOdometry(current, forwardMeters, turnDegrees): Pose2d`
+in `src/Odometry.kt`.
 
-| Parameter       | Meaning                                                  |
-|-----------------|----------------------------------------------------------|
-| `forwardMeters` | motion along the robot's +X axis. No sideways component. |
-| `turnDegrees`   | the change in heading since the last tick, in degrees    |
+| Parameter       | Meaning                                                     |
+|-----------------|-------------------------------------------------------------|
+| `current`       | the pose at the start of the tick                           |
+| `forwardMeters` | motion along the robot's +X axis, at the start heading      |
+| `turnDegrees`   | heading change during the tick, in degrees                  |
 
-The function calls `updateWithOdometry` once with the two values converted to
-the types it takes.
+Motion is along the robot's +X only. Apply the heading change after the
+translation.
 
 ## What the test does
 
