@@ -30,7 +30,6 @@ class Superstructure {
     }
 
     var transition: Transition = Transition.Settled(RobotState.STOWED)
-        private set
 
     fun periodic() {
         if (transitionTargetState() != commandedRobotState) {
@@ -51,7 +50,6 @@ class Superstructure {
     }
 
     // Decides which phase to begin in based on what's already done.
-    // Read this carefully — it's the brain of the whole machine.
     private fun startTransition(target: RobotState): Transition = when {
         arm.state != Arm.State.STOWED && target.elevator != elevator.state ->
             Transition.RetractArm(target)

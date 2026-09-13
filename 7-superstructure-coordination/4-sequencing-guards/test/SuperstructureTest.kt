@@ -65,4 +65,35 @@ class SuperstructureTest {
         s.periodic()
         assertFalse(s.atTarget())
     }
+
+    @Test fun new_goal_after_settling_restarts_the_transition() {
+        s.commandedRobotState = RobotState.SCORE_L4
+        repeat(8) { s.periodic() }
+        s.commandedRobotState = RobotState.CLIMB_PREP
+        s.periodic()
+        assertEquals(
+            Superstructure.Transition.WaitingForElevator(RobotState.CLIMB_PREP),
+            s.transition,
+            "a new goal after settling must restart at WaitingForElevator(newGoal)"
+        )
+        assertEquals(
+            Elevator.State.STOWED, s.elevator.commandedTarget,
+            "WaitingForElevator must command the elevator to the new goal's elevator setpoint"
+        )
+        assertEquals(
+            Arm.State.SCORE, s.arm.commandedTarget,
+            "WaitingForElevator must not change the arm command"
+        )
+    }
+
+    @Test fun settled_keeps_commanding_the_pose() {
+        s.commandedRobotState = RobotState.SCORE_L4
+        repeat(8) { s.periodic() }
+        s.arm.commandedTarget = Arm.State.STOWED   // something else moved the arm
+        s.periodic()
+        assertEquals(
+            Arm.State.SCORE, s.arm.commandedTarget,
+            "Settled(at) must command at.arm every tick (task.md table, Settled row)"
+        )
+    }
 }

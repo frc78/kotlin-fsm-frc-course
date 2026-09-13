@@ -1,7 +1,8 @@
-# Check: Which Way Down
+# Check: Which Phase Starts
 
-The robot is settled at `SCORE_L4` — elevator at `HIGH`, arm extended out at
-`SCORE`. The driver commands `STOWED`. Task 4 sequenced the ascent; your
-task 5 `Superstructure` now has to bring everything back down.
+The robot is settled at `CLIMB_PREP`: elevator at `STOWED`, arm at `CLIMB`,
+intake `IDLE`. The driver commands `SCORE_L4`: elevator `HIGH`, arm `SCORE`,
+intake `HOLDING`.
 
-Which mechanism moves first, and why?
+Your task 5 `Superstructure` calls `startTransition(SCORE_L4)`. Which phase
+does the transition start in?

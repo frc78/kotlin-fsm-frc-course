@@ -1,23 +1,17 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "true — two of the three subsystems have settled, and a majority is good enough"
+  - text: "true — the elevator is the slowest subsystem, so once it settles the robot is at target"
     is_correct: false
-  - text: false — atTarget() is the AND of every subsystem's answer; reporting ready
-      while the arm is still swinging would let higher-level code act on a robot that
-      isn't in position
+  - text: "false — every subsystem must report at target, and the arm has not"
     is_correct: true
-  - text: "true — the elevator is the slowest subsystem, so once it settles the robot\
-    \ is effectively at target"
+  - text: "true — the arm is one tick from SCORE, and one tick counts as settled"
     is_correct: false
-  - text: Whatever elevator.atTarget() returns — the superstructure just forwards the
-      answer from its slowest subsystem
+  - text: "whatever elevator.atTarget() returns — the superstructure forwards its slowest subsystem"
     is_correct: false
-message_correct: "The robot is at its commanded state only when every contributing\
-  \ subsystem has settled — atTarget() is a conjunction, so one still-moving arm makes\
-  \ the whole answer false."
-message_incorrect: "Re-read task 3 (atTarget() Rolls Up): what single boolean expression\
-  \ did you write there, and what would it mean for auto code if the superstructure\
-  \ reported ready while a mechanism was still moving?"
+message_correct: "One still-moving arm makes the whole answer false. Code that acted on\
+  \ 'ready' now would move a robot that is not in position."
+message_incorrect: "Re-read task 3: what does atTarget() do with the three per-subsystem\
+  \ answers?"
 custom_name: "Check: atTarget() rolls up"
 local_check: true

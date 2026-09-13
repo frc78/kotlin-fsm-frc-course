@@ -29,7 +29,6 @@ class Superstructure {
     }
 
     var transition: Transition = Transition.Settled(RobotState.STOWED)
-        private set
 
     fun periodic() {
         // Detect a newly-commanded state and restart the transition.

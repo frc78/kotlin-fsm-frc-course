@@ -1,21 +1,17 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "The elevator — descents mirror ascents, so the elevator leads on the way\
-    \ down just like it led on the way up"
+  - text: "MoveElevator(SCORE_L4) — the elevator rises first, and the arm follows once it settles"
     is_correct: false
-  - text: "Both at once — commanding the elevator and arm together reaches STOWED fastest,\
-    \ and atTarget() covers the rest"
-    is_correct: false
-  - text: "The arm — it retracts to the safe STOWED pose first, because lowering the\
-    \ elevator with the arm still extended would sweep it through everything below"
+  - text: "RetractArm(SCORE_L4) — the arm is not at STOWED and the elevator must move, so the arm goes safe first"
     is_correct: true
-  - text: The intake — its rollers must return to IDLE before either mechanism is allowed
-      to move
+  - text: "ExtendArm(SCORE_L4) — the arm swings from CLIMB straight to SCORE, and the elevator moves later"
     is_correct: false
-message_correct: "Descent is asymmetric: the arm must reach the safe pose before the\
-  \ elevator drops — that's why every transition in task 5 starts by considering RetractArm."
-message_incorrect: Go back to task 5's phase table and its definition of a 'safe pose'
-  — the order of the phases there answers this directly.
-custom_name: "Check: descent order"
+  - text: "Settled(SCORE_L4) — the elevator is already at STOWED, so nothing needs to be sequenced"
+    is_correct: false
+message_correct: "The same rule applies to every move between two extended poses: safe pose\
+  \ first, then elevator, then arm."
+message_incorrect: "Re-read startTransition in task 5. Check its conditions in order against\
+  \ the arm state, the elevator state, and the target."
+custom_name: "Check: which phase starts"
 local_check: true
