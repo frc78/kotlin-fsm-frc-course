@@ -1,5 +1,6 @@
 package course.l6t5
 
+import frc.stubs.geometry.Rotation2d
 import frc.stubs.swerve.*
 
 object DriveModeFsm {

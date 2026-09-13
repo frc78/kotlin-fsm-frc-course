@@ -12,7 +12,7 @@ options:
 message_correct: "Right. FieldCentric velocities live in the field's frame, so heading\
   \ never changes what the stick means. RobotCentric agrees with it only when the\
   \ heading is exactly zero."
-message_incorrect: "Re-read the frame definitions in tasks 1 and 2. Each request's\
+message_incorrect: "Re-read the frame sketch and the request tables in task 1. Each request's\
   \ velocityX names a direction. Ask which direction turns with the robot and which\
   \ is fixed to the field."
 custom_name: "Check: Request Frames"

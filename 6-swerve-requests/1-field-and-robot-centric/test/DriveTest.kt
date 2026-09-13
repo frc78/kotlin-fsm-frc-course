@@ -1,6 +1,7 @@
 package course.l6t1
 
 import frc.stubs.swerve.FieldCentric
+import frc.stubs.swerve.RobotCentric
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -10,39 +11,54 @@ class DriveTest {
         Drive.reset()
     }
 
-    @Test fun applies_field_centric_with_vx_only() {
-        Drive.teleopDrive(1.0, 0.0, 0.0)
+    @Test fun field_centric_when_not_robot_relative() {
+        Drive.teleopDrive(1.0, 0.5, 0.3, robotRelative = false)
         assertEquals(
-            FieldCentric(velocityX = 1.0, velocityY = 0.0, rotationalRate = 0.0),
+            FieldCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.3),
             Drive.drivetrain.lastRequest,
-            "teleopDrive(1.0, 0.0, 0.0) should send a FieldCentric with velocityX = 1.0 and the other fields 0.0"
+            "robotRelative = false should send a FieldCentric carrying vx, vy, omega as velocityX, velocityY, rotationalRate"
         )
     }
 
-    @Test fun applies_field_centric_with_all_axes() {
-        Drive.teleopDrive(1.0, 0.5, 0.2)
+    @Test fun robot_centric_when_robot_relative() {
+        Drive.teleopDrive(1.0, 0.5, 0.3, robotRelative = true)
         assertEquals(
-            FieldCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.2),
+            RobotCentric(velocityX = 1.0, velocityY = 0.5, rotationalRate = 0.3),
             Drive.drivetrain.lastRequest,
-            "teleopDrive(1.0, 0.5, 0.2) should send a FieldCentric carrying vx, vy, and omega in that order"
+            "robotRelative = true should send a RobotCentric carrying vx, vy, omega as velocityX, velocityY, rotationalRate"
         )
     }
 
-    @Test fun applies_zero_velocity_field_centric() {
-        Drive.teleopDrive(0.0, 0.0, 0.0)
-        assertEquals(
-            FieldCentric(),
-            Drive.drivetrain.lastRequest,
-            "teleopDrive(0.0, 0.0, 0.0) should still send a FieldCentric request, with every field 0.0"
-        )
-    }
-
-    @Test fun applies_negative_velocities() {
-        Drive.teleopDrive(-1.5, -0.7, -1.0)
+    @Test fun negative_values_pass_through() {
+        Drive.teleopDrive(-1.5, -0.7, -1.0, robotRelative = false)
         assertEquals(
             FieldCentric(velocityX = -1.5, velocityY = -0.7, rotationalRate = -1.0),
             Drive.drivetrain.lastRequest,
-            "teleopDrive(-1.5, -0.7, -1.0) should pass negative values through unchanged"
+            "negative vx, vy, omega should pass through unchanged"
+        )
+    }
+
+    @Test fun zero_velocity_still_sends_a_request() {
+        Drive.teleopDrive(0.0, 0.0, 0.0, robotRelative = true)
+        assertEquals(
+            RobotCentric(),
+            Drive.drivetrain.lastRequest,
+            "zero velocities should still send a RobotCentric request with every field 0.0"
+        )
+    }
+
+    @Test fun toggle_changes_request_type() {
+        Drive.teleopDrive(1.0, 0.0, 0.0, robotRelative = false)
+        assertEquals(
+            FieldCentric(velocityX = 1.0),
+            Drive.drivetrain.lastRequest,
+            "first call with robotRelative = false should send a FieldCentric"
+        )
+        Drive.teleopDrive(1.0, 0.0, 0.0, robotRelative = true)
+        assertEquals(
+            RobotCentric(velocityX = 1.0),
+            Drive.drivetrain.lastRequest,
+            "second call with robotRelative = true should replace it with a RobotCentric"
         )
     }
 }

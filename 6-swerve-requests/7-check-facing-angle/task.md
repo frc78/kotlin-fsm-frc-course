@@ -1,6 +1,6 @@
 # Check: Facing Angle
 
-The driver holds the "lock heading" trigger, and your FSM from task 6 switches
+The driver holds the "lock heading" trigger, and your FSM from task 5 switches
 the drivetrain to `FieldCentricFacingAngle`, targeting the speaker. The driver
 keeps working both sticks the whole time.
 

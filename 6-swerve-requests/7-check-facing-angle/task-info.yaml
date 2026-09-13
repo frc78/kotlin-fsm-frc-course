@@ -16,7 +16,7 @@ options:
 message_correct: "Exactly — FieldCentricFacingAngle has no withRotationalRate at all;\
   \ the internal heading PID owns yaw, while the driver's vx and vy still command\
   \ translation as usual."
-message_incorrect: "Go back to the setter table in task 5 and compare it with FieldCentric's\
+message_incorrect: "Go back to the setter table in task 3 and compare it with FieldCentric's\
   \ — one familiar setter is missing, and what replaced it tells you which input the\
   \ request now owns."
 custom_name: "Check: Facing Angle"

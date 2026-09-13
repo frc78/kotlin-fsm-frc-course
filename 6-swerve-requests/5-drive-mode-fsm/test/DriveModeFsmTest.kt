@@ -1,7 +1,6 @@
 package course.l6t5
 
 import frc.stubs.geometry.Rotation2d
-
 import frc.stubs.swerve.FieldCentric
 import frc.stubs.swerve.FieldCentricFacingAngle
 import frc.stubs.swerve.RobotCentric
@@ -62,7 +61,7 @@ class DriveModeFsmTest {
         assertEquals(
             FieldCentricFacingAngle(velocityX = 0.5, velocityY = -0.4, targetDirection = Rotation2d.fromDegrees(90.0)),
             DriveModeFsm.drivetrain.lastRequest,
-            "AIMING should send a FieldCentricFacingAngle carrying requestedVx, requestedVy, and aimTargetDegrees"
+            "AIMING should send a FieldCentricFacingAngle carrying requestedVx, requestedVy, and aimTargetDegrees as a Rotation2d"
         )
     }
 

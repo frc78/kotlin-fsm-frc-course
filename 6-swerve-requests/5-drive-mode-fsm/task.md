@@ -1,6 +1,6 @@
 # Drive-Mode FSM
 
-You have built five `SwerveRequest` types in isolation. On a real robot the
+Tasks 1 to 3 built five `SwerveRequest` types in isolation. On a real robot the
 drivetrain switches between them from driver inputs and the state of the rest
 of the robot. That decision is an FSM.
 
@@ -46,13 +46,14 @@ and the lower rows decide.
 
 `stateActions()` is a `when (state)` with one branch per state. Each branch
 builds the request from the table above and hands it to
-`drivetrain.setControl(...)`:
+`drivetrain.setControl(...)`. `withTargetDirection` takes a `Rotation2d`, as in
+task 3:
 
 | State          | Request fields                                          |
 |----------------|---------------------------------------------------------|
 | `TELEOP_FIELD` | `requestedVx`, `requestedVy`, `requestedOmega`          |
 | `TELEOP_ROBOT` | `requestedVx`, `requestedVy`, `requestedOmega`          |
-| `AIMING`       | `requestedVx`, `requestedVy`, `aimTargetDegrees`        |
+| `AIMING`       | `requestedVx`, `requestedVy`, `aimTargetDegrees` as a `Rotation2d` |
 | `BRAKED`       | none                                                    |
 
 ## Kotlin you need: `when` without a subject
