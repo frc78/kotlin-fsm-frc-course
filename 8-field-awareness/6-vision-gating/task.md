@@ -1,51 +1,57 @@
 # Vision Measurement Integration with Gating
 
-The other half of pose estimation: vision. AprilTag detections from a
-Limelight or PhotonVision return a pose estimate — "based on the tags I see,
-the robot is at `(x, y)` facing `θ`." Feeding these into the estimator
-corrects odometry drift over time.
+The other half of pose estimation is vision. A Limelight or PhotonVision
+camera sees AprilTags and returns a pose estimate: "the robot is at `(x, y)`
+facing this angle." Feeding these into the estimator corrects odometry drift.
 
-But vision readings are messy:
+Vision readings have three problems:
 
-- **Stale.** Camera processing introduces latency. A reading might be from
-  150 ms ago.
-- **Imprecise.** A glancing tag at 4 meters has a much wider error ellipse
-  than a head-on tag at 1 meter. Vision pipelines report `stdDev`s — high
-  values mean low confidence.
-- **Implausible.** A bad detection (wrong tag ID, glare, partial occlusion)
-  can produce a measurement that's nowhere near where the robot actually is.
+- **Stale.** Camera processing takes time. A reading can be 150 ms old.
+- **Imprecise.** A tag seen at an angle from 4 meters gives a much less
+  certain position than a tag seen head-on from 1 meter. Vision pipelines
+  report this as a standard deviation (`stdDev`). A high value means low
+  confidence.
+- **Implausible.** A bad detection (wrong tag ID, glare, a partly hidden tag)
+  can give a position nowhere near the robot.
 
-Blindly trusting every measurement teleports your pose estimate around. The
-fix: **gate** measurements before applying them.
+If you trust every measurement, the pose estimate jumps around the field.
+The fix is to **gate** each measurement before you apply it.
 
 ## Three gates
 
-This task implements three rejection criteria. If a measurement fails
-*any* of them, drop it on the floor and return `false`:
+Reject the measurement and return `false` if any row matches. The comparisons
+are strict: exactly 0.5 s, exactly 1.0, or exactly 1.5 m passes.
 
-| Gate         | Reject when…                                                       |
-|--------------|--------------------------------------------------------------------|
-| Stale        | the measurement is more than **0.5 seconds** older than now        |
-| Imprecise    | the measurement's `translationStdDev` exceeds **1.0**              |
-| Implausible  | the measurement's pose is more than **1.5 meters** from the current estimate |
+| Gate         | Reject when                                                               |
+|--------------|---------------------------------------------------------------------------|
+| Stale        | the measurement is more than **0.5 seconds** older than now               |
+| Imprecise    | `translationStdDev` is greater than **1.0**                               |
+| Implausible  | the measured position is more than **1.5 meters** from the current estimate |
 
-Inputs you have available:
+The implausible gate uses straight-line distance, the same as `getDistance`
+in task 1.
 
-- `currentTimestampSeconds: Double` — the parameter passed in.
-- `measurement.timestampSeconds: Double` — when the measurement was taken.
-- `measurement.translationStdDev: Double` — the vision pipeline's
-  reported uncertainty.
-- `measurement.pose: Pose2d` — the candidate pose.
-- `estimator.currentPose: Pose2d` — the estimator's belief right now.
+Inputs:
 
-If all three gates pass, hand the candidate pose to the estimator's
-`addVisionMeasurement(pose: Pose2d)` method and return `true`.
+| Value                            | Meaning                                  |
+|----------------------------------|------------------------------------------|
+| `currentTimestampSeconds`        | the time now, passed in                  |
+| `measurement.timestampSeconds`   | when the camera took the measurement     |
+| `measurement.translationStdDev`  | the pipeline's reported uncertainty      |
+| `measurement.pose`               | the candidate pose                       |
+| `estimator.currentPose`          | the estimator's belief right now         |
+
+If all three gates pass, call `estimator.addVisionMeasurement(pose)` and
+return `true`. The stub method has a second parameter, `weight`, with a
+default value. Leave it at the default.
 
 ## Your task
 
-Implement `integrateVisionMeasurement(estimator, measurement, currentTimestampSeconds)`.
-Returns `true` if applied, `false` if rejected.
+Implement `integrateVisionMeasurement(estimator, measurement, currentTimestampSeconds)`
+in `src/Vision.kt`. It returns `true` if it applied the measurement and
+`false` if it rejected it.
 
-(In real WPILib, `addVisionMeasurement` takes a timestamp and stddev tuple
-which the Kalman filter uses to weight the update. The stub here uses a
-fixed weight; gating is the only knob you have.)
+Real WPILib `addVisionMeasurement` takes the timestamp and the standard
+deviations too. The estimator uses them to decide how much to trust each
+reading. This stub blends with a fixed weight, so gating is the only control
+you have.

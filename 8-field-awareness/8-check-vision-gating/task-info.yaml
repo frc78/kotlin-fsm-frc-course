@@ -1,23 +1,19 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "Yes — vision is always more accurate than odometry, so the estimator should\
-    \ trust every measurement it gets."
+  - text: "Applies it. All three gates pass, so the estimator blends toward it."
     is_correct: false
-  - text: "Yes, but apply only the x coordinate — a partial correction is safer than\
-    \ a full one."
+  - text: "Rejects it. The stale gate fails, because the reading is too old."
     is_correct: false
-  - text: No — a jump farther than the robot could physically travel in one frame means
-      a bad tag read; applying it would teleport the pose estimate.
+  - text: "Rejects it. The implausible gate fails, because the jump is too far."
     is_correct: true
-  - text: No — vision measurements should never update the estimator; odometry alone
-      is more reliable.
+  - text: "Rejects it. The imprecise gate fails, because the stdDev is too high."
     is_correct: false
-message_correct: "That's the implausibility gate doing its job: no robot covers 5\
-  \ meters in one frame, so the measurement must be a bad detection — feeding it in\
-  \ would teleport the estimate."
-message_incorrect: "Look again at the three-gate table in task 6 and ask what each\
-  \ gate protects against — in particular, why the estimator compares a candidate\
-  \ pose against its current belief before deciding anything."
+message_correct: "The reading is 0.02 s old and its stdDev is 0.3, so the first two\
+  \ gates pass. The distance from (4.0, 3.0) to (9.2, 1.0) is about 5.6 m, and no robot\
+  \ moves that far in one frame."
+message_incorrect: "Compute each gate from the table with the thresholds in task 6:\
+  \ the age of the reading, the stdDev, and the straight-line distance between the\
+  \ two positions. Exactly one gate fails."
 custom_name: "Check: Vision Gating"
 local_check: true

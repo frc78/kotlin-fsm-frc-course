@@ -1,47 +1,49 @@
 # Pose Estimator: Odometry Updates
 
-A `PoseEstimator` tracks where the robot believes it is. The estimator
-combines two streams of input:
+A `PoseEstimator` tracks where the robot believes it is. It combines two
+inputs:
 
-1. **Odometry** — wheel rotations + gyro yaw. Always available, accumulates
-   error over time (drift).
-2. **Vision** — AprilTag detections. Intermittently available, corrects
-   drift but can be noisy.
+1. **Odometry**: wheel rotations plus gyro heading. Always available. Error
+   builds up over time. This is called drift.
+2. **Vision**: AprilTag detections. Available only when a tag is in view.
+   Corrects drift, but a single reading can be noisy.
 
-This task is just the odometry side. Vision is the next task.
+This task is the odometry side. Vision is the next task.
 
-## What an odometry update means
+## What an odometry update is
 
-Each periodic, the swerve modules report how far each wheel has rolled.
-The kinematics module turns those wheel deltas into a single robot
-delta — "forward `dx` meters, sideways `dy` meters, rotated `dθ`
-radians" since last tick. The estimator integrates that delta into its
-current pose via:
+Each periodic, the swerve modules report how far each wheel rolled. The
+swerve kinematics turn the four wheel distances into one robot motion since
+the last tick: forward `dx` meters, sideways `dy` meters, and a heading
+change. The estimator adds that motion to its current pose:
 
 `PoseEstimator.updateWithOdometry(translationDelta: Translation2d, rotationDelta: Rotation2d)`
 
-`translationDelta` is in the **robot's body frame** at the start of the
-tick. The estimator rotates it into the field frame using the current
-heading, then adds. (The stub does this rotation for you — call sites
-just hand over the body-frame delta.)
+`translationDelta` is in the **robot frame** at the start of the tick. The
+estimator rotates it into the field frame with the current heading and then
+adds it. You hand over the robot-frame delta only.
 
 ## Your task
 
 Implement `applyOdometry(estimator, forwardMeters, turnDegrees)` in
-`src/Odometry.kt`. Treat `forwardMeters` as motion along the robot's
-**+X axis** (forward in the body frame) with **no sideways component**,
-and `turnDegrees` as the change in heading. Build the appropriate
-`Translation2d` and `Rotation2d` from those two scalars and pass them
-to `updateWithOdometry`.
+`src/Odometry.kt`.
 
-## What the test exercises
+| Parameter       | Meaning                                                  |
+|-----------------|----------------------------------------------------------|
+| `forwardMeters` | motion along the robot's +X axis. No sideways component. |
+| `turnDegrees`   | the change in heading since the last tick, in degrees    |
 
-A canonical odometry-replay scenario:
+The function calls `updateWithOdometry` once with the two values converted to
+the types it takes.
 
-1. Start at origin facing 0°.
-2. Drive forward 1 m → expect `(1, 0)` facing 0°.
-3. Turn 90° → expect `(1, 0)` facing 90°.
-4. Drive forward 1 m → expect `(1, 1)` facing 90°.
+## What the test does
 
-If your function is right, this trace falls out. Watch the body-frame vs
-field-frame mental model — that's what trips most students.
+| Step                    | Pose after the step   |
+|-------------------------|-----------------------|
+| start                   | `(0, 0)` facing 0°    |
+| drive forward 1 m       | `(1, 0)` facing 0°    |
+| turn 90°                | `(1, 0)` facing 90°   |
+| drive forward 1 m       | `(1, 1)` facing 90°   |
+
+The last row shows why the frame matters. The robot faces 90°, so "forward"
+is along field +Y.

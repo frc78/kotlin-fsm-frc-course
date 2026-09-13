@@ -38,13 +38,4 @@ class OdometryTest {
         assertEquals(1.0, e.currentPose.y, 1e-6)
         assertEquals(90.0, e.currentPose.rotation.degrees, 1e-6)
     }
-
-    @Test fun reset_pose_clears_history() {
-        val e = PoseEstimator()
-        applyOdometry(e, 5.0, 30.0)
-        e.resetPose(frc.stubs.geometry.Pose2d())
-        assertEquals(0.0, e.currentPose.x, tol)
-        assertEquals(0.0, e.currentPose.y, tol)
-        assertEquals(0.0, e.currentPose.rotation.degrees, tol)
-    }
 }

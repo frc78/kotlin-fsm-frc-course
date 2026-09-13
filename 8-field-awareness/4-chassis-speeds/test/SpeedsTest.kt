@@ -15,7 +15,7 @@ class SpeedsTest {
     }
 
     @Test fun robot_facing_ninety_rotates_field_x_into_robot_negative_y() {
-        // Field +x at 1 m/s. Robot facing 90° (north). In robot frame, field +x is to my right.
+        // Field +x at 1 m/s. Robot facing 90° (along field +y). In robot frame, field +x is to my right.
         // For the robot, +y is left. So this becomes vx = 0, vy = -1.
         val s = fieldToRobotSpeeds(1.0, 0.0, 0.0, Rotation2d.fromDegrees(90.0))
         assertEquals(0.0, s.vxMetersPerSecond, tol)

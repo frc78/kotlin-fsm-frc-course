@@ -76,6 +76,23 @@ class VisionTest {
         assertEquals(1.0, e.currentPose.x, 1e-9)
     }
 
+    @Test fun rejects_diagonal_jump_just_over_threshold() {
+        // From (1, 1) to (2.0, 2.2): dx = 1.0, dy = 1.2, straight-line distance = 1.562 m.
+        // Checking only |dx|, or max(|dx|, |dy|), would wrongly accept this.
+        val e = freshEstimator()
+        val applied = integrateVisionMeasurement(
+            estimator = e,
+            measurement = VisionMeasurement(
+                pose = Pose2d(2.0, 2.2, Rotation2d()),
+                timestampSeconds = 10.0,
+                translationStdDev = 0.2,
+            ),
+            currentTimestampSeconds = 10.0,
+        )
+        assertFalse(applied, "1.56 m straight-line jump must be rejected by the 1.5 m gate")
+        assertEquals(1.0, e.currentPose.x, 1e-9, "rejected measurement must not move the pose")
+    }
+
     @Test fun applies_when_all_gates_pass() {
         val e = freshEstimator()
         repeat(5) {

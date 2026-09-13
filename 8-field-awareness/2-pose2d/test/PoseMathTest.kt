@@ -40,6 +40,17 @@ class PoseMathTest {
         assertEquals(1.0, piece.y, tol)
     }
 
+    @Test fun piece_when_robot_is_offset_and_rotated() {
+        // Robot at (4, 3) facing +y; piece 2m forward. Rotate first, then add: (4, 5).
+        // Add first, then rotate gives (-3, 6).
+        val piece = gamePieceFieldPosition(
+            robotPose = Pose2d(4.0, 3.0, Rotation2d.fromDegrees(90.0)),
+            pieceInRobotFrame = Translation2d(2.0, 0.0),
+        )
+        assertEquals(4.0, piece.x, tol, "rotate the offset by the heading before adding the robot position")
+        assertEquals(5.0, piece.y, tol, "rotate the offset by the heading before adding the robot position")
+    }
+
     @Test fun opponent_directly_in_front_relative_to_me() {
         val me = Pose2d(0.0, 0.0, Rotation2d())
         val opponent = Pose2d(3.0, 0.0, Rotation2d())

@@ -12,9 +12,8 @@ options:
 message_correct: "Rotate the body-frame offset (2, 0) by the 90° heading to get (0,\
   \ 2) in field coordinates, then add the robot's position (4, 3) — rotate first,\
   \ then shift."
-message_incorrect: "Walk through task 2's two-step recipe for gamePieceFieldPosition\
-  \ again: the body-frame offset must be rotated by the robot's heading before it\
-  \ can be combined with the robot's field position — and both the direction of the\
-  \ rotation and add-versus-subtract matter."
+message_incorrect: "Look at the last row of the first table in task 2. Work out what\
+  \ the robot's heading does to the offset, then what the robot's position does. The\
+  \ direction of the rotation and add-versus-subtract both matter."
 custom_name: "Check: Pose Math"
 local_check: true

@@ -1,7 +1,7 @@
 # Pose2d and Frame Conversion
 
-A `Pose2d` is a `Translation2d` plus a `Rotation2d`. It says: *"this thing is
-at this point, oriented this way."*
+A `Pose2d` is a `Translation2d` plus a `Rotation2d`. It says: "this thing is
+at this point, and it faces this way."
 
 ```kotlin
 val robot = Pose2d(
@@ -9,7 +9,7 @@ val robot = Pose2d(
     rotation = Rotation2d.fromDegrees(45.0),
 )
 
-// Convenience constructor:
+// Shorter constructor, same pose:
 val same = Pose2d(2.0, 3.0, Rotation2d.fromDegrees(45.0))
 
 robot.x            // 2.0
@@ -18,38 +18,54 @@ robot.translation  // Translation2d(2.0, 3.0)
 robot.rotation     // Rotation2d at 45°
 ```
 
-## `relativeTo` — change of frame
+## Two frames
 
-The most useful operation on `Pose2d`: given a pose `p` in the field
-frame, what does it look like in another pose's frame? `Pose2d` has a
-method `relativeTo(reference: Pose2d): Pose2d` that returns the receiver
-re-expressed in the reference's frame.
+The **field frame** is the one from task 1. The **robot frame** (also called
+the body frame) has its origin at the robot's center. +X points out of the
+robot's nose, and +Y points to the robot's left. A camera reports a game
+piece in the robot frame. The pose estimator reports the robot in the field
+frame. To use both together you convert one into the other.
 
-This answers questions like "if I were the origin facing forward, where
-would *thing* be?" Useful for:
+## `relativeTo`
 
-- "Is the goal in front of me or behind me?" — sign of `goal.relativeTo(me).x`.
-- "How far off-axis is the game piece?" — `piece.relativeTo(me).y`.
-- "What's my approach angle to the goal?" — `goal.relativeTo(me).rotation`.
+`Pose2d` has one method for this:
+
+`fun relativeTo(reference: Pose2d): Pose2d`
+
+It returns the receiver pose expressed in the frame of `reference`. The
+receiver is the pose you want to convert. The argument is the frame you want
+it in.
+
+| Question                                | Expression                       |
+|-----------------------------------------|----------------------------------|
+| Is the goal in front of me or behind me? | sign of `goal.relativeTo(me).x`  |
+| How far off-axis is the game piece?     | `piece.relativeTo(me).y`         |
+| What is my approach angle to the goal?  | `goal.relativeTo(me).rotation`   |
 
 ## Your task
 
-Implement two functions in `src/PoseMath.kt`:
+Implement two functions in `src/PoseMath.kt`.
 
-1. **`gamePieceFieldPosition(robotPose, pieceInRobotFrame)`** — given the
-   robot's pose and a game piece's position *in the robot's body frame*,
-   return the piece's position in the field frame.
+**`gamePieceFieldPosition(robotPose, pieceInRobotFrame)`** returns the piece's
+position in the field frame. `pieceInRobotFrame` is a `Translation2d` measured
+from the robot's center, in the robot frame. Use the `Translation2d`
+operations from task 1.
 
-   Think of the inputs geometrically. `pieceInRobotFrame` was measured
-   relative to the robot's heading and position. To re-express it in
-   field coordinates, first rotate the body-frame offset into the field
-   frame using the robot's heading, then shift it by the robot's
-   position on the field. `Translation2d` supports both operations
-   directly — see the previous task's reference of operators on
-   `Translation2d`.
+| Robot pose            | Piece in robot frame | Piece in field frame |
+|-----------------------|----------------------|----------------------|
+| `(0, 0)` facing 0°    | `(2, 0)`             | `(2, 0)`             |
+| `(5, 5)` facing 0°    | `(1, 0)`             | `(6, 5)`             |
+| `(0, 0)` facing 90°   | `(1, 0)`             | `(0, 1)`             |
+| `(4, 3)` facing 90°   | `(2, 0)`             | `(4, 5)`             |
 
-2. **`opponentRelativeToMe(myPose, opponentPose)`** — express the
-   opponent's pose in your robot's frame. `Pose2d` has a method that
-   does exactly this kind of frame change in one call. Read its name
-   and signature carefully: the receiver is the pose you want to
-   *transform*, and the argument is the *reference* frame.
+The last row is the important one. The robot's heading changes the offset and
+the robot's position shifts it. Both matter, and the order matters.
+
+**`opponentRelativeToMe(myPose, opponentPose)`** returns the opponent's pose
+in my robot frame. `relativeTo` does this in one call.
+
+| My pose               | Opponent pose          | Result               |
+|-----------------------|------------------------|----------------------|
+| `(0, 0)` facing 0°    | `(3, 0)` facing 0°     | `(3, 0)` facing 0°   |
+| `(0, 0)` facing 0°    | `(0, 2)` facing 0°     | `(0, 2)` facing 0°   |
+| `(0, 0)` facing 90°   | `(0, 5)` facing 90°    | `(5, 0)` facing 0°   |

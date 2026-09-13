@@ -36,6 +36,12 @@ class GeometryTest {
         assertEquals(PI, h.radians, tol)
     }
 
+    @Test fun heading_into_quadrant_three_is_minus_135() {
+        // atan(dy/dx) gives +45° here; only atan2 gives -135°.
+        val h = headingFromTo(Translation2d(0.0, 0.0), Translation2d(-1.0, -1.0))
+        assertEquals(-3 * PI / 4, h.radians, tol, "heading to (-1, -1) must be -135°, not +45°")
+    }
+
     @Test fun rotate_unit_x_by_ninety() {
         val p = rotatePoint(Translation2d(1.0, 0.0), Rotation2d.fromDegrees(90.0))
         assertEquals(0.0, p.x, tol)
