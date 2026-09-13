@@ -9,7 +9,7 @@ class Elevator {
         set(value) {
             if (field != value) {
                 field = value
-                ticksRemaining = if (value == state) 0 else stepsToReach
+                ticksRemaining = if (value == state) stepsToReach - ticksRemaining else stepsToReach
             }
         }
 

@@ -7,7 +7,7 @@ you learn here transfers directly to a real robot project.
 
 ## What's inside
 
-8 lessons, 62 tasks (40 programming exercises, 18 comprehension checks,
+8 lessons, 63 tasks (41 programming exercises, 18 comprehension checks,
 4 theory pages):
 
 1. **Kotlin from zero** — values and types, functions, decisions, objects, loops and lists, `enum`, `when`, and sealed classes.

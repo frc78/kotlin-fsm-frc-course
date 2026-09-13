@@ -42,6 +42,19 @@ class SuperstructureTest {
         )
     }
 
+    @Test fun atTarget_false_while_only_intake_still_spinning_up() {
+        // INTAKE_GROUND changes all three. After 3 ticks the elevator (3) and
+        // the arm (2) are settled. The rollers (4) are not.
+        s.commandedRobotState = RobotState.INTAKE_GROUND
+        repeat(3) { s.periodic() }
+        assertTrue(s.elevator.atTarget(), "elevator should be settled after 3 ticks")
+        assertTrue(s.arm.atTarget(), "arm should be settled after 3 ticks")
+        assertFalse(
+            s.atTarget(),
+            "the rollers need 4 ticks to spin up — atTarget() must include intake.requestReached()",
+        )
+    }
+
     @Test fun atTarget_true_after_subsystems_settle() {
         s.commandedRobotState = RobotState.SCORE_L4
         repeat(6) { s.periodic() }

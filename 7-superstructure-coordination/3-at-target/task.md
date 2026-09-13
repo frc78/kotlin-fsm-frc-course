@@ -14,23 +14,27 @@ each subsystem that contributes to that pose has settled.
 
 The three queries you will combine:
 
-- `elevator.atTarget(): Boolean`
-- `arm.atTarget(): Boolean`
-- `intake.modeReached(): Boolean` (the intake has no continuous position,
-  it only reaches a roller mode, so the name differs)
+| Subsystem | Query                              | True when                                  |
+|-----------|------------------------------------|--------------------------------------------|
+| elevator  | `elevator.atTarget(): Boolean`     | the carriage is settled at its target      |
+| arm       | `arm.atTarget(): Boolean`          | the arm is settled at its target           |
+| intake    | `intake.requestReached(): Boolean` | the rollers do what was last requested     |
 
 ## Why subsystems take time
 
 The stubs simulate physical motion. The elevator takes 3 ticks to reach a
-new target. The arm takes 2. The intake snaps immediately.
+new target. The arm takes 2. The intake rollers take 4 ticks to spin up or
+down after a request change. If the request does not change, the intake is
+already there.
+
 `stateActions()` (already written for you) commands all three subsystems on
 the same tick, so they move at the same time. The superstructure is at
 target once the **slowest** subsystem settles. After commanding `SCORE_L4`
-from `STOWED`, that is the elevator: 3 periodic ticks before
-`Superstructure.atTarget()` becomes true. Making them take turns is the
+from `STOWED`, that is the elevator: 3 periodic ticks. After commanding
+`INTAKE_GROUND`, that is the intake: 4 ticks. Making them take turns is the
 next task.
 
 ## Your task
 
 Implement `atTarget()` in `src/Superstructure.kt`. It returns `true` only
-when all three per-subsystem queries above return `true`.
+when all three queries in the table return `true`.

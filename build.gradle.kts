@@ -67,6 +67,7 @@ sourceSets {
             "7-superstructure-coordination/3-at-target/src",
             "7-superstructure-coordination/4-sequencing-guards/src",
             "7-superstructure-coordination/5-bidirectional-sequencing/src",
+            "7-superstructure-coordination/6-phase-timeout/src",
             // Lesson 8
             "8-field-awareness/1-translation-rotation/src",
             "8-field-awareness/2-pose2d/src",
@@ -113,6 +114,7 @@ sourceSets {
             "7-superstructure-coordination/3-at-target/test",
             "7-superstructure-coordination/4-sequencing-guards/test",
             "7-superstructure-coordination/5-bidirectional-sequencing/test",
+            "7-superstructure-coordination/6-phase-timeout/test",
             "8-field-awareness/1-translation-rotation/test",
             "8-field-awareness/2-pose2d/test",
             "8-field-awareness/3-targeting/test",

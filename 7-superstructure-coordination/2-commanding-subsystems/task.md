@@ -17,8 +17,16 @@ each per-subsystem setpoint into the right place.
   add a `transition` field that tracks the current state while the robot
   moves.
 
-This is the same two-method-pattern shape as a per-subsystem FSM. The
-difference is what `stateActions()` writes to:
+## One method for now
+
+`Superstructure` implements `Subsystem`, like every subsystem in lesson 2.
+Its `periodic()` calls `stateActions()` and then ticks the three children.
+There is no `stateTransitions()` yet, because this superstructure has no
+state of its own to change: it applies the goal directly. Task 4 adds
+`stateTransitions()` when the robot gets a current state that differs from
+the goal.
+
+What `stateActions()` writes to is the difference from a subsystem:
 
 - A subsystem's `stateActions()` writes to a motor
   (`motor.setControl(...)`).
@@ -35,7 +43,7 @@ Each FSM operates on the layer below it.
 |----------------------|--------------------------------------|
 | `elevator: Elevator` | `commandedTarget: Elevator.State`    |
 | `arm: Arm`           | `commandedTarget: Arm.State`         |
-| `intake: Intake`     | `commandedMode: Intake.Mode`         |
+| `intake: Intake`     | `request: Intake.Request`            |
 
 The goal state carries a matching property for each subsystem
 (`commandedRobotState.elevator`, `.arm`, `.intake`).

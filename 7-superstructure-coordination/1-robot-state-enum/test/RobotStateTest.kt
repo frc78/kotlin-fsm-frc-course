@@ -15,27 +15,27 @@ class RobotStateTest {
         val s = RobotState.STOWED
         assertEquals(Elevator.State.STOWED, s.elevator)
         assertEquals(Arm.State.STOWED, s.arm)
-        assertEquals(Intake.Mode.IDLE, s.intake)
+        assertEquals(Intake.Request.STOP, s.intake)
     }
 
     @Test fun intake_ground_setpoints() {
         val s = RobotState.INTAKE_GROUND
         assertEquals(Elevator.State.LOW, s.elevator)
         assertEquals(Arm.State.GROUND, s.arm)
-        assertEquals(Intake.Mode.INTAKING, s.intake)
+        assertEquals(Intake.Request.INTAKE, s.intake)
     }
 
     @Test fun score_l4_setpoints() {
         val s = RobotState.SCORE_L4
         assertEquals(Elevator.State.HIGH, s.elevator)
         assertEquals(Arm.State.SCORE, s.arm)
-        assertEquals(Intake.Mode.HOLDING, s.intake)
+        assertEquals(Intake.Request.STOP, s.intake)
     }
 
     @Test fun climb_prep_setpoints() {
         val s = RobotState.CLIMB_PREP
         assertEquals(Elevator.State.STOWED, s.elevator)
         assertEquals(Arm.State.CLIMB, s.arm)
-        assertEquals(Intake.Mode.IDLE, s.intake)
+        assertEquals(Intake.Request.STOP, s.intake)
     }
 }
