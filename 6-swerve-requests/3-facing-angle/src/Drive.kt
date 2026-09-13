@@ -1,11 +1,11 @@
-package course.l6t2
+package course.l6t3
 
 import frc.stubs.swerve.*
 
 object Drive {
     val drivetrain = SwerveDrivetrain()
 
-    fun teleopDrive(vx: Double, vy: Double, omega: Double, robotRelative: Boolean) {
+    fun aimWhileDriving(vx: Double, vy: Double, targetDegrees: Double) {
         // TODO: see task.md.
         TODO()
     }

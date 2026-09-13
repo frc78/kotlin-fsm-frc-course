@@ -1,4 +1,6 @@
-package course.l6t6
+package course.l6t5
+
+import frc.stubs.geometry.Rotation2d
 
 import frc.stubs.swerve.FieldCentric
 import frc.stubs.swerve.FieldCentricFacingAngle
@@ -58,7 +60,7 @@ class DriveModeFsmTest {
             "commandedAim alone should select AIMING"
         )
         assertEquals(
-            FieldCentricFacingAngle(velocityX = 0.5, velocityY = -0.4, targetDirection = 90.0),
+            FieldCentricFacingAngle(velocityX = 0.5, velocityY = -0.4, targetDirection = Rotation2d.fromDegrees(90.0)),
             DriveModeFsm.drivetrain.lastRequest,
             "AIMING should send a FieldCentricFacingAngle carrying requestedVx, requestedVy, and aimTargetDegrees"
         )
@@ -142,7 +144,7 @@ class DriveModeFsmTest {
             "aim has priority over robot-relative"
         )
         assertEquals(
-            FieldCentricFacingAngle(velocityX = 1.0, targetDirection = 45.0),
+            FieldCentricFacingAngle(velocityX = 1.0, targetDirection = Rotation2d.fromDegrees(45.0)),
             DriveModeFsm.drivetrain.lastRequest,
             "AIMING should send a FieldCentricFacingAngle, not a RobotCentric, when both flags are set"
         )

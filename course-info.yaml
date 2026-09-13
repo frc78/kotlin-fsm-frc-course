@@ -15,7 +15,7 @@ summary: |-
     4. Testing — verify FSMs without hardware.
     5. Motor configuration — TalonFX setup: neutral mode, inversion,
        current limits, and PID slots.
-    6. Swerve Requests - Learn to use CTREs Swerve API
+    6. Swerve requests — CTRE swerve API, joystick mapping with deadbands, and a drive-mode FSM.
     7. Superstructure Coordination - Combine multiple subsystem state machines into a full robot.
     8. Field awareness - Learn about how robots interact with position systems
 vendor:

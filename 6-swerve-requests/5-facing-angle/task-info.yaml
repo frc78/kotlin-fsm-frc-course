@@ -1,6 +1,0 @@
-type: edu
-files:
-  - name: src/Drive.kt
-    visible: true
-  - name: test/DriveTest.kt
-    visible: false

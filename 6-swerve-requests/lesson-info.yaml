@@ -1,9 +1,8 @@
 content:
-  - 1-field-centric
-  - 2-robot-centric
-  - 3-swerve-brake
-  - 4-point-wheels-at
-  - 5-facing-angle
-  - 6-drive-mode-fsm
-  - 7-check-request-frames
-  - 8-check-facing-angle
+  - 1-field-and-robot-centric
+  - 2-brake-and-point-wheels
+  - 3-facing-angle
+  - 4-joystick-mapping
+  - 5-drive-mode-fsm
+  - 6-check-request-frames
+  - 7-check-facing-angle

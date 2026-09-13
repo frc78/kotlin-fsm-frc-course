@@ -18,7 +18,7 @@ class TargetingTest {
             vx = 0.0, vy = 0.0,
         )
         val r = assertIs<FieldCentricFacingAngle>(request)
-        assertEquals(0.0, r.targetDirection, tol)
+        assertEquals(0.0, r.targetDirection.degrees, tol)
     }
 
     @Test fun aim_at_goal_directly_along_y() {
@@ -28,7 +28,7 @@ class TargetingTest {
             vx = 0.0, vy = 0.0,
         )
         val r = assertIs<FieldCentricFacingAngle>(request)
-        assertEquals(90.0, r.targetDirection, tol)
+        assertEquals(90.0, r.targetDirection.degrees, tol)
     }
 
     @Test fun aim_passes_translation_through() {
@@ -40,7 +40,7 @@ class TargetingTest {
         val r = assertIs<FieldCentricFacingAngle>(request)
         assertEquals(1.5, r.velocityX, tol)
         assertEquals(-0.7, r.velocityY, tol)
-        assertEquals(0.0, r.targetDirection, tol)
+        assertEquals(0.0, r.targetDirection.degrees, tol)
     }
 
     @Test fun aim_at_goal_behind_robot() {
@@ -50,7 +50,7 @@ class TargetingTest {
             vx = 0.0, vy = 0.0,
         )
         val r = assertIs<FieldCentricFacingAngle>(request)
-        assertEquals(180.0, r.targetDirection, tol, "goal straight behind the robot is at 180°")
+        assertEquals(180.0, r.targetDirection.degrees, tol, "goal straight behind the robot is at 180°")
     }
 
     @Test fun aim_when_robot_offset_from_origin() {
@@ -61,6 +61,6 @@ class TargetingTest {
             vx = 0.0, vy = 0.0,
         )
         val r = assertIs<FieldCentricFacingAngle>(request)
-        assertEquals(53.130102, r.targetDirection, 1e-4)
+        assertEquals(53.130102, r.targetDirection.degrees, 1e-4)
     }
 }
