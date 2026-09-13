@@ -8,7 +8,6 @@ object DriveModeFsm {
     val drivetrain = SwerveDrivetrain()
 
     var state: State = State.TELEOP_FIELD
-        private set
 
     var requestedVx: Double = 0.0
     var requestedVy: Double = 0.0

@@ -4,15 +4,10 @@ package frc.stubs.swerve
 // same `with*`-method API surface students will see in real CTRE code, so
 // muscle memory transfers.
 //
-// Implementation note: these stubs use immutable data classes — each `with*`
+// Implementation note: these stubs use immutable data classes. Each `with*`
 // call returns a COPY with the field updated. The real Phoenix6 classes
-// mutate-in-place and return `this`. The chained call shape is identical
-// either way:
-//
-//   FieldCentric()
-//       .withVelocityX(1.0)
-//       .withVelocityY(0.5)
-//       .withRotationalRate(0.2)
+// mutate in place and return `this`. The chained call shape is identical
+// either way.
 //
 // Velocities are in meters/second (vx, vy) and radians/second (rotationalRate).
 // Directions are in degrees in this course; real Phoenix6 takes Rotation2d.

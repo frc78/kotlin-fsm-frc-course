@@ -9,4 +9,8 @@ object Drive {
         // TODO: see task.md.
         TODO()
     }
+
+    fun reset() {
+        drivetrain.setControl(Idle)
+    }
 }

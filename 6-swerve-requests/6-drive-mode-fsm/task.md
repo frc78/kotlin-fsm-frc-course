@@ -1,21 +1,17 @@
 # Drive-Mode FSM
 
-You've built five different `SwerveRequest` types in isolation. In a real
-robot, the drivetrain switches between them based on driver inputs and the
-state of the rest of the robot — exactly the kind of decision an FSM is good
-at.
-
-This task brings the FSM theme of the course back to the drivetrain. The
-result is the swerve request piece of a real teleop control loop.
+You have built five `SwerveRequest` types in isolation. On a real robot the
+drivetrain switches between them from driver inputs and the state of the rest
+of the robot. That decision is an FSM.
 
 ## States
 
-| State          | Driver intent                              | Request                       |
-|----------------|--------------------------------------------|-------------------------------|
-| `TELEOP_FIELD` | Default driving                            | `FieldCentric`                |
-| `TELEOP_ROBOT` | Driver toggled robot-relative              | `RobotCentric`                |
-| `AIMING`       | Driver pressed "lock heading"              | `FieldCentricFacingAngle`     |
-| `BRAKED`       | Driver pressed "brake"                     | `SwerveDriveBrake`            |
+| State          | Driver intent                     | Request                   |
+|----------------|-----------------------------------|---------------------------|
+| `TELEOP_FIELD` | Default driving                   | `FieldCentric`            |
+| `TELEOP_ROBOT` | Driver toggled robot-relative     | `RobotCentric`            |
+| `AIMING`       | Driver pressed "lock heading"     | `FieldCentricFacingAngle` |
+| `BRAKED`       | Driver pressed "brake" while still| `SwerveDriveBrake`        |
 
 ## Driver inputs (already on the object)
 
@@ -29,43 +25,56 @@ var aimTargetDegrees: Double       // used when commandedAim is true
 var commandedBrake: Boolean
 ```
 
-## Transition priority
+## Transitions
 
-When multiple buttons are held at once, prefer the **higher-priority** mode:
+`stateTransitions()` picks one state per tick. Check the rows in this order.
+The first row whose condition is true wins.
 
+| Priority | Condition                                                          | Next state     |
+|----------|--------------------------------------------------------------------|----------------|
+| 1        | `commandedBrake` and all three requested velocities are still      | `BRAKED`       |
+| 2        | `commandedAim`                                                     | `AIMING`       |
+| 3        | `commandedRobotRelative`                                           | `TELEOP_ROBOT` |
+| 4        | none of the above                                                  | `TELEOP_FIELD` |
+
+"Still" means the magnitude of `requestedVx`, `requestedVy`, and
+`requestedOmega` is each below 0.05. The brake never fights a moving stick.
+If the driver holds brake while a stick is off center, row 1 does not match
+and the lower rows decide.
+
+## Actions
+
+`stateActions()` is a `when (state)` with one branch per state. Each branch
+builds the request from the table above and hands it to
+`drivetrain.setControl(...)`:
+
+| State          | Request fields                                          |
+|----------------|---------------------------------------------------------|
+| `TELEOP_FIELD` | `requestedVx`, `requestedVy`, `requestedOmega`          |
+| `TELEOP_ROBOT` | `requestedVx`, `requestedVy`, `requestedOmega`          |
+| `AIMING`       | `requestedVx`, `requestedVy`, `aimTargetDegrees`        |
+| `BRAKED`       | none                                                    |
+
+## Kotlin you need: `when` without a subject
+
+Until now every `when` had a subject, `when (state)`. A `when` with no
+subject takes a boolean condition in each branch. The first true branch runs:
+
+```kotlin
+val speedName = when {
+    speed > 3.0 -> "fast"
+    speed > 1.0 -> "medium"
+    else -> "slow"
+}
 ```
-brake > aim > robot-relative > field
-```
 
-So if the driver holds both brake and aim, the robot brakes. If they hold
-both robot-relative and aim, the robot aims (field-centric facing-angle).
-
-This is a classic FSM use of priority: `stateTransitions()` picks one state
-per tick by checking conditions in priority order.
+This is the natural shape for a priority list.
 
 ## Your task
 
 Open `src/DriveModeFsm.kt`. Implement `stateTransitions()` and
 `stateActions()`.
 
-**`stateTransitions()`**: assign `state` based on which command flag is
-set. Use a `when` *without* a subject — each branch is a boolean
-condition, and the first matching branch wins. Order the branches by
-priority (`brake` → `aim` → `robot-relative` → `field`) so the highest
-priority that's currently asserted is the one that takes effect. If no
-command flag is set, fall through to `TELEOP_FIELD`.
-
-**`stateActions()`**: a `when (state)` block with one branch per state.
-Each branch builds the appropriate `SwerveRequest` (per the table
-above) and hands it to `drivetrain.setControl(...)`.
-
-## Hint
-
-For the request builders, reuse the shapes from earlier tasks: the
-`Field`/`Robot`Centric requests want `vx`/`vy`/`omega` from the
-`requested*` fields, the `FieldCentricFacingAngle` wants `vx`/`vy` plus
-`aimTargetDegrees`, and `SwerveDriveBrake` is a singleton.
-
-You'll also spot one request you haven't built: the starter's `reset()`
-sends `Idle`, the request a real robot applies when no drive command
-should be active at all — for example, while disabled.
+The starter's `reset()` sends `Idle`, one request you have not built. A real
+robot applies `Idle` when no drive command should be active, for example
+while disabled.

@@ -1,65 +1,70 @@
 # Field-Centric Driving
 
-Phoenix6's swerve API works through **request objects**. Instead of calling
-`drivetrain.drive(vx, vy, omega)` directly, you build a `SwerveRequest` and
-hand it to `drivetrain.setControl(...)`. The drivetrain interprets the request
-each tick.
+Phoenix6's swerve API works through **request objects**. You do not call
+`drivetrain.drive(vx, vy, omega)`. You build a `SwerveRequest` and hand it to
+`drivetrain.setControl(...)`. The drivetrain reads the request each tick.
 
-There are several request types — each one expresses a different *intent*.
-We'll start with the most common: **`FieldCentric`**.
+Each request type expresses a different intent. The most common one is
+**`FieldCentric`**.
 
 ## What field-centric means
 
 The driver's joystick maps to the **field's** axes, not the robot's.
 
-- Pushing forward → robot moves toward the opposite alliance wall, no matter
-  which way the robot is facing.
-- Pushing right → robot moves to the field's right.
+- Push forward: the robot moves toward the far alliance wall, no matter which
+  way the robot faces.
+- Push left: the robot moves to the field's left.
 
-The drivetrain handles the rotation conversion using the gyro. This is what
-your driver wants 99% of the time once they're comfortable.
+The drivetrain uses the gyro to convert field axes to wheel commands. Most
+drivers use field-centric for the whole match. `RobotCentric`, in the next
+task, covers the cases where the gyro cannot be trusted.
 
-(The 1% case — when the gyro isn't trustworthy — is handled by `RobotCentric`,
-which is the next task.)
+## The frame convention
+
+WPILib and Phoenix6 use one convention for every velocity and angle:
+
+- **+X** is forward, toward the far alliance wall.
+- **+Y** is left.
+- **Counterclockwise is positive** for every rotation and angle.
+
+Every `with*` setter in this lesson follows that convention.
 
 ## The builder pattern
 
 `FieldCentric` uses a fluent builder API. You construct an empty
-`FieldCentric()`, then chain `with*` setters to populate its fields:
+`FieldCentric()`, then chain `with*` setters to fill its fields:
 
-| Setter             | Argument units                                     |
-|--------------------|----------------------------------------------------|
-| `withVelocityX`    | forward in field frame, m/s                        |
-| `withVelocityY`    | left in field frame, m/s                           |
-| `withRotationalRate` | counterclockwise rotation, rad/s                 |
+| Setter               | Argument units                     |
+|----------------------|------------------------------------|
+| `withVelocityX`      | forward in field frame, m/s        |
+| `withVelocityY`      | left in field frame, m/s           |
+| `withRotationalRate` | counterclockwise rotation, rad/s   |
 
 Each `with*` call returns a `FieldCentric` you can keep chaining on. The
 final expression is the request you pass to `drivetrain.setControl(...)`.
 
-> **Note on real Phoenix6:** The actual CTRE classes mutate themselves on each
-> `with*` call and return `this`. This stub returns a copy each time. The call
-> shape is identical — your code reads the same — but the underlying
-> semantics differ. In real code, you typically create one `FieldCentric` as a
-> field and reuse it; here, you can make a fresh one each tick without any
-> performance worry. The real `FieldCentric` (and `RobotCentric`, next task)
-> also take `withDeadband(...)` and `withRotationalDeadband(...)` to ignore
-> small joystick noise — the most common configuration besides the velocities;
-> the stub omits them.
+> **Note on real Phoenix6:** The real CTRE classes change themselves on each
+> `with*` call and return `this`. This stub returns a copy each time. The
+> call shape is identical. In real code you create one `FieldCentric` as a
+> field and reuse it every tick. Real `FieldCentric` and `RobotCentric` also
+> have `withDeadband(...)` and `withRotationalDeadband(...)`. A deadband is
+> the small stick movement the request ignores, so a stick that rests a
+> little off center does not creep the robot. The stub omits both setters.
 
 ## Your task
 
-Open `src/Drive.kt`. Implement `teleopDrive(vx, vy, omega)`:
+Open `src/Drive.kt`. Implement `teleopDrive(vx, vy, omega)`. The drivetrain
+must receive one `FieldCentric` request with these fields:
 
-1. Build a `FieldCentric` request whose `velocityX` is `vx`, `velocityY`
-   is `vy`, and rotational rate is `omega`.
-2. Apply that request to `drivetrain`.
+| Parameter | Request field    |
+|-----------|------------------|
+| `vx`      | `velocityX`      |
+| `vy`      | `velocityY`      |
+| `omega`   | `rotationalRate` |
 
-That's the entire body of the function — three chained `with*` calls
-followed by a single `setControl(...)`.
+Call `setControl(...)` once per call to `teleopDrive`.
 
 ## Aside: alliance flipping
 
-In real FRC, "field-centric forward" depends on the alliance. The driver
-station's "forward" is toward the opposing alliance — which is +X on blue
-side, -X on red side. CTRE has `setOperatorPerspectiveForward()` for this.
-You can ignore it for now; the stub doesn't model alliance.
+In a real match, "forward" for the red driver points along -X. CTRE has
+`setOperatorPerspectiveForward()` for this. The stub does not model alliance.

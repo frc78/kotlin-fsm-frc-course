@@ -1,23 +1,19 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "RobotCentric — its velocityX always means the same thing: straight out the\
-    \ front of the robot"
+  - text: "RobotCentric. Its velocityX always points out the front of the robot."
     is_correct: false
-  - text: "FieldCentric — its velocities are in field coordinates, so the same stick\
-    \ push moves the robot the same way at any heading"
+  - text: "FieldCentric. The drivetrain uses the gyro to convert the stick to field axes."
     is_correct: true
-  - text: SwerveDriveBrake — the X-lock ignores heading entirely
+  - text: "PointWheelsAt. It aims every module along the field's +X axis."
     is_correct: false
-  - text: "FieldCentric and RobotCentric behave the same, as long as the gyro was zeroed\
-    \ at the start of the match"
+  - text: "Either one. They agree as long as the gyro was zeroed at match start."
     is_correct: false
-message_correct: "Right — FieldCentric velocities live in the field's frame and the\
-  \ drivetrain uses the gyro to convert them, so heading never changes what the stick\
-  \ means (RobotCentric only agrees with it at the single instant the heading is exactly\
-  \ zero)."
-message_incorrect: "Re-read the frame definitions in tasks 1 and 2: each request's\
-  \ velocityX names a direction — ask which of those directions rotates with the robot\
-  \ and which is bolted to the field."
+message_correct: "Right. FieldCentric velocities live in the field's frame, so heading\
+  \ never changes what the stick means. RobotCentric agrees with it only when the\
+  \ heading is exactly zero."
+message_incorrect: "Re-read the frame definitions in tasks 1 and 2. Each request's\
+  \ velocityX names a direction. Ask which direction turns with the robot and which\
+  \ is fixed to the field."
 custom_name: "Check: Request Frames"
 local_check: true
