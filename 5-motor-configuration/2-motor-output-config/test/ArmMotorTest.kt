@@ -2,11 +2,16 @@ package course.l5t2
 
 import frc.stubs.InvertedValue
 import frc.stubs.NeutralModeValue
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class ArmMotorTest {
+    @BeforeTest fun setUp() {
+        ArmMotor.reset()
+    }
+
     @Test fun configure_applies_a_configuration() {
         ArmMotor.configure()
         val applied = ArmMotor.motor.configurator.appliedConfig
@@ -18,7 +23,7 @@ class ArmMotorTest {
         val applied = ArmMotor.motor.configurator.appliedConfig!!
         assertEquals(
             NeutralModeValue.Brake, applied.MotorOutput.NeutralMode,
-            "MotorOutput.NeutralMode of the applied config should be Brake — the configurator keeps only the most recently applied configuration, so set every field on one TalonFXConfiguration",
+            "MotorOutput.NeutralMode of the applied config must be Brake. The configurator keeps only the most recently applied configuration, so set every field on one TalonFXConfiguration",
         )
     }
 
@@ -27,7 +32,7 @@ class ArmMotorTest {
         val applied = ArmMotor.motor.configurator.appliedConfig!!
         assertEquals(
             InvertedValue.Clockwise_Positive, applied.MotorOutput.Inverted,
-            "MotorOutput.Inverted of the applied config should be Clockwise_Positive — the configurator keeps only the most recently applied configuration, so set every field on one TalonFXConfiguration",
+            "MotorOutput.Inverted of the applied config must be Clockwise_Positive. The configurator keeps only the most recently applied configuration, so set every field on one TalonFXConfiguration",
         )
     }
 }

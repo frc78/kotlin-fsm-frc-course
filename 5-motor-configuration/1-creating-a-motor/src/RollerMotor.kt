@@ -4,7 +4,7 @@ import frc.stubs.*
 
 object RollerMotor {
     // TODO: see task.md.
-    internal val motor: TalonFX = TODO()
+    val motor: TalonFX = TODO()
 
     // TODO: see task.md.
     fun runForward() {
@@ -19,5 +19,9 @@ object RollerMotor {
     // TODO: see task.md.
     fun stop() {
         TODO()
+    }
+
+    fun reset() {
+        motor.stopMotor()
     }
 }

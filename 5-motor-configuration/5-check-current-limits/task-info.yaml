@@ -1,21 +1,17 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "40 A — the two configurations merge, so the supply settings from the first\
-    \ apply survive."
+  - text: "Brake. Each apply() adds its fields to the fields already on the motor."
     is_correct: false
-  - text: "None — apply() replaces the entire configuration, and the second config left\
-    \ every supply field at its disabled default."
+  - text: "Coast. Each apply() replaces the whole configuration, and the second never set NeutralMode."
     is_correct: true
-  - text: 80 A — the most recent limit value wins and covers supply and stator alike.
+  - text: "Brake. MotorOutput settings lock once applied, and later applies change other blocks only."
     is_correct: false
-  - text: "Both limits are active: 40 A supply and 80 A stator."
+  - text: "Coast. Enabling a current limit turns brake mode off, so the motor free-wheels."
     is_correct: false
-message_correct: "Every apply() hands the motor a complete configuration, so any field\
-  \ the applied config didn't set snaps back to its default — build everything in\
-  \ one TalonFXConfiguration and apply it once."
-message_incorrect: "Re-read Current Limits (task 3), especially the hint about how\
-  \ many TalonFXConfiguration blocks a subsystem needs — and ask what happens to fields\
-  \ a freshly-constructed config never mentions."
-custom_name: "Check: current limits"
+message_correct: "Build everything in one TalonFXConfiguration and apply it once. This is also
+  the default on a real TalonFX, so the answer holds on the robot."
+message_incorrect: "Re-read task 3. Count how many TalonFXConfiguration objects one subsystem
+  needs."
+custom_name: "Check: one configuration"
 local_check: true

@@ -6,8 +6,8 @@ import frc.stubs.*
  * Runnable recap of Lesson 5: one TalonFXConfiguration carrying all three
  * config blocks, applied in a single call.
  *
- * Run main(), read the printout, then tweak a value (disable the supply
- * limit, bump kV) and run it again.
+ * Run main(), read the printout, then change a value (disable the supply
+ * limit, raise kV) and run it again.
  */
 fun main() {
     val motor = TalonFX(canId = 30)
@@ -28,20 +28,19 @@ fun main() {
         Slot0.kP = 0.25
     }
 
-    motor.configurator.apply(config) // ONE apply — the whole configuration at once
+    motor.configurator.apply(config) // ONE apply: the whole configuration at once
 
-    val applied = motor.configurator.appliedConfig!!
     println("TalonFX ${motor.canId} configuration:")
-    println("  MotorOutput:   ${applied.MotorOutput.NeutralMode}, ${applied.MotorOutput.Inverted}")
+    println("  MotorOutput:   ${config.MotorOutput.NeutralMode}, ${config.MotorOutput.Inverted}")
     println(
-        "  CurrentLimits: supply ${applied.CurrentLimits.SupplyCurrentLimit} A " +
-            "(enabled=${applied.CurrentLimits.SupplyCurrentLimitEnable}), " +
-            "stator ${applied.CurrentLimits.StatorCurrentLimit} A " +
-            "(enabled=${applied.CurrentLimits.StatorCurrentLimitEnable})"
+        "  CurrentLimits: supply ${config.CurrentLimits.SupplyCurrentLimit} A " +
+            "(enabled=${config.CurrentLimits.SupplyCurrentLimitEnable}), " +
+            "stator ${config.CurrentLimits.StatorCurrentLimit} A " +
+            "(enabled=${config.CurrentLimits.StatorCurrentLimitEnable})"
     )
-    println("  Slot0:         kP=${applied.Slot0.kP}, kV=${applied.Slot0.kV}")
+    println("  Slot0:         kP=${config.Slot0.kP}, kV=${config.Slot0.kV}")
 
-    // Requests work exactly as in tasks 1 and 4 — closed loop against Slot0:
-    motor.setControl(VelocityVoltage(rotationsPerSecond = 50.0))
+    // Requests work exactly as in tasks 1 and 4. Closed loop runs against Slot0:
+    motor.setControl(VelocityVoltage(50.0))
     println("  Last request:  ${motor.lastRequest}")
 }

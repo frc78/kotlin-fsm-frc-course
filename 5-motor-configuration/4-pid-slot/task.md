@@ -1,72 +1,63 @@
 # Closed-Loop Control: Slot0 PID
 
-`VoltageOut` and `DutyCycleOut` are *open-loop* — you say "6 volts" and
-the motor spins however fast 6 volts happens to spin it that day. For a
-flywheel that needs to hit a specific RPM, that's not enough. You want
-**closed-loop** control: tell the motor a target velocity, and let it
-adjust voltage to get there.
+`VoltageOut` and `DutyCycleOut` are *open-loop*. You say "6 volts" and the
+motor spins as fast as 6 volts spins it that day. A flywheel that must hit a
+specific speed needs **closed-loop** control: you give the motor a target
+velocity, and the motor adjusts its own voltage to reach it.
 
-Phoenix6 supports closed-loop control on the motor controller itself.
-You configure gains once, then send `VelocityVoltage` (or
-`PositionVoltage`) requests to drive a target.
+Phoenix6 runs the closed loop on the motor controller itself. You configure
+gains once, then send `VelocityVoltage` (or `PositionVoltage`) requests that
+carry a target.
 
 ## PID gains live in slots
 
-A TalonFX has multiple gain slots (`Slot0`, `Slot1`, `Slot2`). Most
-subsystems only ever use `Slot0`.
+A TalonFX has several gain slots (`Slot0`, `Slot1`, `Slot2`). Most
+subsystems only use `Slot0`.
 
-The gains you'll see in real code:
+| Gain | Meaning                                                        | Unit (voltage requests)      |
+|------|----------------------------------------------------------------|------------------------------|
+| `kP` | Proportional: output per unit of error                         | V per rotation (or per rps)  |
+| `kI` | Integral: output per unit of *accumulated* error (often 0)     | V per rotation-second        |
+| `kD` | Derivative: output per unit of error *rate* (often 0)          | V per rps                    |
+| `kS` | Static feedforward: voltage to overcome friction               | V                            |
+| `kV` | Velocity feedforward: voltage per unit of target velocity      | V per rps                    |
+| `kA` | Acceleration feedforward: voltage per unit of acceleration     | V per rps²                   |
+| `kG` | Gravity feedforward: voltage to hold against gravity           | V                            |
 
-| Gain | Meaning                                                        |
-|------|----------------------------------------------------------------|
-| `kP` | Proportional — react to error, larger = more aggressive        |
-| `kI` | Integral — react to *accumulated* error (often 0)              |
-| `kD` | Derivative — react to error *rate* (often 0)                   |
-| `kS` | Static feedforward — voltage to overcome static friction       |
-| `kV` | Velocity feedforward — voltage per unit of target velocity     |
-| `kA` | Acceleration feedforward — voltage per unit of acceleration    |
+Two worked lines show what the numbers do. With `kV = 0.12`, a target of
+80 rotations per second (rps) gets `80 × 0.12 = 9.6 V` of feedforward
+before any error exists. With `kP = 0.25`, an error of 10 rps adds
+`10 × 0.25 = 2.5 V` on top.
 
-For a flywheel, **`kV` does most of the work** (it predicts what voltage
-*should* sustain a given RPM), and `kP` cleans up the rest.
+For a flywheel, **`kV` does most of the work**. It predicts the voltage
+that sustains a given speed. `kP` corrects the rest.
 
 ## The Slot0 config block
 
 PID gains live on `TalonFXConfiguration.Slot0`. Each gain is a `Double`
-field with the same name as in the table above (`kP`, `kI`, `kD`, `kS`,
-`kV`, `kA`). Set the gains you care about; leave the rest at their
-default of `0.0`.
+field with the same name as in the table (`kP`, `kI`, `kD`, `kS`, `kV`,
+`kA`, `kG`). Set the gains you need. Leave the rest at their default `0.0`.
 
 ## Running closed loop
 
-Once gains are configured, command a velocity by sending a
-`VelocityVoltage` request whose argument is the target velocity in
-**rotations per second**. Phoenix uses the configured gains to pick
-the voltage; you just specify the target.
+After the gains are configured, command a velocity with a `VelocityVoltage`
+request. Its argument is the target velocity in **rotations per second**.
+Phoenix uses the configured gains to pick the voltage. You only give the
+target.
 
-In this course's stub, `VelocityVoltage` is a `data class` — its only
-parameter is the target velocity, exposed positionally or via the named
-argument `rotationsPerSecond`.
-
-> **Note on real Phoenix6:** the actual `VelocityVoltage` is a mutable
-> request class — you construct it with `VelocityVoltage(rps)` or update
-> the target with `.withVelocity(rps)`. The call shape is the same;
-> your code reads the same either way. Real requests also pick which
-> gain slot they run against via `.withSlot(n)` — slot 0 is the
-> default, which is why configuring `Slot0` is all a single-behavior
-> mechanism needs.
+In this course's stub, `VelocityVoltage` is a `data class` with one
+parameter: the target velocity.
 
 ## Your task
 
-Open `src/Flywheel.kt`. The `motor` is already declared on CAN ID 60.
+Open `src/Flywheel.kt`. The `motor` is declared on CAN ID 60.
 
-1. Implement `configure()` so the applied configuration has the
-   following Slot0 gains:
-   - `kV = 0.12`
-   - `kP = 0.25`
-2. Implement `runAtRps(rps: Double)` so it commands the motor to that
-   target velocity using a `VelocityVoltage` request.
+| Member                   | Requirement                                              |
+|--------------------------|----------------------------------------------------------|
+| `configure()`            | apply a configuration with `Slot0.kV = 0.12`, `Slot0.kP = 0.25` |
+| `runAtRps(rps: Double)`  | send a `VelocityVoltage` request with `rps` as the target |
 
 ## Hints
 
-- The Slot0 fields you don't mention default to `0.0` — that's the
-  standard starting point for `kI`, `kD`, `kS`, and `kA` on a flywheel.
+- The Slot0 fields you do not set default to `0.0`. That is the normal
+  starting point for `kI`, `kD`, `kS`, `kA`, and `kG` on a flywheel.
