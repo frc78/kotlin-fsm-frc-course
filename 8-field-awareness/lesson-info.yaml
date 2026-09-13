@@ -2,9 +2,8 @@ content:
   - 1-translation-rotation
   - 2-pose2d
   - 3-targeting
-  - 4-chassis-speeds
-  - 5-pose-estimator
-  - 6-vision-gating
-  - 7-check-pose-math
-  - 8-check-vision-gating
-  - 9-fsm-architecture-at-2056
+  - 4-pose-estimator
+  - 5-vision-fsm
+  - 6-check-pose-math
+  - 7-check-vision-gating
+  - 8-fsm-architecture-at-2056

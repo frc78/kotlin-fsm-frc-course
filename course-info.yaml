@@ -17,7 +17,7 @@ summary: |-
        current limits, and PID slots.
     6. Swerve requests — CTRE swerve API, joystick mapping with deadbands, and a drive-mode FSM.
     7. Superstructure Coordination - Combine multiple subsystem state machines into a full robot.
-    8. Field awareness - Learn about how robots interact with position systems
+    8. Field awareness — pose math, the drivetrain pose estimate, and a vision-gating FSM.
 vendor:
   name: Aquidneck Island Robotics
 programming_language: Kotlin
@@ -41,7 +41,6 @@ additional_files:
   - name: util/src/main/kotlin/frc/stubs/geometry/Translation2d.kt
   - name: util/src/main/kotlin/frc/stubs/Robot.kt
   - name: util/src/main/kotlin/frc/stubs/Units.kt
-  - name: util/src/main/kotlin/frc/stubs/estimator/PoseEstimator.kt
   - name: util/src/main/kotlin/frc/stubs/kinematics/ChassisSpeeds.kt
   - name: util/src/main/kotlin/frc/stubs/TalonFX.kt
   - name: util/src/main/kotlin/frc/stubs/CANrange.kt

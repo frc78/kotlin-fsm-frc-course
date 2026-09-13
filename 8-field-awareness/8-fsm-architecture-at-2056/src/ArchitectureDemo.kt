@@ -1,4 +1,4 @@
-package course.l8t9
+package course.l8t8
 
 // The 2056 coordination pattern in miniature: two singleton FSMs, and the
 // consumer (Feeder) transitions by READING the producer's (Intake) state.

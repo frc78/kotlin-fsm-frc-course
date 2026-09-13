@@ -1,6 +1,0 @@
-type: edu
-files:
-  - name: src/Speeds.kt
-    visible: true
-  - name: test/SpeedsTest.kt
-    visible: false

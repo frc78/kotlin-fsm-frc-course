@@ -71,10 +71,9 @@ sourceSets {
             "8-field-awareness/1-translation-rotation/src",
             "8-field-awareness/2-pose2d/src",
             "8-field-awareness/3-targeting/src",
-            "8-field-awareness/4-chassis-speeds/src",
-            "8-field-awareness/5-pose-estimator/src",
-            "8-field-awareness/6-vision-gating/src",
-            "8-field-awareness/9-fsm-architecture-at-2056/src",
+            "8-field-awareness/4-pose-estimator/src",
+            "8-field-awareness/5-vision-fsm/src",
+            "8-field-awareness/8-fsm-architecture-at-2056/src",
         )
     }
     test {
@@ -116,9 +115,8 @@ sourceSets {
             "8-field-awareness/1-translation-rotation/test",
             "8-field-awareness/2-pose2d/test",
             "8-field-awareness/3-targeting/test",
-            "8-field-awareness/4-chassis-speeds/test",
-            "8-field-awareness/5-pose-estimator/test",
-            "8-field-awareness/6-vision-gating/test",
+            "8-field-awareness/4-pose-estimator/test",
+            "8-field-awareness/5-vision-fsm/test",
         )
     }
 }

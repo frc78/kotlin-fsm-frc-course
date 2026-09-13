@@ -7,7 +7,7 @@ you learn here transfers directly to a real robot project.
 
 ## What's inside
 
-8 lessons, 62 tasks (40 programming exercises, 18 comprehension checks,
+8 lessons, 61 tasks (39 programming exercises, 18 comprehension checks,
 4 theory pages):
 
 1. **Kotlin from zero** — values and types, functions, decisions, objects, loops and lists, `enum`, `when`, and sealed classes.
@@ -17,7 +17,7 @@ you learn here transfers directly to a real robot project.
 5. **Motor configuration** — TalonFX setup: instantiation, neutral mode + inversion, current limits, and Slot0 PID gains.
 6. **Swerve drive requests** — Phoenix6 `SwerveRequest` API (`FieldCentric`, `RobotCentric`, `SwerveDriveBrake`, `PointWheelsAt`, `FieldCentricFacingAngle`), joystick mapping with deadbands, and a drive-mode FSM.
 7. **Superstructure coordination** — composing subsystem FSMs into a single robot FSM with sequencing guards.
-8. **Field awareness** — `Translation2d` / `Rotation2d` / `Pose2d` math, `ChassisSpeeds`, pose estimator + vision-measurement gating.
+8. **Field awareness** — `Translation2d` / `Rotation2d` / `Pose2d` math, the drivetrain pose estimate, and a vision-gating FSM.
 
 ## Setup
 
