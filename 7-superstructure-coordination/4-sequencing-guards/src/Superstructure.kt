@@ -1,5 +1,6 @@
 package course.l7t4
 
+import frc.stubs.Subsystem
 import frc.stubs.superstructure.Arm
 import frc.stubs.superstructure.Elevator
 import frc.stubs.superstructure.Intake
@@ -7,15 +8,15 @@ import frc.stubs.superstructure.Intake
 enum class RobotState(
     val elevator: Elevator.State,
     val arm: Arm.State,
-    val intake: Intake.Mode,
+    val intake: Intake.Request,
 ) {
-    STOWED(Elevator.State.STOWED, Arm.State.STOWED, Intake.Mode.IDLE),
-    INTAKE_GROUND(Elevator.State.LOW, Arm.State.GROUND, Intake.Mode.INTAKING),
-    SCORE_L4(Elevator.State.HIGH, Arm.State.SCORE, Intake.Mode.HOLDING),
-    CLIMB_PREP(Elevator.State.STOWED, Arm.State.CLIMB, Intake.Mode.IDLE);
+    STOWED(Elevator.State.STOWED, Arm.State.STOWED, Intake.Request.STOP),
+    INTAKE_GROUND(Elevator.State.LOW, Arm.State.GROUND, Intake.Request.INTAKE),
+    SCORE_L4(Elevator.State.HIGH, Arm.State.SCORE, Intake.Request.STOP),
+    CLIMB_PREP(Elevator.State.STOWED, Arm.State.CLIMB, Intake.Request.STOP);
 }
 
-class Superstructure {
+class Superstructure : Subsystem {
     val elevator = Elevator()
     val arm = Arm()
     val intake = Intake()
@@ -30,16 +31,12 @@ class Superstructure {
 
     var transition: Transition = Transition.Settled(RobotState.STOWED)
 
-    fun periodic() {
-        // Detect a newly-commanded state and restart the transition.
-        if (transitionTargetState() != commandedRobotState) {
-            transition = Transition.WaitingForElevator(commandedRobotState)
-        }
+    override fun periodic() {
+        stateTransitions()
         stateActions()
         elevator.tick()
         arm.tick()
         intake.tick()
-        advanceTransition()
     }
 
     private fun transitionTargetState(): RobotState = when (val t = transition) {
@@ -48,12 +45,16 @@ class Superstructure {
         is Transition.WaitingForArm -> t.target
     }
 
-    private fun stateActions() {
+    private fun stateTransitions() {
+        // A new goal restarts the sequence. This part is given.
+        if (transitionTargetState() != commandedRobotState) {
+            transition = Transition.WaitingForElevator(commandedRobotState)
+        }
         // TODO: see task.md.
         TODO()
     }
 
-    private fun advanceTransition() {
+    private fun stateActions() {
         // TODO: see task.md.
         TODO()
     }
