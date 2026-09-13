@@ -5,17 +5,16 @@ import frc.stubs.*
 object IntakeIntro : Subsystem {
     enum class State { IDLE, INTAKING, HOLDING }
 
-    internal val motor = TalonFX(canId = 22)
-    internal val canRange = CANrange(canId = 33)
+    val motor = TalonFX(canId = 22)
+    val canRange = CANrange(canId = 33)
 
     var state: State = State.IDLE
-        private set
 
     var commandedIntake: Boolean = false
 
     override fun periodic() {
-        stateTransitions()
-        stateActions()
+        // TODO: see task.md.
+        TODO()
     }
 
     private fun stateTransitions() {
@@ -29,9 +28,7 @@ object IntakeIntro : Subsystem {
     }
 
     fun reset() {
-        state = State.IDLE
-        commandedIntake = false
-        motor.stopMotor()
-        canRange.simulateDistance(Double.POSITIVE_INFINITY)
+        // TODO: see task.md.
+        TODO()
     }
 }

@@ -5,11 +5,10 @@ import frc.stubs.*
 object Indexer : Subsystem {
     enum class State { IDLE, INDEXING, JAMMED }
 
-    internal val motor = TalonFX(canId = 21)
-    internal val jamSensor = DigitalInput(channel = 0)
+    val motor = TalonFX(canId = 21)
+    val jamSensor = DigitalInput(channel = 0)
 
     var state: State = State.IDLE
-        private set
 
     var commandedIndex: Boolean = false
 
@@ -19,14 +18,13 @@ object Indexer : Subsystem {
     }
 
     private fun stateActions() {
-        // TODO: see task.md — drive `motor` based on the current state.
-        TODO("complete the when (state) block")
+        // TODO: see task.md.
+        TODO()
     }
 
     private fun stateTransitions() {
-        // TODO: see task.md — choose the next state based on inputs.
-        // Otherwise stay in the current state.
-        TODO("complete the when (state) block; assign the result to `state`")
+        // TODO: see task.md.
+        TODO()
     }
 
     fun reset() {

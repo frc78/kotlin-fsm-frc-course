@@ -5,11 +5,10 @@ import frc.stubs.*
 object EjectingIntake : Subsystem {
     enum class State { IDLE, INTAKING, EJECTING }
 
-    internal val motor = TalonFX(canId = 24)
-    internal val ejectTimer = Timer()
+    val motor = TalonFX(canId = 24)
+    val ejectTimer = Timer()
 
     var state: State = State.IDLE
-        private set
     private var previousState: State? = null
 
     var commandedIntake: Boolean = false

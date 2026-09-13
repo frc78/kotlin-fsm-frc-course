@@ -5,10 +5,9 @@ import frc.stubs.*
 object Climber : Subsystem {
     enum class State { STOWED, DEPLOYING, DEPLOYED, CLIMBING }
 
-    internal val motor = TalonFX(canId = 30)
+    val motor = TalonFX(canId = 30)
 
     var state: State = State.STOWED
-        private set
     private var previousState: State? = null
 
     var commandedDeploy: Boolean = false
@@ -32,8 +31,7 @@ object Climber : Subsystem {
     }
 
     private fun runEntrySideEffects() {
-        // TODO: see task.md — append a log line per state on entry, then update
-        // `previousState`.
+        // TODO: see task.md.
         TODO()
     }
 

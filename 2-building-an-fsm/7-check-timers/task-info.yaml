@@ -1,18 +1,19 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "EJECTING — the request is latched, and only the timer reaching 0.5 seconds\
-    \ ends it"
+  - text: "It ends after one tick; the clock still holds the time from the first eject"
     is_correct: true
-  - text: "IDLE — the driver released the button, so the eject was cut short"
+  - text: "It runs the full 0.5 seconds; start() zeros the clock like restart() does"
     is_correct: false
-  - text: "EJECTING, and it stays there until the driver presses eject again"
+  - text: "It never ends; a timer that already ran cannot be started a second time"
     is_correct: false
-  - text: "INTAKING — with eject released, the intake falls back to running forward"
+  - text: "It runs for 2.5 seconds; the timer must count back down from the idle time"
     is_correct: false
-message_correct: "Exactly — the EJECTING row watches only the timer, so a one-tick\
-  \ tap buys the full 0.5 seconds no matter what the buttons do afterward."
-message_incorrect: "Re-read the latch discussion in task 5: which conditions appear\
-  \ on the EJECTING row of the transition table, and which deliberately do not?"
+message_correct: "Exactly — start() only sets the timer running. The clock kept counting\
+  \ through IDLE, so hasElapsed(0.5) is already true on the next tick. restart() is\
+  \ reset() then start(), which is why the entry effect must use it."
+message_incorrect: "Re-read the Timer API table in task 5: which call zeros the clock,\
+  \ and which one only sets it running? Then ask what the clock reads two seconds\
+  \ after the first eject finished."
 custom_name: "Check: Timers"
 local_check: true

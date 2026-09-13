@@ -141,6 +141,23 @@ class EjectingIntakeTest {
         )
     }
 
+    @Test fun intake_button_during_eject_is_ignored() {
+        EjectingIntake.commandedEject = true
+        EjectingIntake.periodic()
+        EjectingIntake.commandedEject = false
+        EjectingIntake.commandedIntake = true
+        EjectingIntake.ejectTimer.simulateAdvance(0.3)
+        EjectingIntake.periodic()
+        assertEquals(
+            EjectingIntake.State.EJECTING, EjectingIntake.state,
+            "The EJECTING row watches only the timer; pressing intake at 0.3 s must not interrupt the eject"
+        )
+        assertEquals(
+            VoltageOut(-8.0), EjectingIntake.motor.lastRequest,
+            "EJECTING should keep commanding VoltageOut(-8.0) while the intake button is held"
+        )
+    }
+
     @Test fun releasing_intake_returns_to_idle() {
         EjectingIntake.commandedIntake = true
         EjectingIntake.periodic()

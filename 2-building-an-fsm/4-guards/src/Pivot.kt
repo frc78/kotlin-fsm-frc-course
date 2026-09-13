@@ -6,10 +6,9 @@ import kotlin.math.abs
 object Pivot : Subsystem {
     enum class State { STOWED, MOVING, AT_TARGET }
 
-    internal val motor = TalonFX(canId = 40)
+    val motor = TalonFX(canId = 40)
 
     var state: State = State.STOWED
-        private set
 
     var targetRotations: Double = 0.0
     var commandedMove: Boolean = false
@@ -21,7 +20,7 @@ object Pivot : Subsystem {
     }
 
     private fun stateTransitions() {
-        // TODO: see task.md. Otherwise stay in the current state.
+        // TODO: see task.md.
         TODO()
     }
 

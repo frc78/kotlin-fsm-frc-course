@@ -4,11 +4,9 @@ Your transitions so far have fired on two kinds of input: driver intent
 (`commandedIntake`) and sensor reads (`canRange.getDistance()`). This task adds
 the third classic trigger: **time**.
 
-Real robots use timed states all the time. Team 2056's 2025 robot LIGHTNING
-runs a state machine on every mechanism. Its
+Real robots use timed states. Team 2056's 2025
 [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-2056-Technical-Binder.pdf)
-lists timers next to buttons and sensors as transition triggers. One example
-is the short unjam pulse of the "Straightenator" indexer.
+lists timers next to buttons and sensors as transition triggers.
 
 Here we build a timed **eject**. The driver *taps* the eject button once; the
 intake spits the piece backward for exactly half a second, then returns to
@@ -31,8 +29,14 @@ t.hasElapsed(s): Boolean    // true once get() >= s
 
 > **Real WPILib detail:** the real `Timer` reads the robot's FPGA clock, so it
 > advances on its own. The stub only advances when a test calls
-> `simulateAdvance(seconds)` — same API, but the tests control time, which
+> `simulateAdvance(seconds)`. Same API, but the tests control time, which
 > makes timing logic checkable tick by tick.
+
+> **Real Phoenix6 detail:** this course writes `VoltageOut(-8.0)` on every
+> tick, which creates a new request object each time. Real robot code keeps
+> one request object per motor and updates it:
+> `motor.setControl(ejectRequest.withOutput(-8.0))`. Creating objects 50
+> times a second on the roboRIO wastes memory and time.
 
 ## Never block `periodic()`
 

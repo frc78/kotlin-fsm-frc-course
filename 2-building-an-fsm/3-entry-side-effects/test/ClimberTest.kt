@@ -11,14 +11,20 @@ class ClimberTest {
 
     @Test fun stowed_logged_on_first_tick() {
         Climber.periodic()
-        assertEquals(listOf("stowed"), Climber.deploymentLogs)
+        assertEquals(
+            listOf("stowed"), Climber.deploymentLogs,
+            "On the first tick previousState is null, so the initial STOWED state should be logged once"
+        )
     }
 
     @Test fun stowed_not_logged_repeatedly() {
         Climber.periodic()
         Climber.periodic()
         Climber.periodic()
-        assertEquals(listOf("stowed"), Climber.deploymentLogs)
+        assertEquals(
+            listOf("stowed"), Climber.deploymentLogs,
+            "Ticks that stay in the same state must not add a log line"
+        )
     }
 
     @Test fun deploying_logged_on_transition_then_not_again() {
@@ -26,7 +32,10 @@ class ClimberTest {
         Climber.commandedDeploy = true
         Climber.periodic()
         Climber.periodic()
-        assertEquals(listOf("stowed", "deploying"), Climber.deploymentLogs)
+        assertEquals(
+            listOf("stowed", "deploying"), Climber.deploymentLogs,
+            "Entering DEPLOYING should log \"deploying\" once, and a quiet tick in DEPLOYING should add nothing"
+        )
     }
 
     @Test fun full_sequence_logs_each_state_once() {
@@ -40,7 +49,8 @@ class ClimberTest {
         Climber.periodic()
         assertEquals(
             listOf("stowed", "deploying", "deployed", "climbing"),
-            Climber.deploymentLogs
+            Climber.deploymentLogs,
+            "Each state entered should appear exactly once, in order"
         )
     }
 }
