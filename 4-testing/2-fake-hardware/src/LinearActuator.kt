@@ -10,7 +10,6 @@ class LinearActuator(
     enum class State { RETRACTED, EXTENDING, EXTENDED }
 
     var state: State = State.RETRACTED
-        private set
 
     var commandedExtend: Boolean = false
 

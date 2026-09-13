@@ -4,10 +4,10 @@ Pure functions are great for FSM logic, but a subsystem still has hardware
 side effects: motor commands, sensor reads. To test those, you need to control
 the hardware *from the test*.
 
-## The trick: pass hardware in
+## Pass hardware in
 
-So far we've written subsystems as `object` singletons that *create* their own
-motors and sensors:
+So far we have written subsystems as `object` singletons that *create* their
+own motors and sensors:
 
 ```kotlin
 object Intake : Subsystem {
@@ -15,9 +15,9 @@ object Intake : Subsystem {
 }
 ```
 
-That's idiomatic for a real robot — you only ever have one intake. But it
-makes test reuse awkward (the singleton's state persists across tests, and you
-can't have two of them).
+That is the normal shape for a real robot. You only ever have one intake. But
+it makes test reuse awkward. The singleton's state persists across tests, and
+you cannot have two of them.
 
 Alternative: make the subsystem a `class` that takes its hardware via the
 **constructor**:
@@ -31,7 +31,9 @@ class LinearActuator(
 }
 ```
 
-Now a test can create one, give it stub hardware, and assert behavior:
+Now a test can create one, give it stub hardware, and assert behavior. The
+test also controls the sensor: `limit.simulateValue(true)` makes the next
+`limit.get()` return `true`.
 
 ```kotlin
 val motor = TalonFX(canId = 99)
@@ -40,25 +42,27 @@ val actuator = LinearActuator(motor, limit)
 
 actuator.commandedExtend = true
 actuator.periodic()
+limit.simulateValue(true)
+actuator.periodic()
 
-assertEquals(LinearActuator.State.EXTENDING, actuator.state)
-assertEquals(VoltageOut(6.0), motor.lastRequest)
+assertEquals(LinearActuator.State.EXTENDED, actuator.state)
+assertEquals(VoltageOut(0.0), motor.lastRequest)
 ```
 
-You can also create *two* — say a left and right actuator — without their
+You can also create *two*, say a left and a right actuator, without their
 state colliding.
 
-This is **dependency injection** (DI), which is just a fancy name for "pass
-collaborators in instead of building them inside." For a real FRC team that
-runs multiple instances of the same subsystem (left + right climber, four
-swerve modules, etc.), DI is essential.
+This is **dependency injection** (DI): pass collaborators in instead of
+building them inside. An FRC team that runs several instances of one
+subsystem (left and right climber, four swerve modules) needs it.
 
 ## Your task
 
 Implement the periodic logic in `src/LinearActuator.kt`. The class is set up
-with constructor injection; you fill in the FSM.
+with constructor injection. You fill in the FSM.
 
-States: `RETRACTED`, `EXTENDING`, `EXTENDED`.
+States: `RETRACTED`, `EXTENDING`, `EXTENDED`. The actuator starts in
+`RETRACTED`.
 
 Transitions:
 
@@ -68,6 +72,8 @@ Transitions:
 | `EXTENDING` | `limit.get()`            | `EXTENDED` |
 | `EXTENDED`  | `!commandedExtend`       | `RETRACTED`|
 
+If no row matches, stay in the current state.
+
 Actions:
 
 | State       | Motor               |
@@ -76,5 +82,5 @@ Actions:
 | `EXTENDING` | `VoltageOut(6.0)`   |
 | `EXTENDED`  | `VoltageOut(0.0)`   |
 
-The `motor` and `limit` parameters are `private val` — they're stored on the
-instance, accessible inside `periodic()`.
+The `motor` and `limit` parameters are `private val`. They are stored on the
+instance and available inside `periodic()`.
