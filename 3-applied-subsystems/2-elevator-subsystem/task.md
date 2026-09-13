@@ -1,8 +1,8 @@
 # Applied Elevator
 
-This subsystem shows off enum-with-properties at its best. Every elevator state
-*is* its setpoint — no `when` block needed inside `stateActions()` to look up
-the target.
+Every elevator state carries its own setpoint. This is the enum property from
+lesson 1 task 11 at work. `stateActions()` does not need a `when` block to look
+up the target.
 
 ## State
 
@@ -19,44 +19,40 @@ enum class State(val targetRotations: Double) {
 
 ## Driver input
 
-A single `var commandedTarget: State` — the driver tells the elevator where to
-go by setting it directly to a state value.
+`var commandedTarget: State`. The driver code sets this to the place the
+elevator must go.
 
 ## Transitions
 
-The elevator just follows the driver's target — copy `commandedTarget`
-straight into `state` every tick. That's the whole transition rule, no
-`when` needed. Why so trivial? Because the *interesting* logic ("where
-do I want to be?") is in the `commandedTarget` field, set elsewhere by
-driver-input code. The elevator subsystem's job is to move there.
+The elevator finishes its current move before it accepts a new target. This
+keeps the mechanism from reversing part way along its travel.
+
+| Current | Condition    | Next              |
+|---------|--------------|-------------------|
+| any     | `atTarget()` | `commandedTarget` |
+| any     | otherwise    | stay              |
 
 ## Actions
 
-Each tick, command the motor to the current state's target rotations
-using a `PositionVoltage` control request. `PositionVoltage` is a
-Phoenix6 closed-loop control request that drives the motor to a given
-rotational position; sending the request every tick is fine — the
-controller just keeps holding.
+| State | Motor                                            |
+|-------|--------------------------------------------------|
+| any   | `PositionVoltage` with the state's `targetRotations` |
 
-Read the target off the state itself: the enum values carry their own
-`targetRotations`, so you don't need a separate lookup.
+`PositionVoltage` is a Phoenix6 closed-loop request. It moves the motor to a
+rotation count and holds it there. Sending it every tick is correct. The
+controller keeps holding.
+
+> **Stub detail:** the stub snaps the simulated position to the requested
+> rotations at once. The tests use `motor.setPosition(...)` to place the
+> elevator part way along its travel.
 
 ## At-target check
 
-Most subsystems also expose a status query so other code can ask "are we
-there?" Implement `atTarget()` to return `true` when the motor's position is
-within 0.1 rotations of the current state's target.
+Other code needs to ask "is the elevator there yet?". `atTarget(): Boolean`
+returns `true` when `motor.getPosition()` is within 0.1 rotations of the
+current state's `targetRotations`, on either side of it.
 
 ## Your task
 
-Three small things in `src/Elevator.kt`:
-
-1. `stateTransitions()` — make `state` follow `commandedTarget`.
-2. `stateActions()`     — send a `PositionVoltage` request whose target
-   comes from the current state's `targetRotations`.
-3. `atTarget()`         — return whether the motor's reported position
-   is within 0.1 rotations of the state's target.
-
-## Hint
-
-`kotlin.math.abs` is already imported.
+Implement `stateTransitions()`, `stateActions()`, and `atTarget()` in
+`src/Elevator.kt`. `kotlin.math.abs` is already imported.

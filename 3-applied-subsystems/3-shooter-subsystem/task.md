@@ -1,8 +1,8 @@
 # Applied Shooter
 
-The shooter is where sealed classes pay off. The flywheel target RPM depends on
-**shot distance** — different on every shot — so it's runtime data, not a
-fixed setpoint.
+The flywheel target depends on the shot distance. It changes on every shot, so
+it is runtime data, not a fixed setpoint. The shooter uses a sealed class, and
+each state that needs the target carries it.
 
 ## States (sealed class)
 
@@ -17,66 +17,64 @@ sealed class FsmState {
 
 (Already provided.)
 
-The flywheel passes its target through every state that needs it. When you
-smart-cast inside an `is`-branch, you can read `s.targetRpm` directly.
-
 ## Driver inputs
 
-- `commandedTargetRpm: Double?` — the requested RPM. `null` means "no shot
-  pending; spin down."
-- `commandedFire: Boolean` — release the piece into the flywheel.
+- `commandedTargetRpm: Double?` is the requested speed in rpm. `null` means
+  "no shot pending, spin down".
+- `commandedFire: Boolean` releases the piece into the flywheel.
+
+## Kotlin you need
+
+**Nullable types.** `Double?` holds a `Double` or `null`. You cannot use it as
+a `Double` until you check it. Copy it to a local first:
+`val rpm = commandedTargetRpm`. Inside `if (rpm != null) { ... }` the compiler
+treats `rpm` as a plain `Double`. This is called a smart cast.
+
+**Binding the subject of `when`.** `when (val s = state) { ... }` stores the
+current state in `s`. Inside `is FsmState.SpinningUp -> ...` the compiler
+smart-casts `s`, so `s.targetRpm` is readable. Return `s` from a branch to
+stay in the same state. The result of the `when` expression is the value you
+assign to `state`.
+
+**Extension properties.** `4500.0.rpm` looks like a property on a number. It
+is a small function that Kotlin lets you call with dot syntax. `.rpm` converts
+rotations per minute to rotations per second, so `4500.0.rpm == 75.0`.
+`VelocityVoltage` takes rotations per second.
 
 ## Transitions
 
-```
-Idle           + commandedTargetRpm != null                 -> SpinningUp(rpm)
-SpinningUp(r)  + commandedTargetRpm == null                 -> Idle
-SpinningUp(r)  + flywheel.getVelocity() >= 0.95 * r.rpm     -> Ready(r)
-Ready(r)       + commandedTargetRpm == null                 -> Idle
-Ready(r)       + commandedFire                              -> Feeding(r)
-Feeding(r)     + !commandedFire                             -> Ready(r)
-```
+Rows are checked from top to bottom. The first matching row wins.
 
-If more than one condition holds at once, the row listed *higher* wins —
-clearing the target always takes priority over reaching speed.
+| Current         | Condition                                          | Next                  |
+|-----------------|----------------------------------------------------|-----------------------|
+| `Idle`          | `commandedTargetRpm != null`                       | `SpinningUp(rpm)`     |
+| `SpinningUp(s)` | `commandedTargetRpm == null`                       | `Idle`                |
+| `SpinningUp(s)` | `flywheel.getVelocity() >= 0.95 * s.targetRpm.rpm` | `Ready(s.targetRpm)`  |
+| `Ready(s)`      | `commandedTargetRpm == null`                       | `Idle`                |
+| `Ready(s)`      | `commandedFire`                                    | `Feeding(s.targetRpm)`|
+| `Feeding(s)`    | `!commandedFire`                                   | `Ready(s.targetRpm)`  |
 
-The 95% threshold gives a small ready-band so jitter near the target doesn't
-bounce us out of `Ready`.
+Clearing the target has priority over reaching speed.
+
+A changed, non-null `commandedTargetRpm` while in `SpinningUp`, `Ready`, or
+`Feeding` does nothing. The state keeps the target it was created with. Only
+`Idle` reads a new target.
+
+The 95 % threshold gives a small ready band, so jitter near the target does
+not bounce the shooter out of `Ready`.
 
 ## Actions
 
-| State          | flywheel                            | feeder              |
-|----------------|-------------------------------------|---------------------|
-| `Idle`         | `stopMotor()`                       | `stopMotor()`       |
-| `SpinningUp(r)`| `VelocityVoltage(r.rpm)`            | `stopMotor()`       |
-| `Ready(r)`     | `VelocityVoltage(r.rpm)`            | `stopMotor()`       |
-| `Feeding(r)`   | `VelocityVoltage(r.rpm)`            | `VoltageOut(8.0)`   |
+| State           | flywheel                            | feeder             |
+|-----------------|-------------------------------------|--------------------|
+| `Idle`          | `stopMotor()`                       | `stopMotor()`      |
+| `SpinningUp(s)` | `VelocityVoltage(s.targetRpm.rpm)`  | `stopMotor()`      |
+| `Ready(s)`      | `VelocityVoltage(s.targetRpm.rpm)`  | `stopMotor()`      |
+| `Feeding(s)`    | `VelocityVoltage(s.targetRpm.rpm)`  | `VoltageOut(8.0)`  |
 
-`r.rpm` is the unit extension property: it converts an `rpm` value (rotations
-per minute) into rotations per second, which is what `VelocityVoltage` expects.
-So `4500.0.rpm == 75.0`.
+`stopMotor()` sends a `NeutralOut` request. That is a different request from
+`VoltageOut(0.0)`. The tests check for `NeutralOut`.
 
 ## Your task
 
 Open `src/Shooter.kt`. Implement `stateTransitions()` and `stateActions()`.
-
-## Hints
-
-**Capturing `state` for smart casts.** When the right-hand side of a
-transition needs to read data carried by the current state (for example
-`targetRpm` from `SpinningUp`), use the `when (val s = state)` form. That
-binds `s` to the current state, and inside `is FsmState.SpinningUp -> …`
-the compiler smart-casts `s` so `s.targetRpm` is readable without an
-explicit cast.
-
-**Returning the same state.** Inside a branch, return the bound value
-(`s`) to mean "stay where I am." Don't try to write `state` again — the
-result of the `when` expression is what gets assigned.
-
-**Reading `commandedTargetRpm`.** It's a `Double?`. Smart-cast it once
-to a non-null local (`val rpm = commandedTargetRpm; if (rpm != null) …`)
-when you need to construct a state that requires the rpm value.
-
-**Velocity units.** `VelocityVoltage` takes rotations *per second*, but
-the shooter's targets are rpm. Use the `.rpm` extension property to
-convert: `4500.0.rpm == 75.0`.

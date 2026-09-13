@@ -11,10 +11,9 @@ object Elevator : Subsystem {
         HIGH(14.5);
     }
 
-    internal val motor = TalonFX(canId = 50)
+    val motor = TalonFX(canId = 50)
 
     var state: State = State.STOWED
-        private set
 
     var commandedTarget: State = State.STOWED
 

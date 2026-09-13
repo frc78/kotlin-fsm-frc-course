@@ -10,11 +10,10 @@ sealed class FsmState {
 }
 
 object Shooter : Subsystem {
-    internal val flywheel = TalonFX(canId = 60)
-    internal val feeder = TalonFX(canId = 61)
+    val flywheel = TalonFX(canId = 60)
+    val feeder = TalonFX(canId = 61)
 
     var state: FsmState = FsmState.Idle
-        private set
 
     var commandedTargetRpm: Double? = null
     var commandedFire: Boolean = false

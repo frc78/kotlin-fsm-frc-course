@@ -96,6 +96,18 @@ class ShooterTest {
         assertEquals(FsmState.Idle, Shooter.state)
     }
 
+    @Test fun changed_target_while_spinning_up_is_ignored() {
+        Shooter.commandedTargetRpm = 4500.0
+        Shooter.periodic()
+        Shooter.flywheel.simulateVelocity(0.0)
+        Shooter.commandedTargetRpm = 5400.0
+        Shooter.periodic()
+        assertEquals(
+            FsmState.SpinningUp(4500.0), Shooter.state,
+            "only Idle reads a new target. SpinningUp keeps the 4500.0 it was created with",
+        )
+    }
+
     @Test fun different_target_in_idle_yields_that_target() {
         Shooter.commandedTargetRpm = 5400.0
         Shooter.periodic()

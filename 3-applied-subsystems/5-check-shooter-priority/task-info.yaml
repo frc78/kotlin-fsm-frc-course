@@ -1,21 +1,17 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "Ready — the flywheel hit its ready band, and reaching speed beats a driver\
-    \ input"
-    is_correct: false
-  - text: "Feeding — the flywheel is at speed, so the shooter feeds the piece immediately"
-    is_correct: false
-  - text: "Idle — the clear-target row sits higher in the table, and the first matching\
-    \ row wins"
+  - text: "Ready(4500.0) — the state keeps the target it was created with"
     is_correct: true
-  - text: "Undefined — with two rows true at once, the result depends on how the compiler\
-    \ orders the checks"
+  - text: "Ready(0.0) — releasing fire resets the target carried by the state"
     is_correct: false
-message_correct: "Exactly — row order is priority order: when several conditions hold\
-  \ on the same tick, the first matching row wins, and clearing the target is listed\
-  \ above reaching speed."
-message_incorrect: "Look back at task 3's transition table, especially the sentence\
-  \ just below it about what happens when more than one condition holds at once."
-custom_name: "Check: Shooter Priority"
+  - text: "Idle — releasing fire ends the shot, so the shooter spins down"
+    is_correct: false
+  - text: "SpinningUp(4500.0) — the flywheel must confirm its speed again"
+    is_correct: false
+message_correct: "Right. The target rides along in the data field of each state, so the\
+  \ shooter goes back to Ready with the same 4500.0 and does not spin up again."
+message_incorrect: "Look at what data each state in task 3's sealed class carries, and\
+  \ at the row for Feeding in the transition table."
+custom_name: "Check: Shooter Data"
 local_check: true

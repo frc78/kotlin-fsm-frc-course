@@ -5,11 +5,10 @@ import frc.stubs.*
 object Intake : Subsystem {
     enum class State { IDLE, INTAKING, HOLDING, EJECTING }
 
-    internal val motor = TalonFX(canId = 22)
-    internal val canRange = CANrange(canId = 33)
+    val motor = TalonFX(canId = 22)
+    val canRange = CANrange(canId = 33)
 
     var state: State = State.IDLE
-        private set
 
     var commandedIntake: Boolean = false
     var commandedEject: Boolean = false

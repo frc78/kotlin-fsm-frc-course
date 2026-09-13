@@ -1,8 +1,6 @@
-# Check: Shooter Priority
+# Check: Shooter Data
 
-Task 3's shooter is in `SpinningUp(4500.0)`. This tick, two rows of the
-transition table match at once: the driver clears the target
-(`commandedTargetRpm` is now `null`) *and* the flywheel's velocity finally
-reaches the 95% ready band.
+Task 3's shooter is in `Feeding(4500.0)`. This tick the driver releases the
+fire button. `commandedTargetRpm` is still `4500.0`.
 
 After `stateTransitions()` runs, what state is the shooter in?
