@@ -104,7 +104,12 @@ in each task package. `SAFE_ARM_DEGREES = 90.0`.
 ```kotlin
 object SuperStructure : Subsystem {
     var state: Pose = Pose.HOME
-    val atPosition: Boolean get() = Elevator.atPosition && Arm.atPosition
+    val atPosition: Boolean get() =
+        Elevator.target == state.elevatorRotations && Arm.target == state.armDegrees &&
+            Elevator.atPosition && Arm.atPosition
+    // The target checks matter. Under the sequencing rule the elevator is not
+    // commanded until the arm arrives, so for one tick it is "at" its old target.
+    // Without the checks the intake could eject at L4 with the elevator at HOME.
     override fun periodic() {
         stateTransitions()
         stateActions()

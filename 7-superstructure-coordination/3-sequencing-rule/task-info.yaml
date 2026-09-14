@@ -1,10 +1,15 @@
 type: edu
 files:
-  - name: src/SuperStructure.kt
+  - name: src/Superstructure.kt
     visible: true
+  - name: test/SuperstructureTest.kt
+    visible: false
   - name: src/Pose.kt
     visible: true
   - name: src/Intake.kt
     visible: true
+  - name: src/SuperStructure.kt
+    visible: true
   - name: test/SuperStructureTest.kt
     visible: false
+    propagatable: false

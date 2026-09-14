@@ -1,8 +1,15 @@
-# Check: Which Phase Starts
+# Check: Update Order
 
-The robot is settled at `CLIMB_PREP`: elevator at `STOWED`, arm at `CLIMB`,
-intake `STOP`. The driver commands `SCORE_L4`: elevator `HIGH`, arm `SCORE`,
-intake `STOP`.
+A teammate writes `StateMachineManager.teleopPeriodic()` in this order:
 
-Your task 5 `Superstructure` calls `startTransition(SCORE_L4)`. Which phase
-does the transition start in?
+```kotlin
+Climber.periodic()
+Intake.periodic()
+SuperStructure.periodic()
+```
+
+The robot is climbing. On tick N, `SuperStructure.periodic()` runs and, for
+the first time, `SuperStructure.state == Pose.FULLY_CLIMBED` and
+`SuperStructure.atPosition` is `true` after it returns.
+
+On which tick does the climber leave `RETRACTED`?

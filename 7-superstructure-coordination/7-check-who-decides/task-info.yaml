@@ -1,19 +1,18 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "true — the elevator is the slowest subsystem, so once it settles the robot\
-    \ is at target"
-    is_correct: false
-  - text: "false — every subsystem must report at target, and the arm has not"
+  - text: "The intake. Its HOLDING row reads SuperStructure.atPosition and stays put until it is true."
     is_correct: true
-  - text: "true — the arm is one tick from SCORE, and one tick counts as settled"
+  - text: "The superstructure. It holds back the eject command it would send to the intake."
     is_correct: false
-  - text: whatever elevator.atTarget() returns — the superstructure forwards its slowest
-      subsystem
+  - text: "The scheduler. It skips the intake's periodic() while the superstructure moves."
     is_correct: false
-message_correct: One still-moving arm makes the whole answer false. Code that acted
-  on 'ready' now would move a robot that is not in position.
-message_incorrect: "Re-read task 3: what does atTarget() do with the three per-subsystem\
-  \ answers?"
-custom_name: "Check: atTarget() rolls up"
+  - text: "The arm. It reports HOLDING to the intake until it reaches its target angle."
+    is_correct: false
+message_correct: "A peer reads another peer's state like a sensor. The intake owns
+  the eject decision, and it gates that decision on the superstructure's pose and
+  atPosition. No machine commands another."
+message_incorrect: "Re-read the intake's transition table in task 4. Which row leaves
+  HOLDING, and what does its condition read?"
+custom_name: "Check: who decides"
 local_check: true

@@ -1,83 +1,43 @@
-# Bidirectional Sequencing + Abort
+# The Climber Reads the Superstructure
 
-Task 4 only handled going up: elevator first, then arm. Going *down* is
-asymmetric. You must **retract the arm first**, then lower the elevator.
-Otherwise the arm sweeps through everything on the way down.
+The climber is the smallest FSM in the course, on purpose. It shows the one
+rule that makes three peer machines cooperate: a machine that depends on
+another one **reads** that machine's state. Nobody commands the climber. It
+watches the superstructure and acts when the pose is right.
 
-This task implements both directions plus mid-transition abort.
+## Hardware
 
-## The protocol
+One `TalonFX` (`canId = 16`) turns a lead screw. The screw has 12 threads per
+inch, so 6 inches of travel is `12 * 6 = 72.0` rotations. Both states carry
+their own `PositionVoltage` request, the enum-with-properties pattern from
+lesson 1.
 
-A "safe pose" means **arm at `STOWED`**. From the safe pose, anything is
-reachable: lower or raise the elevator freely, then re-extend the arm.
+## Transitions
 
-So every transition follows the same three-phase sequence:
+| Current     | Condition                                                                 | Next       |
+|-------------|---------------------------------------------------------------------------|------------|
+| `RETRACTED` | `SuperStructure.state == Pose.FULLY_CLIMBED && SuperStructure.atPosition` | `EXTENDED` |
+| `EXTENDED`  | none                                                                      | stay       |
 
-| Phase             | Commands                                                        | Advance when                                |
-|-------------------|-----------------------------------------------------------------|---------------------------------------------|
-| `RetractArm(t)`   | Arm to `STOWED`. Do not command the elevator.                   | `arm.atTarget()`                            |
-| `MoveElevator(t)` | Elevator to `t.elevator`.                                       | `elevator.atTarget()`                       |
-| `ExtendArm(t)`    | Arm to `t.arm`, intake to `t.intake`.                           | `arm.atTarget() && intake.requestReached()` |
-| `Settled(at)`     | All three to `at`'s setpoints, so they stay held.               | (stays)                                     |
+`SuperStructure.atPosition` is the same property the intake read in task 4.
+`FULLY_CLIMBED` alone is not enough: the arm is still swinging down to 5
+degrees for several ticks after the pose changes. The climber waits until the
+superstructure reports that it has arrived.
 
-When a transition starts, phases that are already complete are skipped:
+There is no way back. A climber that retracts under load drops the robot.
 
-- If the arm is already settled at `STOWED`, skip `RetractArm`.
-- If the elevator is already settled at `t.elevator`, skip `MoveElevator`.
-- If everything is already settled at `t`, go straight to `Settled(t)`.
+## Actions
 
-A helper `startTransition(target)` decides which phase to begin in. It is
-already implemented for you.
+| State       | Motor                     |
+|-------------|---------------------------|
+| `RETRACTED` | `PositionVoltage(0.0)`    |
+| `EXTENDED`  | `PositionVoltage(72.0)`   |
 
-## In flight is not a state
-
-A mechanism that is still moving is not at any state. The stubs keep
-`state` as the **last settled position** while the mechanism moves, and
-`atTarget()` returns `false` until it arrives. So "settled at X" means both
-`atTarget()` and `state == X`. `startTransition` uses three helpers,
-`elevatorSettledAt`, `armSettledAt`, and `intakeSettledAt`, that check
-exactly that. An arm that is halfway back to `STOWED` is not safe yet, and
-the helpers say so.
-
-## Two methods, in order
-
-`periodic()` calls `stateTransitions()` first and `stateActions()` second,
-the order from lesson 2. `stateTransitions()` reads the sensors and picks the
-phase. `stateActions()` commands the subsystems for that phase. The sensors
-it reads were updated by the previous tick, so each phase costs one extra
-tick compared with acting first.
-
-## Abort handling
-
-If the goal state changes mid-transition, the current state is computed
-again: the first lines of `stateTransitions()` (already written) call
-`startTransition(newGoal)` from the current subsystem states. That handles
-"user pressed cancel": the arm retracts to safe, the elevator returns to
-`STOWED`, the intake stops. A mechanism that reverses mid-flight needs the
-time it already traveled to get back. You do not write the abort detection.
+Every tick, `stateActions()` sends the current state's `control` request to
+`motor`.
 
 ## Your task
 
-Read `startTransition` first. It decides what should happen.
-`stateTransitions` and `stateActions` route control flow.
-
-Two methods in `src/Superstructure.kt`:
-
-1. **`stateTransitions()`**: after the given goal-change lines, check the
-   current phase's "Advance when" condition from the table. When it holds,
-   move on with `startTransition(t.target)`. Calling `startTransition` again
-   skips phases that are now complete.
-
-2. **`stateActions()`**: for each phase, command the right subsystems per
-   the table above. Use `when (val t = transition)` and the four
-   sealed-class branches.
-
-## Test scenarios
-
-Tests cover:
-
-- Going up (`STOWED → SCORE_L4`): elevator before arm.
-- Going down (`SCORE_L4 → STOWED`): arm retracts before the elevator descends.
-- Mid-ascent abort: command back to `STOWED` before reaching `SCORE_L4`. The
-  elevator takes real ticks to come back.
-- Cycle: `STOWED → INTAKE_GROUND → STOWED → SCORE_L4 → STOWED` returns home.
+Open `src/Climber.kt`. Implement `stateTransitions()` and `stateActions()`.
+`SuperStructure`, `Intake`, and `Pose` are complete in this task; read them,
+do not change them.

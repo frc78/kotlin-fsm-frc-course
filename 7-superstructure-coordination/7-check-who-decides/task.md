@@ -1,9 +1,8 @@
-# Check: `atTarget()` Rolls Up
+# Check: Who Decides
 
-Your `Superstructure` is partway through a `STOWED → SCORE_L4` move. On this
-tick, `elevator.atTarget()` returns `true` (it has settled at `HIGH`) and
-`intake.requestReached()` returns `true` (the rollers were not asked to
-change). The arm is still one tick away from `SCORE`, so `arm.atTarget()`
-returns `false`.
+The robot holds a coral. The driver presses `L4`, and the superstructure
+moves to `Pose.L4`. Before the arm finishes its swing, the driver presses and
+holds `score`. Nothing ejects. A moment later, once the mechanisms have
+settled, the coral ejects.
 
-What must `Superstructure.atTarget()` return, and why?
+Which state machine made the decision to wait, and how?

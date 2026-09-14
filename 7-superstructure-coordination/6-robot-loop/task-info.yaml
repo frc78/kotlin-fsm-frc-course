@@ -1,7 +1,9 @@
 type: edu
 files:
-  - name: src/StateMachineManager.kt
+  - name: src/Superstructure.kt
     visible: true
+  - name: test/PhaseTimeoutTest.kt
+    visible: false
   - name: src/Pose.kt
     visible: true
   - name: src/SuperStructure.kt
@@ -10,5 +12,8 @@ files:
     visible: true
   - name: src/Climber.kt
     visible: true
+  - name: src/StateMachineManager.kt
+    visible: true
   - name: test/RobotLoopTest.kt
     visible: false
+    propagatable: false

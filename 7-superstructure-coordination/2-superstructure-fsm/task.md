@@ -1,62 +1,68 @@
-# Commanding Subsystems from a Higher-Level FSM
+# The Superstructure Is One Peer FSM
 
-You named the coherent robot configurations as a `RobotState` enum. When
-the driver picks `SCORE_L4`, the elevator, arm, and intake must each receive
-their setpoint. The `Superstructure` does that. It is the top-level
-coordinator: it holds a reference to every subsystem, reads the goal, and on
-each tick pushes each per-subsystem setpoint into the right place.
+The superstructure is an FSM like the lesson 3 subsystems. Its state type is
+`Pose`. Its actions send setpoints to the elevator and the arm. It has two
+kinds of input:
 
-## Two terms for the rest of this lesson
+| Input                     | Source                                | Read as                    |
+|---------------------------|---------------------------------------|----------------------------|
+| driver buttons            | `OI.home`, `OI.intake`, `OI.scoreL2`, `OI.scoreL4`, `OI.prepareClimb`, `OI.climb` | booleans |
+| the intake's state        | `Intake.state`                        | another FSM's `state`, like a sensor |
 
-- The **goal state** is `commandedRobotState`: the `RobotState` the driver
-  or auto code asked for.
-- The **current state** is where the robot is now. In this task the robot
-  reaches the goal state as soon as every subsystem settles. Tasks 4 and 5
-  add a `transition` field that tracks the current state while the robot
-  moves.
+`OI` is the operator interface stub. Each field is `true` while the driver
+holds that button. `Intake` in this task is a stand-in with a `state` field
+that tests set. Task 4 replaces it with the real intake FSM. The superstructure
+never writes to `Intake`. It reads `Intake.state` to learn whether the robot
+holds a piece, the same way it reads a button.
 
-## One method for now
+## The mechanisms
 
-`Superstructure` implements `Subsystem`, like every subsystem in lesson 2.
-Its `periodic()` calls `stateActions()` and then ticks the three children.
-There is no `stateTransitions()` yet, because this superstructure has no
-state of its own to change: it applies the goal directly. Task 4 adds
-`stateTransitions()` when the robot gets a current state that differs from
-the goal.
+`Elevator` and `Arm` are stubs that mirror the real subsystems:
 
-What `stateActions()` writes to is the difference from a subsystem:
+| Call or field                 | Meaning                                            |
+|-------------------------------|----------------------------------------------------|
+| `Elevator.goTo(rotations)`    | set the elevator target                            |
+| `Arm.goTo(degrees)`           | set the arm target                                 |
+| `Elevator.atPosition`         | `true` when the carriage is within 0.1 rotations   |
+| `Arm.atPosition`              | `true` when the arm is within 2 degrees            |
 
-- A subsystem's `stateActions()` writes to a motor
-  (`motor.setControl(...)`).
-- A superstructure's `stateActions()` writes to subsystems
-  (`elevator.commandedTarget = ...`).
+Both move a fixed step per tick: 3.0 rotations and 45.0 degrees. The
+`simulationPeriodic()` calls in `periodic()` advance them. `atPosition` on the
+superstructure is given: it is `true` when both mechanisms report `true`.
 
-Each FSM operates on the layer below it.
+## Transitions
 
-## The subsystems
+Inside each state the rows are checked top to bottom. The first match wins.
+`holding` means `Intake.state == Intake.State.HOLDING`.
 
-`Superstructure` owns three children, already wired up in the file:
+| Current          | Condition                 | Next             |
+|------------------|---------------------------|------------------|
+| `HOME`           | `OI.intake && !holding`   | `CORAL_STATION`  |
+| `HOME`           | `holding && OI.scoreL2`   | `L2`             |
+| `HOME`           | `holding && OI.scoreL4`   | `L4`             |
+| `HOME`           | `OI.prepareClimb`         | `READY_TO_CLIMB` |
+| `CORAL_STATION`  | `OI.home`                 | `HOME`           |
+| `L2`             | `OI.home`                 | `HOME`           |
+| `L2`             | `holding && OI.scoreL4`   | `L4`             |
+| `L4`             | `OI.home`                 | `HOME`           |
+| `L4`             | `holding && OI.scoreL2`   | `L2`             |
+| `READY_TO_CLIMB` | `OI.climb`                | `FULLY_CLIMBED`  |
+| `READY_TO_CLIMB` | `OI.home`                 | `HOME`           |
+| `FULLY_CLIMBED`  | none                      | stay             |
 
-| Child                | Writable field                       |
-|----------------------|--------------------------------------|
-| `elevator: Elevator` | `commandedTarget: Elevator.State`    |
-| `arm: Arm`           | `commandedTarget: Arm.State`         |
-| `intake: Intake`     | `request: Intake.Request`            |
+If no row matches, the state does not change.
 
-The goal state carries a matching property for each subsystem
-(`commandedRobotState.elevator`, `.arm`, `.intake`).
+## Actions
 
-## Note: class, not object
+| State    | Elevator                          | Arm                        |
+|----------|-----------------------------------|----------------------------|
+| every pose | `goTo(state.elevatorRotations)` | `goTo(state.armDegrees)`   |
 
-Earlier subsystems were `object` singletons. Here it is a `class`. Several
-test cases each want a fresh `Superstructure`, and a class gives a clean
-instance per test. On a real robot you have one instance either way.
+Both setpoints are sent every tick, at the same time. Task 3 adds the rule
+that orders them.
 
 ## Your task
 
-Open `src/Superstructure.kt`. Implement `stateActions()` so that on each
-tick it forwards each per-subsystem property of the goal state into the
-matching subsystem's writable field.
-
-`RobotState` is pre-declared in this file with the correct setpoints from
-Task 1. The subsystems' `tick()` is already wired into `periodic()`.
+Open `src/SuperStructure.kt`. Implement `stateTransitions()` from the
+transition table and `stateActions()` from the actions table. `periodic()`,
+`atPosition`, and `reset()` are given.
