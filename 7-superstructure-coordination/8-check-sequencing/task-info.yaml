@@ -1,17 +1,21 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "MoveElevator(SCORE_L4) — the elevator rises first, and the arm follows once it settles"
+  - text: "MoveElevator(SCORE_L4) — the elevator rises first, and the arm follows once\
+    \ it settles"
     is_correct: false
-  - text: "RetractArm(SCORE_L4) — the arm is not at STOWED and the elevator must move, so the arm goes safe first"
+  - text: "RetractArm(SCORE_L4) — the arm is not at STOWED and the elevator must move,\
+    \ so the arm goes safe first"
     is_correct: true
-  - text: "ExtendArm(SCORE_L4) — the arm swings from CLIMB straight to SCORE, and the elevator moves later"
+  - text: "ExtendArm(SCORE_L4) — the arm swings from CLIMB straight to SCORE, and the\
+    \ elevator moves later"
     is_correct: false
-  - text: "Settled(SCORE_L4) — the elevator is already at STOWED, so nothing needs to be sequenced"
+  - text: "Settled(SCORE_L4) — the elevator is already at STOWED, so nothing needs to\
+    \ be sequenced"
     is_correct: false
-message_correct: "The same rule applies to every move between two extended poses: safe pose\
-  \ first, then elevator, then arm."
-message_incorrect: "Re-read startTransition in task 5. Check its conditions in order against\
-  \ the arm state, the elevator state, and the target."
+message_correct: "The same rule applies to every move between two extended poses:\
+  \ safe pose first, then elevator, then arm."
+message_incorrect: "Re-read startTransition in task 5. Check its conditions in order\
+  \ against the arm state, the elevator state, and the target."
 custom_name: "Check: which phase starts"
 local_check: true

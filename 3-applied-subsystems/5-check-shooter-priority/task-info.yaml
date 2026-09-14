@@ -1,17 +1,17 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "Ready(4500.0) — the state keeps the target it was created with"
+  - text: Ready(4500.0) — the state keeps the target it was created with
     is_correct: true
-  - text: "Ready(0.0) — releasing fire resets the target carried by the state"
+  - text: Ready(0.0) — releasing fire resets the target carried by the state
     is_correct: false
   - text: "Idle — releasing fire ends the shot, so the shooter spins down"
     is_correct: false
-  - text: "SpinningUp(4500.0) — the flywheel must confirm its speed again"
+  - text: SpinningUp(4500.0) — the flywheel must confirm its speed again
     is_correct: false
-message_correct: "Right. The target rides along in the data field of each state, so the\
-  \ shooter goes back to Ready with the same 4500.0 and does not spin up again."
-message_incorrect: "Look at what data each state in task 3's sealed class carries, and\
-  \ at the row for Feeding in the transition table."
+message_correct: "Right. The target rides along in the data field of each state, so\
+  \ the shooter goes back to Ready with the same 4500.0 and does not spin up again."
+message_incorrect: "Look at what data each state in task 3's sealed class carries,\
+  \ and at the row for Feeding in the transition table."
 custom_name: "Check: Shooter Data"
 local_check: true

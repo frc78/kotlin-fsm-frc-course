@@ -2,20 +2,20 @@ type: choice
 is_multiple_choice: false
 options:
   - text: "Compiler: the value 12.6 is too large for a Double. Check: the test itself\
-      \ has the wrong number in it."
+    \ has the wrong number in it."
     is_correct: false
-  - text: "Compiler: the quotes make \"12.6\" a String, and a Double property cannot hold\
-      \ a String. Check: a property that should be 12.6 was left at 0.0."
+  - text: "Compiler: the quotes make \"12.6\" a String, and a Double property cannot\
+    \ hold a String. Check: a property that should be 12.6 was left at 0.0."
     is_correct: true
   - text: "Compiler: the name batteryVolts is spelled wrong. Check: the code crashed\
-      \ before the test could run."
+    \ before the test could run."
     is_correct: false
-  - text: "Compiler: val must be var for a Double. Check: the test expected 0.0 and got\
-      \ 12.6."
+  - text: "Compiler: val must be var for a Double. Check: the test expected 0.0 and\
+    \ got 12.6."
     is_correct: false
 message_correct: "Read the type names in a compiler message. They tell you what the\
-  \ compiler wanted and what it found. In a failed check, expected is the test's\
-  \ value and but was is yours."
+  \ compiler wanted and what it found. In a failed check, expected is the test's value\
+  \ and but was is yours."
 message_incorrect: "Look at the two type names in the compiler message, and at which\
   \ side of the check message says expected. Then re-read task 2 on types and string\
   \ quotes."

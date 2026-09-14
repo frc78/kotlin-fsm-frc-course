@@ -1,17 +1,19 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "Brake. Each apply() adds its fields to the fields already on the motor."
+  - text: Brake. Each apply() adds its fields to the fields already on the motor.
     is_correct: false
-  - text: "Coast. Each apply() replaces the whole configuration, and the second never set NeutralMode."
+  - text: "Coast. Each apply() replaces the whole configuration, and the second never\
+    \ set NeutralMode."
     is_correct: true
-  - text: "Brake. MotorOutput settings lock once applied, and later applies change other blocks only."
+  - text: "Brake. MotorOutput settings lock once applied, and later applies change other\
+    \ blocks only."
     is_correct: false
   - text: "Coast. Enabling a current limit turns brake mode off, so the motor free-wheels."
     is_correct: false
-message_correct: "Build everything in one TalonFXConfiguration and apply it once. This is also
-  the default on a real TalonFX, so the answer holds on the robot."
-message_incorrect: "Re-read task 3. Count how many TalonFXConfiguration objects one subsystem
-  needs."
+message_correct: "Build everything in one TalonFXConfiguration and apply it once.\
+  \ This is also the default on a real TalonFX, so the answer holds on the robot."
+message_incorrect: Re-read task 3. Count how many TalonFXConfiguration objects one
+  subsystem needs.
 custom_name: "Check: one configuration"
 local_check: true

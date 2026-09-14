@@ -1,19 +1,19 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "RobotCentric. Its velocityX always points out the front of the robot."
+  - text: RobotCentric. Its velocityX always points out the front of the robot.
     is_correct: false
-  - text: "FieldCentric. The drivetrain uses the gyro to convert the stick to field axes."
+  - text: FieldCentric. The drivetrain uses the gyro to convert the stick to field axes.
     is_correct: true
-  - text: "PointWheelsAt. It aims every module along the field's +X axis."
+  - text: PointWheelsAt. It aims every module along the field's +X axis.
     is_correct: false
-  - text: "Either one. They agree as long as the gyro was zeroed at match start."
+  - text: Either one. They agree as long as the gyro was zeroed at match start.
     is_correct: false
 message_correct: "Right. FieldCentric velocities live in the field's frame, so heading\
   \ never changes what the stick means. RobotCentric agrees with it only when the\
   \ heading is exactly zero."
-message_incorrect: "Re-read the frame sketch and the request tables in task 1. Each request's\
-  \ velocityX names a direction. Ask which direction turns with the robot and which\
-  \ is fixed to the field."
+message_incorrect: Re-read the frame sketch and the request tables in task 1. Each
+  request's velocityX names a direction. Ask which direction turns with the robot
+  and which is fixed to the field.
 custom_name: "Check: Request Frames"
 local_check: true

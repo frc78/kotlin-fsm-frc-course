@@ -3,7 +3,7 @@ is_multiple_choice: false
 options:
   - text: "It runs faster than periodic(), so the test suite finishes sooner."
     is_correct: false
-  - text: "Pure functions can be tested without JUnit or any test framework."
+  - text: Pure functions can be tested without JUnit or any test framework.
     is_correct: false
   - text: "The same state and inputs always give the same next state, so a test calls\
     \ it once and asserts on the result."
@@ -13,8 +13,8 @@ options:
 message_correct: "Determinism is the whole win: the same (state, input) pair always\
   \ maps to the same next state, so a test is one assertEquals — no setup, no reset(),\
   \ no hardware stubs running."
-message_incorrect: "Think about what transition() needs before you can call it. Does it\
-  \ need a motor? A sensor? A reset()? Which option describes what is left when none\
-  \ of those are needed?"
+message_incorrect: Think about what transition() needs before you can call it. Does
+  it need a motor? A sensor? A reset()? Which option describes what is left when none
+  of those are needed?
 custom_name: "Check: pure transition functions"
 local_check: true

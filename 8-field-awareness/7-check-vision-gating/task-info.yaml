@@ -9,11 +9,11 @@ options:
     is_correct: true
   - text: "NO_TARGET. The frame was already applied last tick, so nothing is new."
     is_correct: false
-message_correct: "The distance from (4.0, 3.0) to (9.2, 1.0) is about 5.6 m, and no robot\
-  \ moves that far in one frame. The previous TRACKING state does not matter: every\
-  \ tick re-evaluates the table from the top."
+message_correct: "The distance from (4.0, 3.0) to (9.2, 1.0) is about 5.6 m, and no\
+  \ robot moves that far in one frame. The previous TRACKING state does not matter:\
+  \ every tick re-evaluates the table from the top."
 message_incorrect: "Compute each row of the transition table in task 5 in order, from\
-  \ the timestamps, the stdDev, and the straight-line distance between the two\
-  \ positions. Exactly one row before 'otherwise' matches."
+  \ the timestamps, the stdDev, and the straight-line distance between the two positions.\
+  \ Exactly one row before 'otherwise' matches."
 custom_name: "Check: Vision Gating"
 local_check: true

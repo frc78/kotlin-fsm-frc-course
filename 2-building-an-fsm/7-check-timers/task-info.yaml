@@ -1,13 +1,13 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "It ends after one tick; the clock still holds the time from the first eject"
+  - text: It ends after one tick; the clock still holds the time from the first eject
     is_correct: true
-  - text: "It runs the full 0.5 seconds; start() zeros the clock like restart() does"
+  - text: It runs the full 0.5 seconds; start() zeros the clock like restart() does
     is_correct: false
-  - text: "It never ends; a timer that already ran cannot be started a second time"
+  - text: It never ends; a timer that already ran cannot be started a second time
     is_correct: false
-  - text: "It runs for 2.5 seconds; the timer must count back down from the idle time"
+  - text: It runs for 2.5 seconds; the timer must count back down from the idle time
     is_correct: false
 message_correct: "Exactly — start() only sets the timer running. The clock kept counting\
   \ through IDLE, so hasElapsed(0.5) is already true on the next tick. restart() is\

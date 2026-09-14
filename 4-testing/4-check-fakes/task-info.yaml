@@ -4,8 +4,8 @@ options:
   - text: "Production code runs faster, because the sensor object is created once outside\
     \ the class."
     is_correct: false
-  - text: "The test controls the switch, so it can trip it on demand and check that the\
-    \ FSM reads it."
+  - text: "The test controls the switch, so it can trip it on demand and check that\
+    \ the FSM reads it."
     is_correct: true
   - text: "The FSM no longer needs to read the sensor, because the constructor value\
     \ replaces the limit.get() call."

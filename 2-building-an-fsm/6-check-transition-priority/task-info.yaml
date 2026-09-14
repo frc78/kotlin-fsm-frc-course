@@ -1,13 +1,13 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "HOLDING — the piece is detected"
+  - text: HOLDING — the piece is detected
     is_correct: true
-  - text: "IDLE — the driver released the button"
+  - text: IDLE — the driver released the button
     is_correct: false
   - text: "HOLDING, then IDLE, both in one tick"
     is_correct: false
-  - text: "Neither — two true conditions is an error"
+  - text: Neither — two true conditions is an error
     is_correct: false
 message_correct: "Right — the when expression assigns exactly one next state per tick,\
   \ and you encode priority by ordering the rows: the first matching condition wins."

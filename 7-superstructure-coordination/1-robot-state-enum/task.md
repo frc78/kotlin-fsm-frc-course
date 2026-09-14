@@ -16,7 +16,7 @@ carries setpoints for several subsystems instead of one.
 ## Who owns what
 
 A robot state tells each subsystem what to do. It never tells a subsystem
-what to sense. The intake is the example:
+what to sense. For the intake, the two decisions have two owners:
 
 | Owner          | Decides                                   | Type             |
 |----------------|-------------------------------------------|------------------|
