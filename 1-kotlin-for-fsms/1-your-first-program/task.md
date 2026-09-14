@@ -19,8 +19,8 @@ a function named `main`.
 A robot program does not run once and stop. It runs one block of code, then
 runs it again, about **50 times a second**, for the whole match. Each run of
 that block is one **tick**. Almost all robot code you will write is a
-function that the loop calls on every tick. Keep this picture in mind. It
-explains why the code in later lessons looks the way it does.
+function that the loop calls on every tick. This loop is why the code in
+later lessons looks the way it does.
 
 ## Run it
 

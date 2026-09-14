@@ -2,8 +2,8 @@
 
 You now have the whole toolbox: FSMs (Lessons 1–4), motor configuration
 (5), swerve requests (6), coordination (7), and field awareness (this
-lesson). Look at how FRC team 2056 organized all of these pieces on their 2025
-robot LIGHTNING. Everything below comes from their own
+lesson). This page shows how FRC team 2056 organized all of these pieces on
+their 2025 robot LIGHTNING. Everything below comes from their own
 [Chief Delphi Q&A](https://www.chiefdelphi.com/t/team-2056-op-robotics-2025-technical-binder-release/502550)
 about their [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-2056-Technical-Binder.pdf).
 

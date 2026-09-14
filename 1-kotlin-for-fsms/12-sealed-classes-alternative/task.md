@@ -28,7 +28,7 @@ on a sealed type is exhaustive.
   varying data (`SpinningUp(targetRpm)`).
 
 Open `src/ShooterFsmState.kt` and read the sealed class declaration at the top.
-Notice how `Idle` and `Ready` use `data object` (no per-instance data) and
+`Idle` and `Ready` use `data object` (no per-instance data), and
 `SpinningUp` and `Feeding` use `data class` (each carries a `targetRpm`). The
 Lesson 3 Shooter is built on a hierarchy shaped just like this one.
 

@@ -24,8 +24,8 @@ moment, the mechanism is in exactly one of a small, named set of modes.*
 
 ## Why robot subsystems fit this shape
 
-Think about any FRC mechanism: an intake, an elevator, a shooter. Each is one
-mechanism with a handful of modes. An intake is idle, intaking, holding, or
+Any FRC mechanism, an intake, an elevator, or a shooter, is one mechanism
+with a handful of modes. An intake is idle, intaking, holding, or
 ejecting (you declared those four in task 9). What flips it between modes is
 always some input: the driver holds a button, a beam-break sees the game
 piece, a timer expires. Those are the states, transitions, and actions. A
