@@ -1,0 +1,12 @@
+type: edu
+files:
+  - name: src/Climber.kt
+    visible: true
+  - name: src/Pose.kt
+    visible: true
+  - name: src/SuperStructure.kt
+    visible: true
+  - name: src/Intake.kt
+    visible: true
+  - name: test/ClimberTest.kt
+    visible: false

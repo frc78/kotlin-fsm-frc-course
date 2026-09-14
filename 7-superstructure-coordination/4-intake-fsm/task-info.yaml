@@ -1,0 +1,10 @@
+type: edu
+files:
+  - name: src/Intake.kt
+    visible: true
+  - name: src/Pose.kt
+    visible: true
+  - name: src/SuperStructure.kt
+    visible: true
+  - name: test/IntakeTest.kt
+    visible: false

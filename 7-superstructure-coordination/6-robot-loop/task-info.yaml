@@ -1,0 +1,14 @@
+type: edu
+files:
+  - name: src/StateMachineManager.kt
+    visible: true
+  - name: src/Pose.kt
+    visible: true
+  - name: src/SuperStructure.kt
+    visible: true
+  - name: src/Intake.kt
+    visible: true
+  - name: src/Climber.kt
+    visible: true
+  - name: test/RobotLoopTest.kt
+    visible: false

@@ -4,3 +4,8 @@ files:
     visible: true
   - name: test/RobotStateTest.kt
     visible: false
+  - name: src/Pose.kt
+    visible: true
+  - name: test/PoseTest.kt
+    visible: false
+    propagatable: false

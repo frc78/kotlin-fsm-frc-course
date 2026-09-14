@@ -16,7 +16,7 @@ summary: |-
     5. Motor configuration — TalonFX setup: neutral mode, inversion,
        current limits, and PID slots.
     6. Swerve requests — CTRE swerve API, joystick mapping with deadbands, and a drive-mode FSM.
-    7. Superstructure Coordination - Combine multiple subsystem state machines into a full robot.
+    7. Coordinating subsystems — peer state machines that read each other's state, a pose-enum superstructure, and the robot loop that runs them.
     8. Field awareness — pose math, the drivetrain pose estimate, and a vision-gating FSM.
 vendor:
   name: Aquidneck Island Robotics
@@ -46,8 +46,9 @@ additional_files:
   - name: util/src/main/kotlin/frc/stubs/CANrange.kt
   - name: util/src/main/kotlin/frc/stubs/Timer.kt
   - name: util/src/main/kotlin/frc/stubs/Subsystem.kt
+  - name: util/src/main/kotlin/frc/stubs/OI.kt
+  - name: util/src/main/kotlin/frc/stubs/Debouncer.kt
   - name: util/src/main/kotlin/frc/stubs/superstructure/Arm.kt
-  - name: util/src/main/kotlin/frc/stubs/superstructure/Intake.kt
   - name: util/src/main/kotlin/frc/stubs/superstructure/Elevator.kt
   - name: util/src/main/kotlin/frc/stubs/DigitalInput.kt
   - name: build.gradle.kts

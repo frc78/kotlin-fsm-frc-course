@@ -1,30 +1,36 @@
 package frc.stubs.superstructure
 
-class Elevator {
-    enum class State(val targetRotations: Double) {
-        STOWED(0.0), LOW(4.0), MID(9.5), HIGH(14.5)
-    }
+import kotlin.math.abs
+import kotlin.math.sign
 
-    var commandedTarget: State = State.STOWED
-        set(value) {
-            if (field != value) {
-                field = value
-                ticksRemaining = if (value == state) stepsToReach - ticksRemaining else stepsToReach
-            }
-        }
-
-    var state: State = State.STOWED
+// The elevator as the superstructure sees it. Mirrors the real Elevator object:
+// goTo(height) sends a MotionMagic request, position reads the encoder, and
+// atPosition compares the two. Motion is simulated as a fixed step per tick, so
+// atPosition stays false until the carriage arrives and a reversal takes the
+// distance back.
+object Elevator {
+    var position: Double = 0.0
         private set
 
-    private var ticksRemaining: Int = 0
-    private val stepsToReach = 3
+    var target: Double = 0.0
+        private set
 
-    fun tick() {
-        if (ticksRemaining > 0) {
-            ticksRemaining--
-            if (ticksRemaining == 0) state = commandedTarget
-        }
+    val atPosition: Boolean
+        get() = abs(position - target) < 0.1
+
+    private const val STEP_ROTATIONS = 3.0
+
+    fun goTo(rotations: Double) {
+        target = rotations
     }
 
-    fun atTarget(): Boolean = ticksRemaining == 0 && state == commandedTarget
+    fun simulationPeriodic() {
+        val remaining = target - position
+        position = if (abs(remaining) <= STEP_ROTATIONS) target else position + sign(remaining) * STEP_ROTATIONS
+    }
+
+    fun reset() {
+        position = 0.0
+        target = 0.0
+    }
 }

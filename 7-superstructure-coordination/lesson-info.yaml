@@ -1,9 +1,9 @@
 content:
-  - 1-robot-state-enum
-  - 2-commanding-subsystems
-  - 3-at-target
-  - 4-sequencing-guards
-  - 5-bidirectional-sequencing
-  - 6-phase-timeout
-  - 7-check-attarget
-  - 8-check-sequencing
+  - 1-pose-enum
+  - 2-superstructure-fsm
+  - 3-sequencing-rule
+  - 4-intake-fsm
+  - 5-climber-fsm
+  - 6-robot-loop
+  - 7-check-who-decides
+  - 8-check-update-order
