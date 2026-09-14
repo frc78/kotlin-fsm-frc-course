@@ -56,7 +56,7 @@ in task 1.
 | `REJECTING` | nothing                                                                                         |
 | `NO_TARGET` | nothing                                                                                         |
 
-The FSM decides. The drivetrain blends. The stub `addVisionMeasurement`
+The FSM decides, and the drivetrain blends. The stub `addVisionMeasurement`
 ignores the timestamp. The real one uses it for latency compensation.
 
 ## `reset()`

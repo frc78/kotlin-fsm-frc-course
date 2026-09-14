@@ -17,9 +17,9 @@ frame does:
 | left stick left    | `leftX` < 0   | `velocityY` > 0 (+Y, left)         |
 | right stick right  | `rightX` > 0  | `rotationalRate` < 0 (clockwise)   |
 
-Forward on the stick is a **negative** Y. Left on the stick is a **negative**
-X. Right on the rotation stick must turn the robot clockwise, and the frame
-convention from task 1 says clockwise is **negative**. All three axes need a
+Forward on the stick is a negative Y. Left on the stick is a negative X.
+Right on the rotation stick must turn the robot clockwise, and the frame
+convention from task 1 says clockwise is negative. All three axes need a
 sign flip.
 
 ## Scaling

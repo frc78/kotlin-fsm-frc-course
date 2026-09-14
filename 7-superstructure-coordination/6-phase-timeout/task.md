@@ -44,8 +44,8 @@ before the advance rules.
 | `checkTimeout()`   | any other phase, and the timer has passed the limit         | Set `faulted`. Set the goal to `STOWED`. Enter `startTransition(RobotState.STOWED)`.          |
 | `clearFault()`     | always                                                      | Clear `faulted`.                                                                              |
 
-`faulted` is a flag only. It does not block new goals. A driver who sets a
-new goal after a fault is followed. `clearFault()` only clears the flag.
+`faulted` is a flag only. It does not block new goals. The superstructure
+follows a new goal set after a fault. `clearFault()` only clears the flag.
 
 ## How the tests drive time
 

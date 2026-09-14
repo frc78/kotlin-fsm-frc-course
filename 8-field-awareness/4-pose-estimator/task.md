@@ -30,8 +30,8 @@ last tick: forward, sideways, and a heading change. That motion is in the
 **robot frame**. The estimator rotates it into the field frame by the
 current heading, then adds it to the pose.
 
-You will write that step once, as a pure function, so the box is not a
-mystery.
+You will write that step once, as a pure function, to see what the
+drivetrain computes on every loop.
 
 ## Your task
 

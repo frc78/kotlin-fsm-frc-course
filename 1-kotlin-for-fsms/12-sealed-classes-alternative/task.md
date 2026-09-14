@@ -1,10 +1,10 @@
-# Sealed Classes — When Enums Aren't Enough
+# Sealed Classes: When Enums Aren't Enough
 
 In the previous task, every elevator state had a *fixed* setpoint chosen at
 compile time. That works because the elevator only goes to a few preset heights.
 
 But what if a state's data is decided at *runtime*? For example, a shooter's
-flywheel target RPM might depend on the distance to the goal — different on
+flywheel target RPM might depend on the distance to the goal, so it differs on
 every shot. An enum can't express that.
 
 **Sealed classes** can. Each subclass of a sealed class is its own type, with
@@ -54,10 +54,10 @@ Two things to know about `when` over a sealed class:
    `ShooterFsmState.Idle -> ...`.
 2. **`data class` branches use `is`** because there are many possible
    instances (`SpinningUp(4500.0)`, `SpinningUp(5200.0)`, etc.). Inside an
-   `is`-branch, `state` is **smart-cast** to that subclass — you can read
+   `is`-branch, `state` is **smart-cast** to that subclass, so you can read
    `state.targetRpm` without writing any explicit cast.
 
-When all four branches are present, the `when` is exhaustive — delete the
+When all four branches are present, the `when` is exhaustive. Delete the
 `else` line at the bottom.
 
 ## Why this matters for FSMs

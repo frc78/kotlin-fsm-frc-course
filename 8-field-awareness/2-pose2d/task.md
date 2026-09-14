@@ -58,8 +58,8 @@ operations from task 1.
 | `(0, 0)` facing 90°   | `(1, 0)`             | `(0, 1)`             |
 | `(4, 3)` facing 90°   | `(2, 0)`             | `(4, 5)`             |
 
-The last row is the important one. The robot's heading changes the offset and
-the robot's position shifts it. Both matter, and the order matters.
+In the last row the robot's heading changes the offset and the robot's
+position shifts it. Both matter, and the order matters.
 
 **`opponentRelativeToMe(myPose, opponentPose)`** returns the opponent's pose
 in my robot frame. `relativeTo` does this in one call.

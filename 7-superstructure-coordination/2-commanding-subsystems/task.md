@@ -1,12 +1,10 @@
 # Commanding Subsystems from a Higher-Level FSM
 
-You named the coherent robot configurations as a `RobotState` enum. Now
-something must act on a `RobotState` selection. When the driver picks
-`SCORE_L4`, the elevator, arm, and intake must each receive their setpoint.
-
-That something is the **`Superstructure`**, the top-level coordinator. It
-holds a reference to every subsystem, reads the goal, and on each tick pushes
-each per-subsystem setpoint into the right place.
+You named the coherent robot configurations as a `RobotState` enum. When
+the driver picks `SCORE_L4`, the elevator, arm, and intake must each receive
+their setpoint. The `Superstructure` does that. It is the top-level
+coordinator: it holds a reference to every subsystem, reads the goal, and on
+each tick pushes each per-subsystem setpoint into the right place.
 
 ## Two terms for the rest of this lesson
 

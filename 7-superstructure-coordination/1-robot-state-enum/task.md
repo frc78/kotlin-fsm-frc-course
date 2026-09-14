@@ -8,7 +8,7 @@ Three separate variables (`elevatorTarget`, `armTarget`, `intakeRequest`)
 updated from many places make it easy to reach a mid-state that means
 nothing, such as "elevator high, arm stowed, rollers intaking".
 
-The fix: name the coherent configurations. Each named configuration is a
+Name the coherent configurations instead. Each named configuration is a
 robot state. Each robot state carries the per-subsystem setpoints that make
 it valid. This is enum-with-properties from Lesson 1, scaled up: each value
 carries setpoints for several subsystems instead of one.
@@ -45,7 +45,7 @@ per this table:
 
 ## Aside
 
-Naming things matters. `SCORE_L4` reads like an intent. `(HIGH, SCORE,
-STOP)` reads like setpoints. The state name is what auto code, driver
+`SCORE_L4` reads like an intent. `(HIGH, SCORE, STOP)` reads like
+setpoints. The state name is what auto code, driver
 binding code, and dashboards reference. The setpoints are the implementation
 detail that lives on the enum.

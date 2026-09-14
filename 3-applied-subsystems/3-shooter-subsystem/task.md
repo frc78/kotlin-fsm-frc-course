@@ -25,18 +25,18 @@ sealed class FsmState {
 
 ## Kotlin you need
 
-**Nullable types.** `Double?` holds a `Double` or `null`. You cannot use it as
+**Nullable types:** `Double?` holds a `Double` or `null`. You cannot use it as
 a `Double` until you check it. Copy it to a local first:
 `val rpm = commandedTargetRpm`. Inside `if (rpm != null) { ... }` the compiler
 treats `rpm` as a plain `Double`. This is called a smart cast.
 
-**Binding the subject of `when`.** `when (val s = state) { ... }` stores the
+**Binding the subject of `when`:** `when (val s = state) { ... }` stores the
 current state in `s`. Inside `is FsmState.SpinningUp -> ...` the compiler
 smart-casts `s`, so `s.targetRpm` is readable. Return `s` from a branch to
 stay in the same state. The result of the `when` expression is the value you
 assign to `state`.
 
-**Extension properties.** `4500.0.rpm` looks like a property on a number. It
+**Extension properties:** `4500.0.rpm` looks like a property on a number. It
 is a small function that Kotlin lets you call with dot syntax. `.rpm` converts
 rotations per minute to rotations per second, so `4500.0.rpm == 75.0`.
 `VelocityVoltage` takes rotations per second.

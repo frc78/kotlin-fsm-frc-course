@@ -71,5 +71,5 @@ val request = aimAtGoal(
 drivetrain.setControl(request)
 ```
 
-The drivetrain says where you are. This function turns that into a
-request. The drivetrain executes it.
+The drivetrain reports where you are, this function turns that into a
+request, and the drivetrain executes the request.

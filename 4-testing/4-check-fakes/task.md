@@ -1,7 +1,7 @@
 # Check: Fake Hardware
 
-In task 2, `LinearActuator` doesn't build its own hardware — it receives it
-through the constructor:
+In task 2, `LinearActuator` receives its hardware through the constructor
+instead of building it:
 
 ```kotlin
 class LinearActuator(

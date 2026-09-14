@@ -50,5 +50,5 @@ Intakes free-spin when disabled, so they use `Coast`.
 ## Hints
 
 - One `TalonFXConfiguration().apply { ... }` block is enough.
-- Setting the limit value but forgetting the `Enable` flag is the most
-  common configuration bug in this API. The test catches it.
+- Setting the limit value but forgetting the `Enable` flag is a common
+  configuration bug in this API. The test catches it.

@@ -52,13 +52,13 @@ Push forward: the robot moves the way it points. If it points backward,
 
 Robot-centric matters in a few situations:
 
-- **The gyro is unreliable.** After a hard collision, on a tipping game
+- **The gyro is unreliable:** after a hard collision, on a tipping game
   element, or after a roll-over with no re-zero.
-- **Auto routines relative to the robot.** "Back up half a meter" is a
+- **Auto routines relative to the robot:** "Back up half a meter" is a
   robot-centric instruction.
-- **Fine alignment.** Some drivers prefer robot-centric for the last 30 cm into
+- **Fine alignment:** some drivers prefer robot-centric for the last 30 cm into
   a scoring position.
-- **Climb and endgame.** When the robot is partly engaged with a field
+- **Climb and endgame:** when the robot is partly engaged with a field
   element, its yaw (heading angle) can swing in ways the gyro does not track.
 
 A good driver-station setup has a button that toggles the mode.

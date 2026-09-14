@@ -19,8 +19,8 @@ That is the normal shape for a real robot. You only ever have one intake. But
 it makes test reuse awkward. The singleton's state persists across tests, and
 you cannot have two of them.
 
-Alternative: make the subsystem a `class` that takes its hardware via the
-**constructor**:
+The alternative is to make the subsystem a `class` that takes its hardware
+via the **constructor**:
 
 ```kotlin
 class LinearActuator(

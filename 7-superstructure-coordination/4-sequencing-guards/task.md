@@ -6,7 +6,7 @@ that can break things. The arm extending while the elevator is mid-travel
 can smash the arm into a structural beam, or the wrist can snag on the
 elevator carriage.
 
-The fix: **sequence the moves**. Going up:
+Sequence the moves instead. Going up:
 
 1. Elevator first, all the way up. Arm stays stowed.
 2. Then arm extends.
@@ -57,8 +57,7 @@ and restart the sequence at `WaitingForElevator(newGoal)`.
 | `WaitingForArm(t)`      | `t.elevator`     | `t.arm`, intake = `t.intake`   | `arm.atTarget() && intake.requestReached()`     |
 
 "Elevator settled at `t.elevator`" means both `elevator.atTarget()` and
-`elevator.state == t.elevator`. The position check matters. On the tick the
-goal changes, the elevator has not received its new command yet, so
+`elevator.state == t.elevator`. On the tick the goal changes, the elevator has not received its new command yet, so
 `atTarget()` alone is still `true` for the old target. Without the position
 check the sequence would skip the elevator phase.
 

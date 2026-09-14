@@ -19,10 +19,11 @@ fun transition(current: State, input: Input): State { ... }
 
 `Input` is a `data class` that bundles every value the transition reads:
 driver commands plus sensor reads. The function takes inputs and returns the
-next state. No fields, no `var`, no hardware.
+next state. It has no fields and no `var`, and it touches no hardware.
 
-This is not a third pattern. It is the body of `stateTransitions()` moved into
-a function you can call on its own. A subsystem that uses it looks like this:
+This is the same two-method pattern. The body of `stateTransitions()` moves
+into a function you can call on its own. A subsystem that uses it looks like
+this:
 
 ```kotlin
 private fun stateTransitions() {

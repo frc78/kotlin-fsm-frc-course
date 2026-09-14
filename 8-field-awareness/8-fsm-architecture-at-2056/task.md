@@ -9,37 +9,38 @@ about their [technical binder](https://2056.ca/wp-content/uploads/2025/05/OPR25-
 
 ## One pattern, everywhere
 
-Every mechanism on LIGHTNING — intake, straightenator, gripper,
-superstructure, climber, even the drivebase's mode selection — is a
+Every mechanism on LIGHTNING (intake, straightenator, gripper,
+superstructure, climber, even the drivebase's mode selection) is a
 **singleton subsystem running its state machine every robot loop**. That's
 the shape you've written since Lesson 2: decide the next state, then act
-on the current one. No command framework, no event bus; the loop *is* the
-framework.
+on the current one. There is no command framework and no event bus. The
+robot loop does that job.
 
 ## Per-state rows, then global rows
 
 Transitions that only make sense in one state live inside that state's
-branch of the `when`; transitions that are legal from *anywhere* — a stow
-button, a fault — are checked **after** it, as global rows. LIGHTNING's
-superstructure uses exactly this split.
+branch of the `when`; transitions that are legal from *anywhere*, such as a
+stow button or a fault, are checked **after** it, as global rows. LIGHTNING's
+superstructure uses this split.
 
-## Coordination is just reading state
+## Coordination is reading state
 
-How do seven machines cooperate without a framework? Mentor Tyler
-Holtzman, in the Q&A: *"If one subsystem is entirely dependent on
-another, we just get an instance of the other subsystem so we can set or
-get variables/states from it."* A consumer FSM simply treats another
+Seven machines cooperate without a framework by reading each other's
+state. Mentor Tyler Holtzman, in the Q&A: *"If one subsystem is entirely
+dependent on another, we just get an instance of the other subsystem so we
+can set or get variables/states from it."* A consumer FSM treats another
 machine's `state` like a sensor. The only rule: update the producer
 before the consumer each loop, or the consumer reacts one tick late.
 
 ## When two machines become one
 
 Reading someone else's state has a limit. LIGHTNING's elevator and gripper
-wrist are so intertwined that neither has a meaningful state alone — every
-scoring pose is a height *and* an angle pair. Holtzman again: *"If two
+wrist are so intertwined that neither has a meaningful state alone, because
+every scoring pose is a height *and* an angle pair. Holtzman again: *"If two
 subsystems truly depend on each other... you really just have one big
 subsystem and it should be a single state machine that controls both
-mechanisms."* Co-dependent mechanisms don't coordinate; they merge.
+mechanisms."* Co-dependent mechanisms merge into one machine instead of
+coordinating.
 
 ## Anything can be a trigger
 
@@ -55,5 +56,5 @@ info**. If your code can read it, your FSM can transition on it.
 `src/ArchitectureDemo.kt` is the coordination pattern in miniature: two
 toy FSMs where `Feeder`'s transition reads `Intake.state`. Run `main()`
 and watch the feeder start feeding on the same tick the intake reports
-`HOLDING`; then swap the two `periodic()` calls and run again — the feeder
+`HOLDING`; then swap the two `periodic()` calls and run again. The feeder
 goes one tick stale.

@@ -1,9 +1,9 @@
 # On a Real Robot: Phoenix6 Notes
 
-Everything you configured in this lesson transfers to real Phoenix6: same
-config blocks, same field names, same build-one-configuration-apply-it-once
-rule. This course's stubs flatten a few things so tasks compile without the
-FRC toolchain. Here are the differences in one place.
+Everything you configured in this lesson transfers to real Phoenix6. The
+config blocks and field names are the same, and so is the rule to build one
+configuration and apply it once. This course's stubs flatten a few things so
+tasks compile without the FRC toolchain. This page lists the differences.
 
 ## Constructor
 
