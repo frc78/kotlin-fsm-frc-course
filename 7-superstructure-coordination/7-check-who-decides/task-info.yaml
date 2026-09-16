@@ -1,18 +1,19 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "The intake. Its HOLDING row reads SuperStructure.atPosition and stays put until it is true."
+  - text: The intake. Its HOLDING row reads SuperStructure.atPosition and stays put
+      until it is true.
     is_correct: true
-  - text: "The superstructure. It holds back the eject command it would send to the intake."
+  - text: The superstructure. It holds back the eject command it would send to the intake.
     is_correct: false
-  - text: "The scheduler. It skips the intake's periodic() while the superstructure moves."
+  - text: The scheduler. It skips the intake's periodic() while the superstructure moves.
     is_correct: false
-  - text: "The arm. It reports HOLDING to the intake until it reaches its target angle."
+  - text: The arm. It reports HOLDING to the intake until it reaches its target angle.
     is_correct: false
-message_correct: "A peer reads another peer's state like a sensor. The intake owns
-  the eject decision, and it gates that decision on the superstructure's pose and
-  atPosition. No machine commands another."
-message_incorrect: "Re-read the intake's transition table in task 4. Which row leaves
-  HOLDING, and what does its condition read?"
+message_correct: "A peer reads another peer's state like a sensor. The intake owns\
+  \ the eject decision, and it gates that decision on the superstructure's pose and\
+  \ atPosition. No machine commands another."
+message_incorrect: "Re-read the intake's transition table in task 4. Which row leaves\
+  \ HOLDING, and what does its condition read?"
 custom_name: "Check: who decides"
 local_check: true

@@ -1,18 +1,22 @@
 type: choice
 is_multiple_choice: false
 options:
-  - text: "Tick N. The climber and the superstructure run in the same loop, so they see the same values."
+  - text: "Tick N. The climber and the superstructure run in the same loop, so they\
+    \ see the same values."
     is_correct: false
-  - text: "Tick N+1. The climber ran before the superstructure on tick N, so it read last tick's values."
+  - text: "Tick N+1. The climber ran before the superstructure on tick N, so it read\
+    \ last tick's values."
     is_correct: true
-  - text: "Never. The climber only moves when the superstructure commands it, and this order breaks that."
+  - text: "Never. The climber only moves when the superstructure commands it, and this\
+    \ order breaks that."
     is_correct: false
-  - text: "Tick N-1. The climber's own check runs a tick ahead of the superstructure's update."
+  - text: Tick N-1. The climber's own check runs a tick ahead of the superstructure's
+      update.
     is_correct: false
-message_correct: "A consumer that runs before its producer reads the producer's value
+message_correct: A consumer that runs before its producer reads the producer's value
   from the previous tick. Put the superstructure first and the climber extends on
-  tick N."
-message_incorrect: "Walk through tick N in the order written. When Climber.periodic()
-  runs, has SuperStructure.periodic() run yet on this tick?"
+  tick N.
+message_incorrect: "Walk through tick N in the order written. When Climber.periodic()\
+  \ runs, has SuperStructure.periodic() run yet on this tick?"
 custom_name: "Check: update order"
 local_check: true

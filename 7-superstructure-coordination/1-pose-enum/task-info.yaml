@@ -1,9 +1,5 @@
 type: edu
 files:
-  - name: src/RobotState.kt
-    visible: true
-  - name: test/RobotStateTest.kt
-    visible: false
   - name: src/Pose.kt
     visible: true
   - name: test/PoseTest.kt
